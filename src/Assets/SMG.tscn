@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://hp5pgbpmy57u"]
+
+[ext_resource type="PackedScene" uid="uid://c3rqlfvigt2uc" path="res://src/Assets/hitscan_weapon.tscn" id="1_qh7p2"]
+[ext_resource type="PackedScene" uid="uid://b0pirbdkif8my" path="res://src/Assets/Blaster Kit/Models/GLTF format/blasterH.glb" id="2_ab07p"]
+
+[node name="SMG" node_paths=PackedStringArray("weaponMesh") instance=ExtResource("1_qh7p2")]
+recoil = 0.1
+weaponMesh = NodePath("blasterH2")
+
+[node name="blasterH2" parent="." index="1" instance=ExtResource("2_ab07p")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.441862, -0.436998, -0.728175)

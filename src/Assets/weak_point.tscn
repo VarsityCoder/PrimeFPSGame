@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6vb55x2qtdbr"]
+
+[ext_resource type="Script" path="res://src/scripts/WeakPoint.cs" id="1_mjmug"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p54i4"]
+albedo_color = Color(0.0313726, 0.0431373, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_y0d0q"]
+size = Vector3(1, 1, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5rgi8"]
+
+[node name="WeakPoint" type="RigidBody3D"]
+script = ExtResource("1_mjmug")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_p54i4")
+mesh = SubResource("BoxMesh_y0d0q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_5rgi8")

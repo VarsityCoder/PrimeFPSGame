@@ -1,0 +1,45 @@
+using Godot;
+
+namespace PrimeFPSGame.Scripts;
+
+using System.Collections.Generic;
+
+public partial class StateMachine : State {
+  [Export] public State CurrentState = new State();
+  private Dictionary<string, State> statesDictionary = new Dictionary<string, State>();
+
+  public override void _Ready() {
+    foreach (var node in GetChildren() ) {
+      var child = (State)node;
+      if (child != null) {
+        statesDictionary[child.Name] = child;
+        Transition += OnChildTransition;
+      }
+      else {
+        GD.PushWarning("State machine contains incompatible child node");
+      }
+    }
+
+    CurrentState.Enter();
+  }
+
+  public override void _Process(double delta) {
+    CurrentState.Update((float)delta);
+    Global.DebugPanelGlobal.AddProperty("Current State", CurrentState.Name, 1);
+  }
+
+  public override void _PhysicsProcess(double delta) => CurrentState.PhysicsUpdate((float)delta);
+
+  private void OnChildTransition(string newStateName) {
+    var newState = statesDictionary[newStateName];
+    if (newState != CurrentState) {
+        CurrentState.Exit();
+        newState.Enter();
+        CurrentState = newState;
+    }
+    else {
+      GD.PushWarning("State does not exist");
+    }
+  }
+
+}

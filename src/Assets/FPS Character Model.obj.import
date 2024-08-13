@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b0s6ij0fvry6a"
+path="res://.godot/imported/FPS Character Model.obj-ec95fdaab27dc33cdfd877e00c77d02e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/FPS Character Model.obj-ec95fdaab27dc33cdfd877e00c77d02e.mesh"]
+
+source_file="res://src/Assets/FPS Character Model.obj"
+dest_files=["res://.godot/imported/FPS Character Model.obj-ec95fdaab27dc33cdfd877e00c77d02e.mesh", "res://.godot/imported/FPS Character Model.obj-ec95fdaab27dc33cdfd877e00c77d02e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
