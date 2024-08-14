@@ -9,7 +9,7 @@ public partial class SprintingPlayerState : State {
 
   public override void Enter() {
     AnimationPlayer?.Play("Sprinting", 0.5f, 1.0f);
-    Global.PlayerFpsController._startingSpeed = Global.PlayerFpsController.SpeedSprinting;
+    Global.PlayerFpsController.StartingSpeed = Global.PlayerFpsController.SpeedSprinting;
   }
 
   public override void Update(float delta) => SetAnimationSpeed(Global.PlayerFpsController.Velocity.Length());
