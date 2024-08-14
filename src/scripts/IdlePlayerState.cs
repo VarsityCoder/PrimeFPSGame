@@ -2,7 +2,7 @@ namespace PrimeFPSGame.Scripts;
 
 using Godot;
 
-public partial class IdlePlayerState : State {
+public partial class IdlePlayerState : PlayerMovementState {
 
   [Export] public AnimationPlayer? AnimationPlayer;
 
