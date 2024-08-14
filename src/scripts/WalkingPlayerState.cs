@@ -2,7 +2,7 @@ namespace PrimeFPSGame.Scripts;
 
 using Godot;
 
-public partial class WalkingPlayerState : State {
+public partial class WalkingPlayerState : PlayerMovementState {
 
   [Export] public AnimationPlayer? AnimationPlayer;
   [Export] public float TopAnimationSpeed = 2.2f;
