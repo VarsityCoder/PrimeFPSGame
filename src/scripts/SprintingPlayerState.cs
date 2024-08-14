@@ -1,8 +1,7 @@
 using Godot;
-using System;
 namespace PrimeFPSGame.Scripts;
 
-public partial class SprintingPlayerState : State {
+public partial class SprintingPlayerState : PlayerMovementState {
 
   [Export] public AnimationPlayer? AnimationPlayer;
   [Export] public float TopAnimationSpeed = 1.6f;
