@@ -5,7 +5,7 @@ namespace PrimeFPSGame.Scripts;
 using System.Globalization;
 
 public partial class PlayerFpsController : CharacterBody3D {
-  private const float JUMP_VELOCITY = 4.5f;
+  private const float JumpVelocity = 4.5f;
   private bool _mouseInput;
   private float _rotationInput;
   private float _tiltInput;
@@ -16,7 +16,7 @@ public partial class PlayerFpsController : CharacterBody3D {
   private bool _isCrouching;
   private float _crouchSpeed = 7.0f;
   private Vector3 _mouseRotation;
-  public float _startingSpeed;
+  public float StartingSpeed;
 
 
   [Export] public double TiltLowerLimit = Mathf.DegToRad(-90.0);
@@ -37,7 +37,7 @@ public partial class PlayerFpsController : CharacterBody3D {
     Global.PlayerFpsController = this;
     Input.MouseMode = Input.MouseModeEnum.Captured;
     CrouchShapeCast?.AddException(this);
-    _startingSpeed = SpeedDefault;
+    StartingSpeed = SpeedDefault;
   }
 
   public override void _PhysicsProcess(double delta) {
@@ -59,7 +59,7 @@ public partial class PlayerFpsController : CharacterBody3D {
 		// Handle Jump.
 		if (Input.IsActionJustPressed("jump") && IsOnFloor() && _isCrouching == false)
 		{
-			velocity.Y = JUMP_VELOCITY;
+			velocity.Y = JumpVelocity;
 		}
 
 		// Get the input direction and handle the movement/deceleration.
@@ -68,8 +68,8 @@ public partial class PlayerFpsController : CharacterBody3D {
 		var direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		if (direction != Vector3.Zero)
 		{
-			velocity.X = Mathf.Lerp(velocity.X, direction.X * _startingSpeed , Acceleration);
-			velocity.Z = Mathf.Lerp(velocity.Z, direction.Z * _startingSpeed , Acceleration);
+			velocity.X = Mathf.Lerp(velocity.X, direction.X * StartingSpeed , Acceleration);
+			velocity.Z = Mathf.Lerp(velocity.Z, direction.Z * StartingSpeed , Acceleration);
 		}
 		else
 		{
@@ -184,10 +184,10 @@ public partial class PlayerFpsController : CharacterBody3D {
   private void SetMovementSpeed(string state) {
     switch (state) {
       case "default":
-        _startingSpeed = SpeedDefault;
+        StartingSpeed = SpeedDefault;
         break;
       case "crouching":
-        _startingSpeed = SpeedCrouch;
+        StartingSpeed = SpeedCrouch;
         break;
     }
   }
