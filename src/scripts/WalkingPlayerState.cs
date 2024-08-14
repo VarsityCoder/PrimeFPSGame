@@ -9,7 +9,7 @@ public partial class WalkingPlayerState : State {
 
   public override void Enter() {
     AnimationPlayer?.Play("Walking", -1.0f, 1.0f);
-    Global.PlayerFpsController._startingSpeed = Global.PlayerFpsController.SpeedDefault;
+    Global.PlayerFpsController.StartingSpeed = Global.PlayerFpsController.SpeedDefault;
   }
 
   public override void Update(float delta) {
