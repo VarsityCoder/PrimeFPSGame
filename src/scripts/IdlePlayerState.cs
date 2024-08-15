@@ -9,7 +9,7 @@ public partial class IdlePlayerState : PlayerMovementState {
   [Export] public float Acceleration = 0.1f;
   [Export] public float Deceleration = 0.25f;
 
-  public override void Enter() => AnimationPlayer?.Pause();
+  public override void Enter(State currentState) => AnimationPlayer?.Pause();
 
   public override void Update(float delta) {
     if (PlayerFpsController != null)
