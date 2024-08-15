@@ -26,18 +26,11 @@ public partial class PlayerFpsController : CharacterBody3D {
   [Export] public AnimationPlayer? AnimationPlayer;
   [Export] public ShapeCast3D? CrouchShapeCast;
   [Export] public bool ToggleCrouchMode = true;
-  [Export] public float SpeedSprinting = 7.0f;
-  [Export] public float SpeedDefault = 5.0f;
-  [Export] public float SpeedCrouch = 2.0f;
-  [Export] public float Acceleration = 0.1f;
-  [Export] public float Deceleration = 0.25f;
-
 
   public override void _Ready() {
     Global.PlayerFpsController = this;
     Input.MouseMode = Input.MouseModeEnum.Captured;
     CrouchShapeCast?.AddException(this);
-    StartingSpeed = SpeedDefault;
   }
 
   public override void _PhysicsProcess(double delta) {
@@ -57,28 +50,14 @@ public partial class PlayerFpsController : CharacterBody3D {
     UpdateCamera(delta);
 
 		// Handle Jump.
-		if (Input.IsActionJustPressed("jump") && IsOnFloor() && _isCrouching == false)
+		if (Input.IsActionJustPressed("jump") && IsOnFloor())
 		{
 			velocity.Y = JumpVelocity;
-		}
+      Velocity = velocity;
+    }
 
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
-		var inputDir = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-		var direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
-		if (direction != Vector3.Zero)
-		{
-			velocity.X = Mathf.Lerp(velocity.X, direction.X * StartingSpeed , Acceleration);
-			velocity.Z = Mathf.Lerp(velocity.Z, direction.Z * StartingSpeed , Acceleration);
-		}
-		else
-		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Deceleration);
-			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Deceleration);
-		}
-
-		Velocity = velocity;
-		MoveAndSlide();
 	}
 
   public override void _UnhandledInput(InputEvent @event) {
@@ -126,69 +105,104 @@ public partial class PlayerFpsController : CharacterBody3D {
     _tiltInput = 0.0f;
   }
 
-  public override void _Input(InputEvent @event) {
+  public override void _Input(InputEvent @event) 
+  {
 
-    if (@event.IsActionPressed("crouch") && IsOnFloor() && ToggleCrouchMode) {
-      ToggleCrouch();
-    }
-    if (@event.IsActionPressed("crouch") && IsOnFloor() && ToggleCrouchMode == false && _isCrouching == false) {
-      Crouching(true);
-    }
-    if (@event.IsActionReleased("crouch") && ToggleCrouchMode == false) {
-      if (CrouchShapeCast?.IsColliding() == false) {
-        Crouching(false);
-      }
-      else if (CrouchShapeCast?.IsColliding() == true) {
-        UncrouchCheck();
-      }
-    }
+    // if (@event.IsActionPressed("crouch") && IsOnFloor() && ToggleCrouchMode) {
+    //   ToggleCrouch();
+    // }
+    // if (@event.IsActionPressed("crouch") && IsOnFloor() && ToggleCrouchMode == false && _isCrouching == false) {
+    //   Crouching(true);
+    // }
+    // if (@event.IsActionReleased("crouch") && ToggleCrouchMode == false) {
+    //   if (CrouchShapeCast?.IsColliding() == false) {
+    //     Crouching(false);
+    //   }
+    //   else if (CrouchShapeCast?.IsColliding() == true) {
+    //     UncrouchCheck();
+    //   }
+    // }
 
   }
 
-  private void ToggleCrouch() {
-    if (_isCrouching && CrouchShapeCast?.IsColliding() == false) {
-      Crouching(false);
-    } else if (_isCrouching == false) {
-      Crouching(true);
-    }
-  }
+  // private void ToggleCrouch() 
+  // {
+  //   if (_isCrouching && CrouchShapeCast?.IsColliding() == false) {
+  //     Crouching(false);
+  //   } else if (_isCrouching == false) {
+  //     Crouching(true);
+  //   }
+  // }
 
-  private void Crouching(bool state) {
-    switch (state) {
-      case true:
-        AnimationPlayer?.Play("Crouch", 0, _crouchSpeed);
-        SetMovementSpeed("crouching");
-        break;
-      case false:
-        AnimationPlayer?.Play("Crouch", 0, -_crouchSpeed, true);
-        SetMovementSpeed("default");
-        break;
-    }
-  }
-  private void OnAnimationPlayerAnimationStarter(string animationName) {
+  // private void Crouching(bool state) {
+  //   switch (state) {
+  //     case true:
+  //       AnimationPlayer?.Play("Crouch", 0, _crouchSpeed);
+  //       SetMovementSpeed("crouching");
+  //       break;
+  //     case false:
+  //       AnimationPlayer?.Play("Crouch", 0, -_crouchSpeed, true);
+  //       SetMovementSpeed("default");
+  //       break;
+  //   }
+  //}
+  private void OnAnimationPlayerAnimationStarter(string animationName) 
+  {
     if(animationName == "Crouch") {
       _isCrouching = !_isCrouching;
     }
   }
-  private void UncrouchCheck() {
-    if (CrouchShapeCast?.IsColliding() == false) {
-      Crouching(false);
-    }
-    if (CrouchShapeCast?.IsColliding() == true) {
-      var myTimer = new Timer();
-      myTimer.SetWaitTime(0.1);
-      myTimer.Timeout += UncrouchCheck;
-    }
+  // private void UncrouchCheck() {
+  //   if (CrouchShapeCast?.IsColliding() == false) {
+  //     Crouching(false);
+  //   }
+  //   if (CrouchShapeCast?.IsColliding() == true) {
+  //     var myTimer = new Timer();
+  //     myTimer.SetWaitTime(0.1);
+  //     myTimer.Timeout += UncrouchCheck;
+  //   }
+  // }
+
+  // private void SetMovementSpeed(string state) {
+  //   switch (state) {
+  //     case "default":
+  //       StartingSpeed = 7.0f;
+  //       break;
+  //     case "crouching":
+  //       StartingSpeed = 2.0f;
+  //       break;
+  //   }
+  // }
+
+  public void UpdateGravity(float delta)
+  {
+      var tempVector3 = Velocity;
+      var gravity = GetGravity().Y;
+      tempVector3.Y += gravity * delta;
+      Velocity = tempVector3;
   }
 
-  private void SetMovementSpeed(string state) {
-    switch (state) {
-      case "default":
-        StartingSpeed = SpeedDefault;
-        break;
-      case "crouching":
-        StartingSpeed = SpeedCrouch;
-        break;
+  public void UpdateInput(float speed, float acceleration, float deceleration) 
+  {
+    var velocity = Velocity;
+    var inputDir = Input.GetVector("move_left", "move_right", "move_up", "move_down");
+    var direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+    if (direction != Vector3.Zero)
+    {
+      velocity.X = Mathf.Lerp(velocity.X, direction.X * speed , acceleration);
+      velocity.Z = Mathf.Lerp(velocity.Z, direction.Z * speed , acceleration);
     }
+    else
+    {
+      velocity.X = Mathf.MoveToward(Velocity.X, 0, deceleration);
+      velocity.Z = Mathf.MoveToward(Velocity.Z, 0, deceleration);
+    }
+
+    Velocity = velocity;
+  }
+
+  public void UpdateVelocity()
+  {
+    MoveAndSlide();
   }
 }
