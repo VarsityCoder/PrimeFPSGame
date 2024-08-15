@@ -363,8 +363,10 @@ AnimationPlayer = NodePath("../../AnimationPlayer")
 SpeedDefault = 1.0
 CrouchShapeCast = NodePath("../../ShapeCast3D")
 
-[node name="SlidingPlayerState" type="Node" parent="PlayerStateMachine"]
+[node name="SlidingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("AnimationPlayer", "CrouchShapeCast")]
 script = ExtResource("10_leayp")
+AnimationPlayer = NodePath("../../AnimationPlayer")
+CrouchShapeCast = NodePath("../../ShapeCast3D")
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="OnAnimationPlayerAnimationStarter"]
 [connection signal="Transition" from="PlayerStateMachine/IdlePlayerState" to="PlayerStateMachine" method="OnChildTransition"]
