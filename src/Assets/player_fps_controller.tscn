@@ -356,8 +356,11 @@ AnimationPlayer = NodePath("../../AnimationPlayer")
 script = ExtResource("8_op238")
 AnimationPlayer = NodePath("../../AnimationPlayer")
 
-[node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine"]
+[node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("AnimationPlayer", "CrouchShapeCast")]
 script = ExtResource("9_p0l1w")
+AnimationPlayer = NodePath("../../AnimationPlayer")
+SpeedDefault = 1.0
+CrouchShapeCast = NodePath("../../ShapeCast3D")
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="OnAnimationPlayerAnimationStarter"]
 [connection signal="Transition" from="PlayerStateMachine/IdlePlayerState" to="PlayerStateMachine" method="OnChildTransition"]
