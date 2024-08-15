@@ -11,9 +11,27 @@ public partial class CrouchingPlayerState : PlayerMovementState
     [Export] public float CrouchSpeed = 4.0f;
     [Export] public ShapeCast3D? CrouchShapeCast;
 
-    public override void Enter(State currentState)
+    private bool _released;
+
+    public override void Enter(State previousState)
     {
-        AnimationPlayer?.Play("Crouch", -1.0, CrouchSpeed);
+        if (AnimationPlayer != null)
+        {
+            AnimationPlayer.SpeedScale = 1.0f;
+            if (previousState.Name != "SlidingPlayerState")
+            {
+                AnimationPlayer.Play("Crouch", -1.0, CrouchSpeed);
+            } else if (previousState.Name == "SlidingPartyState")
+            {
+                AnimationPlayer.CurrentAnimation = "Crouch";
+                AnimationPlayer.Seek(1.0f, true);
+            }
+        }
+    }
+
+    public override void Exit()
+    {
+        _released = false;
     }
 
     public override void Update(float delta)
@@ -25,6 +43,10 @@ public partial class CrouchingPlayerState : PlayerMovementState
             PlayerFpsController.UpdateVelocity();
             if (Input.IsActionJustReleased("crouch"))
             {
+                Uncrouch();
+            } else if (Input.IsActionPressed("crouch") == false && _released == false)
+            {
+                _released = true;
                 Uncrouch();
             }
         }
