@@ -30,10 +30,16 @@ public partial class SprintingPlayerState : PlayerMovementState {
       PlayerFpsController.UpdateInput(SpeedDefault, Acceleration, Deceleration);
       PlayerFpsController.UpdateVelocity();
       SetAnimationSpeed(PlayerFpsController.Velocity.Length());
-    }
 
-    if (Input.IsActionJustReleased("sprint")) {
-      EmitSignal(State.SignalName.Transition, "WalkingPlayerState");
+      if (Input.IsActionJustReleased("sprint") || PlayerFpsController.Velocity.Length() == 0f)
+      {
+        EmitSignal(State.SignalName.Transition, "WalkingPlayerState");
+      }
+
+      if (Input.IsActionJustReleased("crouch") && PlayerFpsController.Velocity.Length() > 6f)
+      {
+        EmitSignal(State.SignalName.Transition, "SlidingPlayerState");
+      }
     }
   }
 
