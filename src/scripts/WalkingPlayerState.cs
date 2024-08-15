@@ -11,19 +11,41 @@ public partial class WalkingPlayerState : PlayerMovementState {
   [Export] public float Deceleration = 0.25f;
 
   public override void Enter() {
-    AnimationPlayer?.Play("Walking", -1.0f, 1.0f);
+    AnimationPlayer?.Play("Walking");
   }
 
-  public override void Update(float delta) {
-    PlayerFpsController.UpdateGravity(delta);
-    PlayerFpsController.UpdateInput(SpeedDefault, Acceleration, Deceleration);
-    PlayerFpsController.UpdateVelocity();
-    SetAnimationSpeed(Global.PlayerFpsController.Velocity.Length());
-    if (PlayerFpsController?.Velocity.Length() == 0.0f) {
-      EmitSignal(State.SignalName.Transition, "IdlePlayerState");
+  public override void Exit()
+  {
+    if (AnimationPlayer != null)
+    {
+      AnimationPlayer.SpeedScale = 1.0f;
     }
-    if (Input.IsActionPressed("sprint") && Global.PlayerFpsController.IsOnFloor()) {
-      EmitSignal(State.SignalName.Transition, "SprintingPlayerState");
+ 
+  }
+
+  public override void Update(float delta)
+  {
+    if (PlayerFpsController != null)
+    {
+      PlayerFpsController.UpdateGravity(delta);
+      PlayerFpsController.UpdateInput(SpeedDefault, Acceleration, Deceleration);
+      PlayerFpsController.UpdateVelocity();
+      SetAnimationSpeed(Global.PlayerFpsController.Velocity.Length());
+      if (PlayerFpsController?.Velocity.Length() == 0.0f)
+      {
+        EmitSignal(State.SignalName.Transition, "IdlePlayerState");
+      }
+
+      if (Input.IsActionPressed("sprint") && Global.PlayerFpsController.IsOnFloor())
+      {
+        EmitSignal(State.SignalName.Transition, "SprintingPlayerState");
+      }
+    }
+
+    if (Input.IsActionJustPressed("crouch") && Global.PlayerFpsController.IsOnFloor())
+    {
+      EmitSignal(State.SignalName.Transition, "CrouchingPlayerState");
+
     }
   }
 
