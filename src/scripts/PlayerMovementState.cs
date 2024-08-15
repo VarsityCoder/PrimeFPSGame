@@ -12,9 +12,4 @@ public partial class PlayerMovementState : State
         _animationPlayer = PlayerFpsController?.AnimationPlayer;
         
     }
-
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
-    }
 }
