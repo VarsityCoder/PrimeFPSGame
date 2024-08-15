@@ -507,6 +507,7 @@ AnimationPlayer = NodePath("../../AnimationPlayer")
 [node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("AnimationPlayer")]
 script = ExtResource("8_op238")
 AnimationPlayer = NodePath("../../AnimationPlayer")
+SpeedDefault = 10.0
 
 [node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("AnimationPlayer", "CrouchShapeCast")]
 script = ExtResource("9_p0l1w")
