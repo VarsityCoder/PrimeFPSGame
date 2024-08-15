@@ -15,9 +15,9 @@ public partial class SlidingPlayerState : PlayerMovementState
     {
         if (PlayerFpsController != null && AnimationPlayer != null)
         {
+            AnimationPlayer.SpeedScale = 1.0f;
             SetTilt(PlayerFpsController.CurrentRotation);
             AnimationPlayer.GetAnimation("Sliding").TrackSetKeyValue(4,0,PlayerFpsController.Velocity.Length());
-            AnimationPlayer.SpeedScale = 1.0f;
             AnimationPlayer.Play("Sliding", 1.0f, SlideAnimationSpeed);
         }
     }
@@ -41,8 +41,8 @@ public partial class SlidingPlayerState : PlayerMovementState
             {
                 tilt.Z = 0.05f;
             }
-            AnimationPlayer.GetAnimation("Sliding").TrackSetKeyValue(8,1,tilt);
-            AnimationPlayer.GetAnimation("Sliding").TrackSetKeyValue(8,2,tilt);
+            AnimationPlayer.GetAnimation("Sliding").TrackSetKeyValue(7,1,tilt);
+            AnimationPlayer.GetAnimation("Sliding").TrackSetKeyValue(7,2,tilt);
         }
     }
     private void Finish()
