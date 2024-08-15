@@ -35,7 +35,6 @@ public partial class StateMachine : Node {
         CurrentState.Exit();
         newState.Enter(CurrentState);
         CurrentState = newState;
-        GD.Print(CurrentState.Name);
     }
     else {
       GD.PushWarning("State does not exist");
