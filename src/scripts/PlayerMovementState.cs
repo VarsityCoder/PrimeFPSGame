@@ -10,6 +10,5 @@ public partial class PlayerMovementState : State
     {
         Owner.Ready += () => PlayerFpsController = Owner as PlayerFpsController;
         _animationPlayer = PlayerFpsController?.AnimationPlayer;
-        
     }
 }
