@@ -1,0 +1,55 @@
+using Godot;
+namespace PrimeFPSGame.Scripts;
+
+public partial class SlidingPlayerState : PlayerMovementState
+{
+    [Export] public AnimationPlayer? AnimationPlayer;
+    [Export] public float SlideAnimationSpeed = 2.2f;
+    [Export] public float SpeedDefault = 5.0f;
+    [Export] public float Acceleration = 0.1f;
+    [Export] public float Deceleration = 0.25f;
+    [Export] public float TiltAmount = 0.09f;
+    
+    [Export] public ShapeCast3D? CrouchShapeCast;
+
+
+    public override void Enter()
+    {
+        if (PlayerFpsController != null && AnimationPlayer != null)
+        {
+            SetTilt(PlayerFpsController.Rotation);
+            AnimationPlayer.GetAnimation("Sliding").TrackSetKeyValue(4,0,PlayerFpsController.Velocity.Length());
+            AnimationPlayer.SpeedScale = 1.0f;
+            AnimationPlayer.Play("Sliding", 1.0f, SlideAnimationSpeed);
+        }
+    }
+
+    public override void Update(float delta)
+    {
+        if (PlayerFpsController != null)
+        {
+            PlayerFpsController.UpdateGravity(delta);
+            PlayerFpsController.UpdateVelocity();
+        }
+
+    }
+
+    private void SetTilt(Vector3 playerRotation)
+    {
+        if (AnimationPlayer != null)
+        {
+            var tilt = Vector3.Zero;
+            tilt.Z = Mathf.Clamp(TiltAmount * playerRotation.Z, -0.1f, 0.1f);
+            if (tilt.Z == 0f)
+            {
+                tilt.Z = 0.05f;
+            }
+            AnimationPlayer.GetAnimation("Sliding").TrackSetKeyValue(8,1,tilt);
+            AnimationPlayer.GetAnimation("Sliding").TrackSetKeyValue(8,2,tilt);
+        }
+    }
+    private void Finish()
+    {
+        EmitSignal(State.SignalName.Transition, "CrouchingPlayerState");
+    }
+}
