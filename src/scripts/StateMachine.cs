@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public partial class StateMachine : Node {
   [Export] public State CurrentState = new State();
-  private Dictionary<string, State> _statesDictionary = new Dictionary<string, State>();
+  private readonly Dictionary<string, State> _statesDictionary = new Dictionary<string, State>();
 
   public override void _Ready() {
     foreach (var node in GetChildren() ) {
