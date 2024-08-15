@@ -10,7 +10,7 @@ public partial class WalkingPlayerState : PlayerMovementState {
   [Export] public float Acceleration = 0.1f;
   [Export] public float Deceleration = 0.25f;
 
-  public override void Enter() {
+  public override void Enter(State currentState) {
     AnimationPlayer?.Play("Walking");
   }
 
@@ -55,5 +55,4 @@ public partial class WalkingPlayerState : PlayerMovementState {
       AnimationPlayer.SpeedScale = Mathf.Lerp(0.0f, TopAnimationSpeed, (float)alpha);
     }
   }
-
 }
