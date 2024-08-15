@@ -19,8 +19,7 @@ public partial class StateMachine : Node {
         GD.PushWarning("State machine contains incompatible child node");
       }
     }
-    Owner.Ready += () => CurrentState.Enter();
-    GD.Print("Current State is ready");
+    Owner.Ready += () => CurrentState.Enter(null);
   }
 
   public override void _Process(double delta) {
@@ -34,7 +33,7 @@ public partial class StateMachine : Node {
     var newState = _statesDictionary[newStateName];
     if (newState != CurrentState) {
         CurrentState.Exit();
-        newState.Enter();
+        newState.Enter(CurrentState);
         CurrentState = newState;
         GD.Print(CurrentState.Name);
     }
