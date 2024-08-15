@@ -16,7 +16,8 @@ public partial class PlayerFpsController : CharacterBody3D {
   private bool _isCrouching;
   private float _crouchSpeed = 7.0f;
   private Vector3 _mouseRotation;
-  public float StartingSpeed;
+  private float _startingSpeed;
+  public float CurrentRotation;
 
 
   [Export] public double TiltLowerLimit = Mathf.DegToRad(-90.0);
@@ -77,7 +78,9 @@ public partial class PlayerFpsController : CharacterBody3D {
     }
   }
 
-  private void UpdateCamera(double delta) {
+  private void UpdateCamera(double delta)
+  {
+    CurrentRotation = _rotationInput;
     _mouseRotation.X += _tiltInput * (float)delta;
     _mouseRotation.X = Mathf.Clamp(_mouseRotation.X, (float)TiltLowerLimit, (float)TiltUpperLimit);
     _mouseRotation.Y += _rotationInput * (float)delta;
