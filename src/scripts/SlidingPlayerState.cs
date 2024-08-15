@@ -13,11 +13,11 @@ public partial class SlidingPlayerState : PlayerMovementState
     [Export] public ShapeCast3D? CrouchShapeCast;
 
 
-    public override void Enter()
+    public override void Enter(State currentState)
     {
         if (PlayerFpsController != null && AnimationPlayer != null)
         {
-            SetTilt(PlayerFpsController.Rotation);
+            SetTilt(PlayerFpsController.CurrentRotation);
             AnimationPlayer.GetAnimation("Sliding").TrackSetKeyValue(4,0,PlayerFpsController.Velocity.Length());
             AnimationPlayer.SpeedScale = 1.0f;
             AnimationPlayer.Play("Sliding", 1.0f, SlideAnimationSpeed);
@@ -31,15 +31,14 @@ public partial class SlidingPlayerState : PlayerMovementState
             PlayerFpsController.UpdateGravity(delta);
             PlayerFpsController.UpdateVelocity();
         }
-
     }
-
-    private void SetTilt(Vector3 playerRotation)
+    
+    private void SetTilt(float playerRotation)
     {
         if (AnimationPlayer != null)
         {
             var tilt = Vector3.Zero;
-            tilt.Z = Mathf.Clamp(TiltAmount * playerRotation.Z, -0.1f, 0.1f);
+            tilt.Z = Mathf.Clamp(TiltAmount * playerRotation, -0.1f, 0.1f);
             if (tilt.Z == 0f)
             {
                 tilt.Z = 0.05f;
