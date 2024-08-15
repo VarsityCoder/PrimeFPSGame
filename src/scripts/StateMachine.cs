@@ -4,7 +4,7 @@ namespace PrimeFPSGame.Scripts;
 
 using System.Collections.Generic;
 
-public partial class StateMachine : State {
+public partial class StateMachine : Node {
   [Export] public State CurrentState = new State();
   private Dictionary<string, State> _statesDictionary = new Dictionary<string, State>();
 
@@ -13,15 +13,14 @@ public partial class StateMachine : State {
       var child = (State)node;
       if (child != null) {
         _statesDictionary[child.Name] = child;
-        Transition += OnChildTransition;
+        child.Transition += OnChildTransition;
       }
       else {
         GD.PushWarning("State machine contains incompatible child node");
       }
     }
-    
-    
     Owner.Ready += () => CurrentState.Enter();
+    GD.Print("Current State is ready");
   }
 
   public override void _Process(double delta) {
@@ -37,6 +36,7 @@ public partial class StateMachine : State {
         CurrentState.Exit();
         newState.Enter();
         CurrentState = newState;
+        GD.Print(CurrentState.Name);
     }
     else {
       GD.PushWarning("State does not exist");
