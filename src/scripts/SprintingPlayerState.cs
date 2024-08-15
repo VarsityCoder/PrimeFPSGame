@@ -10,8 +10,8 @@ public partial class SprintingPlayerState : PlayerMovementState {
   [Export] public float Acceleration = 0.1f;
   [Export] public float Deceleration = 0.25f;
 
-  public override void Enter() {
-    AnimationPlayer?.Play("Sprinting", 0.5f, 1.0f);
+  public override void Enter(State currentState) {
+    AnimationPlayer?.Play("Sprinting", 0.5f);
   }
   
   public override void Exit()
