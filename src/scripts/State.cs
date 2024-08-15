@@ -10,7 +10,7 @@ public partial class State : Node {
 
   }
 
-  public void Exit() {
+  public virtual void Exit() {
 
   }
 
