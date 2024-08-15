@@ -9,9 +9,7 @@ public partial class SlidingPlayerState : PlayerMovementState
     [Export] public float Acceleration = 0.1f;
     [Export] public float Deceleration = 0.25f;
     [Export] public float TiltAmount = 0.09f;
-    
     [Export] public ShapeCast3D? CrouchShapeCast;
-
 
     public override void Enter(State currentState)
     {
