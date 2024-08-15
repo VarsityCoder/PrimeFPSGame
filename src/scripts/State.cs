@@ -6,7 +6,7 @@ public partial class State : Node {
   [Signal]
   public delegate void TransitionEventHandler(string newStateName);
 
-  public virtual void Enter() {
+  public virtual void Enter(State currentState) {
 
   }
 
