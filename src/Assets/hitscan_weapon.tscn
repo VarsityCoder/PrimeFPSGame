@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" path="res://src/scripts/HitscanWeapon.cs" id="1_tubhn"]
 
-[node name="HitscanWeapon" type="Node3D"]
+[node name="HitscanWeapon" type="Node3D" node_paths=PackedStringArray("weaponMesh")]
 script = ExtResource("1_tubhn")
+weaponMesh = NodePath(".")
 
 [node name="CooldownTimer" type="Timer" parent="."]
 one_shot = true
