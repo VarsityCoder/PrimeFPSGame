@@ -13,6 +13,14 @@ public partial class SprintingPlayerState : PlayerMovementState {
   public override void Enter() {
     AnimationPlayer?.Play("Sprinting", 0.5f, 1.0f);
   }
+  
+  public override void Exit()
+  {
+    if (AnimationPlayer != null)
+    {
+      AnimationPlayer.SpeedScale = 1.0f;
+    }
+  }
 
   public override void Update(float delta)
   {
