@@ -9,11 +9,9 @@ public partial class CrouchingPlayerState : PlayerMovementState
     [Export] public float Acceleration = 0.1f;
     [Export] public float Deceleration = 0.25f;
     [Export] public float CrouchSpeed = 4.0f;
-
-
     [Export] public ShapeCast3D? CrouchShapeCast;
 
-    public override void Enter()
+    public override void Enter(State currentState)
     {
         AnimationPlayer?.Play("Crouch", -1.0, CrouchSpeed);
     }
