@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://drqq1iisim2uh"]
+[gd_scene load_steps=23 format=3 uid="uid://drqq1iisim2uh"]
 
 [ext_resource type="Script" path="res://src/scripts/PlayerFpsController.cs" id="1_an64t"]
 [ext_resource type="Script" path="res://src/scripts/Reticle.cs" id="2_67aym"]
@@ -207,6 +207,17 @@ tracks/12/keys = {
 "update": 0,
 "values": [75.0]
 }
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("CameraController:rotation:x")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="Animation" id="Animation_ea6fy"]
 resource_name = "Sprinting"
@@ -389,9 +400,67 @@ tracks/7/keys = {
 "values": [75.0, 85.0, 75.0]
 }
 
+[sub_resource type="Animation" id="Animation_0cv0l"]
+resource_name = "JumpStart"
+length = 0.55
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraController:rotation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.015, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.2, 0.55)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CameraController:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.55),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5, 0), Vector3(0, 1.45, 0), Vector3(0, 1.5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_uywi2"]
+resource_name = "JumpEnd"
+length = 0.4
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraController:rotation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.03, -0.2, 0, 0.2, 0, 0, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0, 0.085, 0.4)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CameraController:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.085, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5, 0), Vector3(0, 1.45, 0), Vector3(0, 1.5, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cokkm"]
 _data = {
 "Crouch": SubResource("Animation_47c6w"),
+"JumpEnd": SubResource("Animation_uywi2"),
+"JumpStart": SubResource("Animation_0cv0l"),
 "RESET": SubResource("Animation_7yl0r"),
 "Sliding": SubResource("Animation_trli1"),
 "Sprinting": SubResource("Animation_ea6fy"),
@@ -521,8 +590,11 @@ script = ExtResource("10_leayp")
 AnimationPlayer = NodePath("../../AnimationPlayer")
 CrouchShapeCast = NodePath("../../ShapeCast3D")
 
-[node name="JumpingPlayerState" type="Node" parent="PlayerStateMachine"]
+[node name="JumpingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("AnimationPlayer")]
 script = ExtResource("11_kkd20")
+AnimationPlayer = NodePath("../../AnimationPlayer")
+JumpVelocity = 0.5
+DoubleJumpVelocity = 10.0
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="OnAnimationPlayerAnimationStarter"]
 [connection signal="Transition" from="PlayerStateMachine/IdlePlayerState" to="PlayerStateMachine" method="OnChildTransition"]
