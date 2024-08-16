@@ -19,7 +19,8 @@ public partial class StateMachine : Node {
         GD.PushWarning("State machine contains incompatible child node");
       }
     }
-    Owner.Ready += () => CurrentState.Enter(null);
+    //TODO Deal with null literal
+    Owner.Ready += () => CurrentState.Enter(null!);
   }
 
   public override void _Process(double delta) {
