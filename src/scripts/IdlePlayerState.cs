@@ -23,6 +23,11 @@ public partial class IdlePlayerState : PlayerMovementState {
       if (Input.IsActionJustPressed("crouch") && Global.PlayerFpsController.IsOnFloor()) {
         EmitSignal(State.SignalName.Transition, "CrouchingPlayerState");
       }
+
+      if (Input.IsActionJustPressed("jump") && Global.PlayerFpsController.IsOnFloor())
+      {
+        EmitSignal(State.SignalName.Transition, "JumpingPlayerState");
+      }
     }
   }
 }
