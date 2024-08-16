@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://drqq1iisim2uh"]
+[gd_scene load_steps=24 format=3 uid="uid://drqq1iisim2uh"]
 
 [ext_resource type="Script" path="res://src/scripts/PlayerFpsController.cs" id="1_an64t"]
 [ext_resource type="Script" path="res://src/scripts/Reticle.cs" id="2_67aym"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://src/scripts/CrouchingPlayerState.cs" id="9_p0l1w"]
 [ext_resource type="Script" path="res://src/scripts/SlidingPlayerState.cs" id="10_leayp"]
 [ext_resource type="Script" path="res://src/scripts/JumpingPlayerState.cs" id="11_kkd20"]
+[ext_resource type="Script" path="res://src/scripts/FallingPlayerState.cs" id="12_0vnn1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5ador"]
 
@@ -596,6 +597,9 @@ AnimationPlayer = NodePath("../../AnimationPlayer")
 JumpVelocity = 0.5
 DoubleJumpVelocity = 10.0
 
+[node name="FallingPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("12_0vnn1")
+
 [connection signal="animation_started" from="AnimationPlayer" to="." method="OnAnimationPlayerAnimationStarter"]
 [connection signal="Transition" from="PlayerStateMachine/IdlePlayerState" to="PlayerStateMachine" method="OnChildTransition"]
 [connection signal="Transition" from="PlayerStateMachine/WalkingPlayerState" to="PlayerStateMachine" method="OnChildTransition"]
@@ -603,3 +607,4 @@ DoubleJumpVelocity = 10.0
 [connection signal="Transition" from="PlayerStateMachine/CrouchingPlayerState" to="PlayerStateMachine" method="OnChildTransition"]
 [connection signal="Transition" from="PlayerStateMachine/SlidingPlayerState" to="PlayerStateMachine" method="OnChildTransition"]
 [connection signal="Transition" from="PlayerStateMachine/JumpingPlayerState" to="PlayerStateMachine" method="OnChildTransition"]
+[connection signal="Transition" from="PlayerStateMachine/FallingPlayerState" to="PlayerStateMachine" method="OnChildTransition"]
