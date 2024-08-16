@@ -44,6 +44,11 @@ public partial class IdlePlayerState : PlayerMovementState {
       {
         EmitSignal(State.SignalName.Transition, "JumpingPlayerState");
       }
+
+      if (PlayerFpsController.Velocity.Y < -3f && !PlayerFpsController.IsOnFloor())
+      {
+        EmitSignal(State.SignalName.Transition, "FallingPlayerState");
+      }
     }
   }
 }
