@@ -49,6 +49,10 @@ public partial class CrouchingPlayerState : PlayerMovementState
                 _released = true;
                 Uncrouch();
             }
+            if (Input.IsActionJustPressed("jump") && Global.PlayerFpsController.IsOnFloor())
+            {
+                EmitSignal(State.SignalName.Transition, "JumpingPlayerState");
+            }
         }
     }
 
