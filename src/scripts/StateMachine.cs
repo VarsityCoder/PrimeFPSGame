@@ -37,7 +37,7 @@ public partial class StateMachine : Node {
         CurrentState = newState;
     }
     else {
-      GD.PushWarning("State does not exist");
+      
     }
   }
   
