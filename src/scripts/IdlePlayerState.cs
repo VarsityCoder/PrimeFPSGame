@@ -23,8 +23,6 @@ public partial class IdlePlayerState : PlayerMovementState {
         AnimationPlayer.Pause();
       }
     }
-
-
   } 
 
   public override void Update(float delta) {
