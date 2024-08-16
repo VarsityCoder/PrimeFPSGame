@@ -9,6 +9,9 @@ public partial class JumpingPlayerState : PlayerMovementState
     [Export] public float Acceleration = 0.1f;
     [Export] public float Deceleration = 0.25f;
     [Export] public float JumpVelocity = 4.5f;
+    [Export] public float DoubleJumpVelocity = 4.5f;
+
+    private bool _isDoubleJump;
 
     public override void Enter(State currentState)
     {
@@ -21,6 +24,11 @@ public partial class JumpingPlayerState : PlayerMovementState
         }
     }
 
+    public override void Exit()
+    {
+        _isDoubleJump = false;
+    }
+
     public override void Update(float delta)
     {
         if (PlayerFpsController != null)
@@ -28,6 +36,15 @@ public partial class JumpingPlayerState : PlayerMovementState
             PlayerFpsController.UpdateInput(SpeedDefault * InputMultiplier, Acceleration, Deceleration);
             PlayerFpsController.UpdateVelocity();
             PlayerFpsController.UpdateGravity(delta);
+
+            if (Input.IsActionJustPressed("jump") && _isDoubleJump == false)
+            {
+                _isDoubleJump = true;
+                var tempPlayerVelocity = PlayerFpsController.Velocity;
+                tempPlayerVelocity.Y = DoubleJumpVelocity;
+                PlayerFpsController.Velocity = tempPlayerVelocity;
+            }
+            
             if (PlayerFpsController.IsOnFloor())
             {
                 EmitSignal(State.SignalName.Transition, "IdlePlayerState");
