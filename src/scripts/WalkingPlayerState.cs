@@ -48,6 +48,10 @@ public partial class WalkingPlayerState : PlayerMovementState {
       {
         EmitSignal(State.SignalName.Transition, "IdlePlayerState");
       }
+      if (Input.IsActionJustPressed("jump") && Global.PlayerFpsController.IsOnFloor())
+      {
+        EmitSignal(State.SignalName.Transition, "JumpingPlayerState");
+      }
 
       if (Input.IsActionPressed("sprint") && Global.PlayerFpsController.IsOnFloor())
       {
@@ -57,9 +61,10 @@ public partial class WalkingPlayerState : PlayerMovementState {
       {
         EmitSignal(State.SignalName.Transition, "CrouchingPlayerState");
       }
-      if (Input.IsActionJustPressed("jump") && Global.PlayerFpsController.IsOnFloor())
+ 
+      if (PlayerFpsController.Velocity.Y < -3f && !PlayerFpsController.IsOnFloor())
       {
-        EmitSignal(State.SignalName.Transition, "JumpingPlayerState");
+        EmitSignal(State.SignalName.Transition, "FallingPlayerState");
       }
     }
 
