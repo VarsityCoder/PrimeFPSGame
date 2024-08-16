@@ -10,8 +10,19 @@ public partial class SprintingPlayerState : PlayerMovementState {
   [Export] public float Acceleration = 0.1f;
   [Export] public float Deceleration = 0.25f;
 
-  public override void Enter(State currentState) {
-    AnimationPlayer?.Play("Sprinting", 0.5f);
+  public override async void Enter(State currentState) {
+    if (AnimationPlayer != null)
+    {
+      if (AnimationPlayer.IsPlaying() && AnimationPlayer.CurrentAnimation == "JumpEnd")
+      {
+        await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+        AnimationPlayer.Play("Sprinting");
+      }
+      else
+      {
+        AnimationPlayer.Play("Sprinting");
+      }
+    }
   }
   
   public override void Exit()
