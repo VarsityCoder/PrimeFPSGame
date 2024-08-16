@@ -60,6 +60,10 @@ public partial class JumpingPlayerState : PlayerMovementState
                 await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
                 EmitSignal(State.SignalName.Transition, "IdlePlayerState");
             }
+            if (PlayerFpsController.Velocity.Y < -3f && !PlayerFpsController.IsOnFloor())
+            {
+                EmitSignal(State.SignalName.Transition, "FallingPlayerState");
+            }
         }
     }
 }
