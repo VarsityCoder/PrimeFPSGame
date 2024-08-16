@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://drqq1iisim2uh"]
+[gd_scene load_steps=21 format=3 uid="uid://drqq1iisim2uh"]
 
 [ext_resource type="Script" path="res://src/scripts/PlayerFpsController.cs" id="1_an64t"]
 [ext_resource type="Script" path="res://src/scripts/Reticle.cs" id="2_67aym"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://src/scripts/SprintingPlayerState.cs" id="8_op238"]
 [ext_resource type="Script" path="res://src/scripts/CrouchingPlayerState.cs" id="9_p0l1w"]
 [ext_resource type="Script" path="res://src/scripts/SlidingPlayerState.cs" id="10_leayp"]
+[ext_resource type="Script" path="res://src/scripts/JumpingPlayerState.cs" id="11_kkd20"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5ador"]
 
@@ -520,9 +521,13 @@ script = ExtResource("10_leayp")
 AnimationPlayer = NodePath("../../AnimationPlayer")
 CrouchShapeCast = NodePath("../../ShapeCast3D")
 
+[node name="JumpingPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("11_kkd20")
+
 [connection signal="animation_started" from="AnimationPlayer" to="." method="OnAnimationPlayerAnimationStarter"]
 [connection signal="Transition" from="PlayerStateMachine/IdlePlayerState" to="PlayerStateMachine" method="OnChildTransition"]
 [connection signal="Transition" from="PlayerStateMachine/WalkingPlayerState" to="PlayerStateMachine" method="OnChildTransition"]
 [connection signal="Transition" from="PlayerStateMachine/SprintingPlayerState" to="PlayerStateMachine" method="OnChildTransition"]
-[connection signal="Transition" from="PlayerStateMachine/CrouchingPlayerState" to="." method="OnAnimationPlayerAnimationStarter"]
-[connection signal="Transition" from="PlayerStateMachine/SlidingPlayerState" to="." method="OnAnimationPlayerAnimationStarter"]
+[connection signal="Transition" from="PlayerStateMachine/CrouchingPlayerState" to="PlayerStateMachine" method="OnChildTransition"]
+[connection signal="Transition" from="PlayerStateMachine/SlidingPlayerState" to="PlayerStateMachine" method="OnChildTransition"]
+[connection signal="Transition" from="PlayerStateMachine/JumpingPlayerState" to="PlayerStateMachine" method="OnChildTransition"]
