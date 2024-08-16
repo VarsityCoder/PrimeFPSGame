@@ -27,6 +27,7 @@ public partial class JumpingPlayerState : PlayerMovementState
         {
             PlayerFpsController.UpdateInput(SpeedDefault * InputMultiplier, Acceleration, Deceleration);
             PlayerFpsController.UpdateVelocity();
+            PlayerFpsController.UpdateGravity(delta);
             if (PlayerFpsController.IsOnFloor())
             {
                 EmitSignal(State.SignalName.Transition, "IdlePlayerState");
