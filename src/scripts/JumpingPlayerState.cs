@@ -21,6 +21,7 @@ public partial class JumpingPlayerState : PlayerMovementState
             tempPlayerVelocity.Y += JumpVelocity;
             PlayerFpsController.Velocity = tempPlayerVelocity;
             AnimationPlayer.Pause();
+            GD.Print(PlayerFpsController.Velocity.Y);
         }
     }
 
