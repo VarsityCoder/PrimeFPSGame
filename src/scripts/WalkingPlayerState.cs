@@ -40,13 +40,17 @@ public partial class WalkingPlayerState : PlayerMovementState {
       {
         EmitSignal(State.SignalName.Transition, "SprintingPlayerState");
       }
+      if (Input.IsActionJustPressed("crouch") && Global.PlayerFpsController.IsOnFloor())
+      {
+        EmitSignal(State.SignalName.Transition, "CrouchingPlayerState");
+      }
+      if (Input.IsActionJustPressed("jump") && Global.PlayerFpsController.IsOnFloor())
+      {
+        EmitSignal(State.SignalName.Transition, "JumpingPlayerState");
+      }
     }
 
-    if (Input.IsActionJustPressed("crouch") && Global.PlayerFpsController.IsOnFloor())
-    {
-      EmitSignal(State.SignalName.Transition, "CrouchingPlayerState");
 
-    }
   }
 
   private void SetAnimationSpeed(float speed) {
