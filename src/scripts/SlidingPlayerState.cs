@@ -28,7 +28,12 @@ public partial class SlidingPlayerState : PlayerMovementState
         {
             PlayerFpsController.UpdateGravity(delta);
             PlayerFpsController.UpdateVelocity();
+            if (Input.IsActionJustPressed("jump") && Global.PlayerFpsController.IsOnFloor())
+            {
+                EmitSignal(State.SignalName.Transition, "JumpingPlayerState");
+            }
         }
+
     }
     
     private void SetTilt(float playerRotation)
