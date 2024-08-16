@@ -107,75 +107,13 @@ public partial class PlayerFpsController : CharacterBody3D {
     _rotationInput = 0.0f;
     _tiltInput = 0.0f;
   }
-
-  public override void _Input(InputEvent @event) 
-  {
-
-    // if (@event.IsActionPressed("crouch") && IsOnFloor() && ToggleCrouchMode) {
-    //   ToggleCrouch();
-    // }
-    // if (@event.IsActionPressed("crouch") && IsOnFloor() && ToggleCrouchMode == false && _isCrouching == false) {
-    //   Crouching(true);
-    // }
-    // if (@event.IsActionReleased("crouch") && ToggleCrouchMode == false) {
-    //   if (CrouchShapeCast?.IsColliding() == false) {
-    //     Crouching(false);
-    //   }
-    //   else if (CrouchShapeCast?.IsColliding() == true) {
-    //     UncrouchCheck();
-    //   }
-    // }
-
-  }
-
-  // private void ToggleCrouch() 
-  // {
-  //   if (_isCrouching && CrouchShapeCast?.IsColliding() == false) {
-  //     Crouching(false);
-  //   } else if (_isCrouching == false) {
-  //     Crouching(true);
-  //   }
-  // }
-
-  // private void Crouching(bool state) {
-  //   switch (state) {
-  //     case true:
-  //       AnimationPlayer?.Play("Crouch", 0, _crouchSpeed);
-  //       SetMovementSpeed("crouching");
-  //       break;
-  //     case false:
-  //       AnimationPlayer?.Play("Crouch", 0, -_crouchSpeed, true);
-  //       SetMovementSpeed("default");
-  //       break;
-  //   }
-  //}
+  
   private void OnAnimationPlayerAnimationStarter(string animationName) 
   {
     if(animationName == "Crouch") {
       _isCrouching = !_isCrouching;
     }
   }
-  // private void UncrouchCheck() {
-  //   if (CrouchShapeCast?.IsColliding() == false) {
-  //     Crouching(false);
-  //   }
-  //   if (CrouchShapeCast?.IsColliding() == true) {
-  //     var myTimer = new Timer();
-  //     myTimer.SetWaitTime(0.1);
-  //     myTimer.Timeout += UncrouchCheck;
-  //   }
-  // }
-
-  // private void SetMovementSpeed(string state) {
-  //   switch (state) {
-  //     case "default":
-  //       StartingSpeed = 7.0f;
-  //       break;
-  //     case "crouching":
-  //       StartingSpeed = 2.0f;
-  //       break;
-  //   }
-  // }
 
   public void UpdateGravity(float delta)
   {
