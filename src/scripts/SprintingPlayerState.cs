@@ -40,6 +40,10 @@ public partial class SprintingPlayerState : PlayerMovementState {
       {
         EmitSignal(State.SignalName.Transition, "SlidingPlayerState");
       }
+      if (Input.IsActionJustPressed("jump") && Global.PlayerFpsController.IsOnFloor())
+      {
+        EmitSignal(State.SignalName.Transition, "JumpingPlayerState");
+      }
     }
   }
 
