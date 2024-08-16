@@ -20,8 +20,7 @@ public partial class JumpingPlayerState : PlayerMovementState
             var tempPlayerVelocity = PlayerFpsController.Velocity;
             tempPlayerVelocity.Y += JumpVelocity;
             PlayerFpsController.Velocity = tempPlayerVelocity;
-            AnimationPlayer.Pause();
-            GD.Print(PlayerFpsController.Velocity.Y);
+            AnimationPlayer.Play("JumpStart");
         }
     }
 
@@ -30,9 +29,9 @@ public partial class JumpingPlayerState : PlayerMovementState
         _isDoubleJump = false;
     }
 
-    public override void Update(float delta)
+    public override async void Update(float delta)
     {
-        if (PlayerFpsController != null)
+        if (PlayerFpsController != null && AnimationPlayer != null)
         {
             PlayerFpsController.UpdateInput(SpeedDefault * InputMultiplier, Acceleration, Deceleration);
             PlayerFpsController.UpdateVelocity();
@@ -57,6 +56,8 @@ public partial class JumpingPlayerState : PlayerMovementState
             }
             if (PlayerFpsController.IsOnFloor())
             {
+                AnimationPlayer.Play("JumpEnd");
+                await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
                 EmitSignal(State.SignalName.Transition, "IdlePlayerState");
             }
         }
