@@ -45,7 +45,16 @@ public partial class JumpingPlayerState : PlayerMovementState
                 tempPlayerVelocity.Y = DoubleJumpVelocity;
                 PlayerFpsController.Velocity = tempPlayerVelocity;
             }
-            
+
+            if (Input.IsActionJustReleased("jump"))
+            {
+                if (PlayerFpsController.Velocity.Y > 0f)
+                {
+                    var tempPlayerVelocity = PlayerFpsController.Velocity;
+                    tempPlayerVelocity.Y = PlayerFpsController.Velocity.Y / 2f;
+                    PlayerFpsController.Velocity = tempPlayerVelocity;
+                }
+            }
             if (PlayerFpsController.IsOnFloor())
             {
                 EmitSignal(State.SignalName.Transition, "IdlePlayerState");
