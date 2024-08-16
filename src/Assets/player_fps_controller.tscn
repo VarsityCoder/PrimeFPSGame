@@ -597,8 +597,9 @@ AnimationPlayer = NodePath("../../AnimationPlayer")
 JumpVelocity = 0.5
 DoubleJumpVelocity = 10.0
 
-[node name="FallingPlayerState" type="Node" parent="PlayerStateMachine"]
+[node name="FallingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("AnimationPlayer")]
 script = ExtResource("12_0vnn1")
+AnimationPlayer = NodePath("../../AnimationPlayer")
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="OnAnimationPlayerAnimationStarter"]
 [connection signal="Transition" from="PlayerStateMachine/IdlePlayerState" to="PlayerStateMachine" method="OnChildTransition"]
