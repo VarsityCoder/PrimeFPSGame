@@ -44,15 +44,14 @@ public partial class WalkingPlayerState : PlayerMovementState {
       PlayerFpsController.UpdateInput(SpeedDefault, Acceleration, Deceleration);
       PlayerFpsController.UpdateVelocity();
       SetAnimationSpeed(Global.PlayerFpsController.Velocity.Length());
-      if (PlayerFpsController?.Velocity.Length() == 0.0f)
-      {
-        EmitSignal(State.SignalName.Transition, "IdlePlayerState");
-      }
       if (Input.IsActionJustPressed("jump") && Global.PlayerFpsController.IsOnFloor())
       {
         EmitSignal(State.SignalName.Transition, "JumpingPlayerState");
       }
-
+      if (PlayerFpsController?.Velocity.Length() == 0.0f)
+      {
+        EmitSignal(State.SignalName.Transition, "IdlePlayerState");
+      }
       if (Input.IsActionPressed("sprint") && Global.PlayerFpsController.IsOnFloor())
       {
         EmitSignal(State.SignalName.Transition, "SprintingPlayerState");
@@ -62,13 +61,11 @@ public partial class WalkingPlayerState : PlayerMovementState {
         EmitSignal(State.SignalName.Transition, "CrouchingPlayerState");
       }
  
-      if (PlayerFpsController.Velocity.Y < -3f && !PlayerFpsController.IsOnFloor())
+      if (PlayerFpsController is { Velocity.Y: < -3f } && !PlayerFpsController.IsOnFloor())
       {
         EmitSignal(State.SignalName.Transition, "FallingPlayerState");
       }
     }
-
-
   }
 
   private void SetAnimationSpeed(float speed) {
