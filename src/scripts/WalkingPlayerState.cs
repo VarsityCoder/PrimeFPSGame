@@ -10,8 +10,21 @@ public partial class WalkingPlayerState : PlayerMovementState {
   [Export] public float Acceleration = 0.1f;
   [Export] public float Deceleration = 0.25f;
 
-  public override void Enter(State currentState) {
-    AnimationPlayer?.Play("Walking");
+  public override async void Enter(State currentState) {
+    if (AnimationPlayer != null)
+    {
+      if (AnimationPlayer.IsPlaying() && AnimationPlayer.CurrentAnimation == "JumpEnd")
+      {
+        await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+        AnimationPlayer.Play("Walking");
+      }
+      else
+      {
+        AnimationPlayer.Play("Walking");
+      }
+
+    }
+
   }
 
   public override void Exit()
