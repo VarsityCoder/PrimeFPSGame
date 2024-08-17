@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://src/scripts/PlayerFpsController.cs" id="1_an64t"]
 [ext_resource type="Script" path="res://src/scripts/Reticle.cs" id="2_67aym"]
-[ext_resource type="Script" path="res://src/scripts/SmoothCamera.cs" id="2_ir3hf"]
 [ext_resource type="Theme" uid="uid://cn4j64ethoics" path="res://src/Assets/Themes/UiTheme.tres" id="3_ek3cj"]
 [ext_resource type="PackedScene" uid="uid://erojknd8ks2j" path="res://src/Assets/weapon_blaster.tscn" id="3_xgkef"]
 [ext_resource type="Script" path="res://src/scripts/DebugPanel.cs" id="4_b3rrv"]
@@ -15,6 +14,7 @@
 [ext_resource type="Script" path="res://src/scripts/JumpingPlayerState.cs" id="11_kkd20"]
 [ext_resource type="Script" path="res://src/scripts/FallingPlayerState.cs" id="12_0vnn1"]
 [ext_resource type="Script" path="res://src/scripts/WeaponCameraSubViewport.cs" id="15_uniwu"]
+[ext_resource type="Script" path="res://src/scripts/WeaponCamera.cs" id="16_g3ei4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5ador"]
 
@@ -492,16 +492,14 @@ mesh = SubResource("CapsuleMesh_qbqvo")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraController"]
-script = ExtResource("2_ir3hf")
+cull_mask = 1048573
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera3D"]
 update_mode = 1
 
 [node name="WeaponContainer" type="Node3D" parent="CameraController/Camera3D"]
 
-[node name="MeleeWeapon" type="Node3D" parent="CameraController/Camera3D/WeaponContainer"]
-
-[node name="WeaponBlaster" parent="CameraController/Camera3D/WeaponContainer/MeleeWeapon" instance=ExtResource("3_xgkef")]
+[node name="WeaponBlaster" parent="CameraController/Camera3D/WeaponContainer" instance=ExtResource("3_xgkef")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.2, -0.28, -0.51)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -626,7 +624,10 @@ handle_input_locally = false
 render_target_update_mode = 4
 script = ExtResource("15_uniwu")
 
-[node name="Camera3D" type="Camera3D" parent="WeaponViewport/SubViewport"]
+[node name="Camera3D" type="Camera3D" parent="WeaponViewport/SubViewport" node_paths=PackedStringArray("MainCamera")]
+cull_mask = 1048574
+script = ExtResource("16_g3ei4")
+MainCamera = NodePath("../../../CameraController/Camera3D/WeaponContainer")
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="OnAnimationPlayerAnimationStarter"]
 [connection signal="Transition" from="PlayerStateMachine/IdlePlayerState" to="PlayerStateMachine" method="OnChildTransition"]
