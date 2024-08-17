@@ -473,7 +473,8 @@ _data = {
 [sub_resource type="SphereShape3D" id="SphereShape3D_5tb27"]
 
 [node name="PlayerFPSController" type="CharacterBody3D" node_paths=PackedStringArray("CameraController", "AnimationPlayer", "CrouchShapeCast")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00127149, 0.00456572, -0.000360966)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001, 0, 0)
+safe_margin = 0.01
 script = ExtResource("1_an64t")
 CameraController = NodePath("CameraController/Camera3D")
 AnimationPlayer = NodePath("AnimationPlayer")
@@ -500,7 +501,7 @@ update_mode = 1
 [node name="MeleeWeapon" type="Node3D" parent="CameraController/Camera3D/WeaponContainer"]
 
 [node name="blasterN2" parent="CameraController/Camera3D/WeaponContainer/MeleeWeapon" instance=ExtResource("2_wm5t3")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.2, -0.28, -0.46)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.2, -0.28, -0.51)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
