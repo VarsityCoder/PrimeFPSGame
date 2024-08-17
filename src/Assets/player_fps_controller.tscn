@@ -1,10 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://drqq1iisim2uh"]
+[gd_scene load_steps=27 format=3 uid="uid://drqq1iisim2uh"]
 
 [ext_resource type="Script" path="res://src/scripts/PlayerFpsController.cs" id="1_an64t"]
 [ext_resource type="Script" path="res://src/scripts/Reticle.cs" id="2_67aym"]
 [ext_resource type="Script" path="res://src/scripts/SmoothCamera.cs" id="2_ir3hf"]
-[ext_resource type="PackedScene" uid="uid://dwy7psh77w67l" path="res://src/Assets/Blaster Kit/Models/GLTF format/blasterN.glb" id="2_wm5t3"]
 [ext_resource type="Theme" uid="uid://cn4j64ethoics" path="res://src/Assets/Themes/UiTheme.tres" id="3_ek3cj"]
+[ext_resource type="PackedScene" uid="uid://erojknd8ks2j" path="res://src/Assets/weapon_blaster.tscn" id="3_xgkef"]
 [ext_resource type="Script" path="res://src/scripts/DebugPanel.cs" id="4_b3rrv"]
 [ext_resource type="Script" path="res://src/scripts/StateMachine.cs" id="5_h4cac"]
 [ext_resource type="Script" path="res://src/scripts/IdlePlayerState.cs" id="6_tgb7n"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://src/scripts/SlidingPlayerState.cs" id="10_leayp"]
 [ext_resource type="Script" path="res://src/scripts/JumpingPlayerState.cs" id="11_kkd20"]
 [ext_resource type="Script" path="res://src/scripts/FallingPlayerState.cs" id="12_0vnn1"]
+[ext_resource type="Script" path="res://src/scripts/WeaponCameraSubViewport.cs" id="15_uniwu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5ador"]
 
@@ -500,7 +501,7 @@ update_mode = 1
 
 [node name="MeleeWeapon" type="Node3D" parent="CameraController/Camera3D/WeaponContainer"]
 
-[node name="blasterN2" parent="CameraController/Camera3D/WeaponContainer/MeleeWeapon" instance=ExtResource("2_wm5t3")]
+[node name="WeaponBlaster" parent="CameraController/Camera3D/WeaponContainer/MeleeWeapon" instance=ExtResource("3_xgkef")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.2, -0.28, -0.51)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -613,10 +614,17 @@ script = ExtResource("12_0vnn1")
 AnimationPlayer = NodePath("../../AnimationPlayer")
 
 [node name="WeaponViewport" type="SubViewportContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="SubViewport" type="SubViewport" parent="WeaponViewport"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+script = ExtResource("15_uniwu")
 
 [node name="Camera3D" type="Camera3D" parent="WeaponViewport/SubViewport"]
 
