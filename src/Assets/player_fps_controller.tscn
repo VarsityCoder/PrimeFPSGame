@@ -1,7 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://drqq1iisim2uh"]
+[gd_scene load_steps=25 format=3 uid="uid://drqq1iisim2uh"]
 
 [ext_resource type="Script" path="res://src/scripts/PlayerFpsController.cs" id="1_an64t"]
 [ext_resource type="Script" path="res://src/scripts/Reticle.cs" id="2_67aym"]
+[ext_resource type="PackedScene" uid="uid://dwy7psh77w67l" path="res://src/Assets/Blaster Kit/Models/GLTF format/blasterN.glb" id="2_wm5t3"]
 [ext_resource type="Theme" uid="uid://cn4j64ethoics" path="res://src/Assets/Themes/UiTheme.tres" id="3_ek3cj"]
 [ext_resource type="Script" path="res://src/scripts/DebugPanel.cs" id="4_b3rrv"]
 [ext_resource type="Script" path="res://src/scripts/StateMachine.cs" id="5_h4cac"]
@@ -495,6 +496,9 @@ update_mode = 1
 [node name="WeaponContainer" type="Node3D" parent="CameraController/Camera3D"]
 
 [node name="MeleeWeapon" type="Node3D" parent="CameraController/Camera3D/WeaponContainer"]
+
+[node name="blasterN2" parent="CameraController/Camera3D/WeaponContainer/MeleeWeapon" instance=ExtResource("2_wm5t3")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.337466, -0.278551, -0.417988)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
