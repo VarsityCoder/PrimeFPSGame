@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://erojknd8ks2j"]
+
+[ext_resource type="PackedScene" uid="uid://dwy7psh77w67l" path="res://src/Assets/Blaster Kit/Models/GLTF format/blasterN.glb" id="1_7p2yk"]
+
+[node name="WeaponBlaster" instance=ExtResource("1_7p2yk")]
+
+[node name="blasterN" parent="." index="0"]
+layers = 2
