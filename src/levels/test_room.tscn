@@ -43,7 +43,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24.3178, 0)
 material_override = SubResource("StandardMaterial3D_kuovt")
 operation = 2
 flip_faces = true
-size = Vector3(99, 49, 99)
+size = Vector3(99.9, 49.9, 99.9)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.391, 2, 31.001)
