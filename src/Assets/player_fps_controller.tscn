@@ -611,6 +611,14 @@ DoubleJumpVelocity = 10.0
 script = ExtResource("12_0vnn1")
 AnimationPlayer = NodePath("../../AnimationPlayer")
 
+[node name="WeaponViewport" type="SubViewportContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="WeaponViewport"]
+
+[node name="Camera3D" type="Camera3D" parent="WeaponViewport/SubViewport"]
+
 [connection signal="animation_started" from="AnimationPlayer" to="." method="OnAnimationPlayerAnimationStarter"]
 [connection signal="Transition" from="PlayerStateMachine/IdlePlayerState" to="PlayerStateMachine" method="OnChildTransition"]
 [connection signal="Transition" from="PlayerStateMachine/WalkingPlayerState" to="PlayerStateMachine" method="OnChildTransition"]
