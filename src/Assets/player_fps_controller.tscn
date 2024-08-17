@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://drqq1iisim2uh"]
+[gd_scene load_steps=26 format=3 uid="uid://drqq1iisim2uh"]
 
 [ext_resource type="Script" path="res://src/scripts/PlayerFpsController.cs" id="1_an64t"]
 [ext_resource type="Script" path="res://src/scripts/Reticle.cs" id="2_67aym"]
+[ext_resource type="Script" path="res://src/scripts/SmoothCamera.cs" id="2_ir3hf"]
 [ext_resource type="PackedScene" uid="uid://dwy7psh77w67l" path="res://src/Assets/Blaster Kit/Models/GLTF format/blasterN.glb" id="2_wm5t3"]
 [ext_resource type="Theme" uid="uid://cn4j64ethoics" path="res://src/Assets/Themes/UiTheme.tres" id="3_ek3cj"]
 [ext_resource type="Script" path="res://src/scripts/DebugPanel.cs" id="4_b3rrv"]
@@ -489,6 +490,7 @@ mesh = SubResource("CapsuleMesh_qbqvo")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraController"]
+script = ExtResource("2_ir3hf")
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera3D"]
 update_mode = 1
@@ -498,7 +500,7 @@ update_mode = 1
 [node name="MeleeWeapon" type="Node3D" parent="CameraController/Camera3D/WeaponContainer"]
 
 [node name="blasterN2" parent="CameraController/Camera3D/WeaponContainer/MeleeWeapon" instance=ExtResource("2_wm5t3")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.337466, -0.278551, -0.417988)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.2, -0.28, -0.46)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
