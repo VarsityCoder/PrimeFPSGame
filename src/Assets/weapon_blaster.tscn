@@ -1,8 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://erojknd8ks2j"]
+[gd_scene load_steps=4 format=3 uid="uid://erojknd8ks2j"]
 
 [ext_resource type="PackedScene" uid="uid://dwy7psh77w67l" path="res://src/Assets/Blaster Kit/Models/GLTF format/blasterN.glb" id="1_7p2yk"]
+[ext_resource type="Script" path="res://src/scripts/InitialWeapon.cs" id="2_hs8o3"]
+[ext_resource type="ArrayMesh" uid="uid://cggnggyxlpkrt" path="res://src/Assets/Blaster Kit/Models/OBJ format/blasterN.obj" id="3_15aqb"]
 
 [node name="WeaponBlaster" instance=ExtResource("1_7p2yk")]
+script = ExtResource("2_hs8o3")
 
 [node name="blasterN" parent="." index="0"]
+visible = false
 layers = 2
+
+[node name="WeaponMesh" type="MeshInstance3D" parent="." index="1"]
+mesh = ExtResource("3_15aqb")
