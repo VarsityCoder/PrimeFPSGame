@@ -4,7 +4,6 @@ namespace PrimeFPSGame.Scripts;
 [GlobalClass]
 public partial class WeaponsResource : Resource
 {
-    
     [Export] public string? Name;
     [ExportCategory("Weapon Orientation")] 
     [Export] public Vector3 Position;
