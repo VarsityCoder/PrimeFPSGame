@@ -57,7 +57,7 @@ public partial class JumpingPlayerState : PlayerMovementState
             if (PlayerFpsController.IsOnFloor())
             {
                 AnimationPlayer.Play("JumpEnd");
-                await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+                await ToSignal(AnimationPlayer, AnimationMixer.SignalName.AnimationFinished);
                 EmitSignal(State.SignalName.Transition, "IdlePlayerState");
             }
             if (PlayerFpsController.Velocity.Y < -3f && !PlayerFpsController.IsOnFloor())
