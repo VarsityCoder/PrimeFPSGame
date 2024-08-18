@@ -15,7 +15,7 @@ public partial class IdlePlayerState : PlayerMovementState {
     {
       if (AnimationPlayer.IsPlaying() && AnimationPlayer.CurrentAnimation == "JumpEnd")
       {
-        await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+        await ToSignal(AnimationPlayer, AnimationMixer.SignalName.AnimationFinished);
         AnimationPlayer.Pause();
       }
       else
