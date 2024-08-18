@@ -16,7 +16,7 @@ public partial class Visor : MeshInstance3D
 	{
 	}
 
-  public void killParent() {
+	private void killParent() {
     GetParent<CharacterBody3D>().QueueFree();
   }
 }
