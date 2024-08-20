@@ -20,6 +20,8 @@ public partial class InitialWeapon : Node3D
     
     private MeshInstance3D? _weaponMesh;
     private MeshInstance3D _weaponShadow = new MeshInstance3D();
+
+    private Vector2 _mouseMovement;
     
     public override void _Ready()
     {
@@ -51,6 +53,12 @@ public partial class InitialWeapon : Node3D
         {
             WeaponType = GD.Load<WeaponsResource>("res://src/Assets/WeaponResource2.tres");
             LoadWeapon();
+        }
+
+        if (@event is InputEventMouseMotion)
+        {
+            var m = (InputEventMouseMotion)@event;
+            _mouseMovement = m.Relative;
         }
     }
 }
