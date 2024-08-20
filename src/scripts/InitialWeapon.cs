@@ -61,4 +61,38 @@ public partial class InitialWeapon : Node3D
             _mouseMovement = m.Relative;
         }
     }
+
+    private void SwayWeapon(float delta)
+    {
+        if (_weaponType != null)
+        {
+            _mouseMovement = _mouseMovement.Clamp(_weaponType.SwayMin, _weaponType.SwayMax);
+            var tempPositionX = Position;
+            tempPositionX.X = Mathf.Lerp(Position.X, _weaponType.Position.X - (_mouseMovement.X * _weaponType.SwayAmountPosition) 
+                * delta, _weaponType.SwaySpeedPosition);
+            Position = tempPositionX;
+        
+            var tempPositionY = Position;
+            tempPositionY.Y = Mathf.Lerp(Position.Y, _weaponType.Position.Y + (_mouseMovement.Y * _weaponType.SwayAmountPosition) 
+                * delta, _weaponType.SwaySpeedPosition);
+            Position = tempPositionY;
+
+            var tempRotationDegreesY = RotationDegrees;
+            tempRotationDegreesY.Y = Mathf.Lerp(RotationDegrees.Y,
+                _weaponType.Rotation.Y + (_mouseMovement.Y * _weaponType.SwayAmountRotation) * delta,
+                _weaponType.SwaySpeedRotation);
+            RotationDegrees = tempRotationDegreesY;
+
+            var tempRotationDegreesX = RotationDegrees;
+            tempRotationDegreesX.X = Mathf.Lerp(RotationDegrees.X,
+                _weaponType.Rotation.X - (_mouseMovement.X * _weaponType.SwayAmountRotation) * delta,
+                _weaponType.SwaySpeedRotation);
+            RotationDegrees = tempRotationDegreesX;
+        }
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        SwayWeapon((float)delta);
+    }
 }
