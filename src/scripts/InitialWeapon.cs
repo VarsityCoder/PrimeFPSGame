@@ -66,28 +66,24 @@ public partial class InitialWeapon : Node3D
     {
         if (_weaponType != null)
         {
+            var tempPosition = Position;
             _mouseMovement = _mouseMovement.Clamp(_weaponType.SwayMin, _weaponType.SwayMax);
-            var tempPositionX = Position;
-            tempPositionX.X = Mathf.Lerp(Position.X, _weaponType.Position.X - (_mouseMovement.X * _weaponType.SwayAmountPosition) 
+            tempPosition.X = Mathf.Lerp(Position.X, _weaponType.Position.X - (_mouseMovement.X * _weaponType.SwayAmountPosition) 
                 * delta, _weaponType.SwaySpeedPosition);
-            Position = tempPositionX;
-        
-            var tempPositionY = Position;
-            tempPositionY.Y = Mathf.Lerp(Position.Y, _weaponType.Position.Y + (_mouseMovement.Y * _weaponType.SwayAmountPosition) 
+            
+            tempPosition.Y = Mathf.Lerp(Position.Y, _weaponType.Position.Y + (_mouseMovement.Y * _weaponType.SwayAmountPosition) 
                 * delta, _weaponType.SwaySpeedPosition);
-            Position = tempPositionY;
+            Position = tempPosition;
 
-            var tempRotationDegreesY = RotationDegrees;
-            tempRotationDegreesY.Y = Mathf.Lerp(RotationDegrees.Y,
+            var tempRotationDegrees = RotationDegrees;
+            tempRotationDegrees.Y = Mathf.Lerp(RotationDegrees.Y,
                 _weaponType.Rotation.Y + (_mouseMovement.Y * _weaponType.SwayAmountRotation) * delta,
                 _weaponType.SwaySpeedRotation);
-            RotationDegrees = tempRotationDegreesY;
 
-            var tempRotationDegreesX = RotationDegrees;
-            tempRotationDegreesX.X = Mathf.Lerp(RotationDegrees.X,
+            tempRotationDegrees.X = Mathf.Lerp(RotationDegrees.X,
                 _weaponType.Rotation.X - (_mouseMovement.X * _weaponType.SwayAmountRotation) * delta,
                 _weaponType.SwaySpeedRotation);
-            RotationDegrees = tempRotationDegreesX;
+            RotationDegrees = tempRotationDegrees;
         }
     }
 
