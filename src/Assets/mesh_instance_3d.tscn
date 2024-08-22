@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmrthsyio252t"]
+
+[ext_resource type="Shader" path="res://src/Assets/Shaders/PS1.gdshader" id="1_52lkx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_02eta"]
+render_priority = 0
+shader = ExtResource("1_52lkx")
+shader_parameter/color_depth = 5
+shader_parameter/dithering = true
+shader_parameter/resolution_scale = 4
+
+[sub_resource type="QuadMesh" id="QuadMesh_qpulw"]
+material = SubResource("ShaderMaterial_02eta")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_qpulw")
