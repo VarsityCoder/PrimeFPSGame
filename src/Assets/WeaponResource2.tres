@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponsResource" load_steps=3 format=3 uid="uid://chk3u6ygymmgj"]
+
+[ext_resource type="ArrayMesh" uid="uid://figbvcxr5nhg" path="res://src/Assets/Blaster Kit/Models/OBJ format/blasterB.obj" id="1_g70me"]
+[ext_resource type="Script" path="res://src/scripts/WeaponsResource.cs" id="1_rn15q"]
+
+[resource]
+script = ExtResource("1_rn15q")
+Name = "BlasterH"
+Position = Vector3(0.2, -0.28, -0.51)
+Rotation = Vector3(0, 0, 0)
+Mesh = ExtResource("1_g70me")
+Shadow = false
