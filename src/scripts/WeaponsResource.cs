@@ -8,6 +8,7 @@ public partial class WeaponsResource : Resource
     [ExportCategory("Weapon Orientation")] 
     [Export] public Vector3 Position;
     [Export] public Vector3 Rotation;
+    [Export] public Vector3 Scale;
     [ExportCategory("Weapon Sway")] 
     [Export] public Vector2 SwayMin = new Vector2(-20.0f, -20.0f);
 
@@ -24,6 +25,9 @@ public partial class WeaponsResource : Resource
 
     [Export(PropertyHint.Range, "0,50,0.01")]
     public float SwayAmountRotation = 30.0f;
+
+    [Export] public float IdleSwayAdjustment = 10.0f;
+    [Export] public float IdleSwayRotationStrength = 30.0f;
 
     [ExportCategory("Visual Settings")] 
     [Export] public Mesh? Mesh;
