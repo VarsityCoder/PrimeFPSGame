@@ -1,9 +1,9 @@
 shader_type spatial;
-render_mode unshaded, shadows_disabled, depth_test_disabled, depth_draw_never;
+render_mode unshaded, shadows_disabled, depth_test_disabled, depth_draw_never, ambient_light_disabled;
 
 uniform int color_depth : hint_range(1, 8) = 5;
 uniform bool dithering = true;
-uniform int resolution_scale = 32;
+uniform int resolution_scale = 4;
 uniform sampler2D SCREEN_TEXTURE: hint_screen_texture, filter_linear_mipmap;
 
 int dithering_pattern(ivec2 fragcoord) {
@@ -25,8 +25,8 @@ void vertex() {
 }
 
 void fragment() {
-	ivec2 uv = ivec2(FRAGCOORD.xy / float(resolution_scale ));
-	vec3 color = texelFetch(SCREEN_TEXTURE, uv * resolution_scale, 0).rgb;
+	ivec2 uv = ivec2(FRAGCOORD.xy / float(resolution_scale));
+	vec3 color = texelFetch(SCREEN_TEXTURE, uv * resolution_scale,0).rgb;
 
 	// Convert from [0.0, 1.0] range to [0, 255] range
 	ivec3 c = ivec3(round(color * 230.0));
@@ -40,5 +40,5 @@ void fragment() {
 	c >>= (8 - color_depth);
 
 	// Convert back to [0.0, 1.0] range
-	ALBEDO = vec3(c) / float(1 << color_depth);
+	ALBEDO = (vec3(c) / float(1 << color_depth));
 }
