@@ -4,23 +4,23 @@ using Godot;
 
 public partial class IdlePlayerState : PlayerMovementState {
 
-  [Export] public AnimationPlayer? AnimationPlayer;
-  [Export] public float SpeedDefault = 5.0f;
-  [Export] public float Acceleration = 0.1f;
-  [Export] public float Deceleration = 0.25f;
+  [Export] private AnimationPlayer? _animationPlayer;
+  [Export] private float _speedDefault = 5.0f;
+  [Export] private float _acceleration = 0.1f;
+  [Export] private float _deceleration = 0.25f;
 
   public override async void Enter(State currentState)
   {
-    if (AnimationPlayer != null)
+    if (_animationPlayer != null)
     {
-      if (AnimationPlayer.IsPlaying() && AnimationPlayer.CurrentAnimation == "JumpEnd")
+      if (_animationPlayer.IsPlaying() && _animationPlayer.CurrentAnimation == "JumpEnd")
       {
-        await ToSignal(AnimationPlayer, AnimationMixer.SignalName.AnimationFinished);
-        AnimationPlayer.Pause();
+        await ToSignal(_animationPlayer, AnimationMixer.SignalName.AnimationFinished);
+        _animationPlayer.Pause();
       }
       else
       {
-        AnimationPlayer.Pause();
+        _animationPlayer.Pause();
       }
     }
   } 
@@ -29,7 +29,7 @@ public partial class IdlePlayerState : PlayerMovementState {
     if (PlayerFpsController != null)
     {
       PlayerFpsController.UpdateGravity(delta);
-      PlayerFpsController.UpdateInput(SpeedDefault, Acceleration, Deceleration);
+      PlayerFpsController.UpdateInput(_speedDefault, _acceleration, _deceleration);
       PlayerFpsController.UpdateVelocity();
       if (Global.PlayerFpsController.Velocity.Length() > 0.0f && Global.PlayerFpsController.IsOnFloor()) {
         EmitSignal(State.SignalName.Transition, "WalkingPlayerState");
