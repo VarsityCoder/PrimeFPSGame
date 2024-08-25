@@ -20,6 +20,7 @@ public partial class InitialWeapon : Node3D
     
     private MeshInstance3D? _weaponMesh;
     private MeshInstance3D _weaponShadow = new MeshInstance3D();
+    [Export] private NoiseTexture2D? _swayNoise;
 
     private Vector2 _mouseMovement;
     
