@@ -3,22 +3,22 @@ namespace PrimeFPSGame.Scripts;
 
 public partial class SlidingPlayerState : PlayerMovementState
 {
-    [Export] public AnimationPlayer? AnimationPlayer;
-    [Export] public float SlideAnimationSpeed = 2.2f;
-    [Export] public float SpeedDefault = 5.0f;
-    [Export] public float Acceleration = 0.1f;
-    [Export] public float Deceleration = 0.25f;
-    [Export] public float TiltAmount = 0.09f;
-    [Export] public ShapeCast3D? CrouchShapeCast;
+    [Export] private AnimationPlayer? _animationPlayer;
+    [Export] private float _slideAnimationSpeed = 2.2f;
+    [Export] private float _speedDefault = 5.0f;
+    [Export] private float _acceleration = 0.1f;
+    [Export] private float _deceleration = 0.25f;
+    [Export] private float _tiltAmount = 0.09f;
+    [Export] private ShapeCast3D? _crouchShapeCast;
 
     public override void Enter(State currentState)
     {
-        if (PlayerFpsController != null && AnimationPlayer != null)
+        if (PlayerFpsController != null && _animationPlayer != null)
         {
-            AnimationPlayer.SpeedScale = 1.0f;
+            _animationPlayer.SpeedScale = 1.0f;
             SetTilt(PlayerFpsController.CurrentRotation);
-            AnimationPlayer.GetAnimation("Sliding").TrackSetKeyValue(4,0,PlayerFpsController.Velocity.Length());
-            AnimationPlayer.Play("Sliding", 1.0f, SlideAnimationSpeed);
+            _animationPlayer.GetAnimation("Sliding").TrackSetKeyValue(4,0,PlayerFpsController.Velocity.Length());
+            _animationPlayer.Play("Sliding", 1.0f, _slideAnimationSpeed);
         }
     }
 
@@ -38,16 +38,16 @@ public partial class SlidingPlayerState : PlayerMovementState
     
     private void SetTilt(float playerRotation)
     {
-        if (AnimationPlayer != null)
+        if (_animationPlayer != null)
         {
             var tilt = Vector3.Zero;
-            tilt.Z = Mathf.Clamp(TiltAmount * playerRotation, -0.1f, 0.1f);
+            tilt.Z = Mathf.Clamp(_tiltAmount * playerRotation, -0.1f, 0.1f);
             if (tilt.Z == 0f)
             {
                 tilt.Z = 0.05f;
             }
-            AnimationPlayer.GetAnimation("Sliding").TrackSetKeyValue(7,1,tilt);
-            AnimationPlayer.GetAnimation("Sliding").TrackSetKeyValue(7,2,tilt);
+            _animationPlayer.GetAnimation("Sliding").TrackSetKeyValue(7,1,tilt);
+            _animationPlayer.GetAnimation("Sliding").TrackSetKeyValue(7,2,tilt);
         }
     }
     private void Finish()
