@@ -20,18 +20,18 @@ public partial class PlayerFpsController : CharacterBody3D {
   public float CurrentRotation;
 
 
-  [Export] public double TiltLowerLimit = Mathf.DegToRad(-90.0);
-  [Export] public double TiltUpperLimit = Mathf.DegToRad(90.0);
-  [Export] public Camera3D? CameraController;
-  [Export] public float MouseSensitivity = 0.5f;
+  [Export] private double _tiltLowerLimit = Mathf.DegToRad(-90.0);
+  [Export] private double _tiltUpperLimit = Mathf.DegToRad(90.0);
+  [Export] private Camera3D? _cameraController;
+  [Export] private float _mouseSensitivity = 0.5f;
   [Export] public AnimationPlayer? AnimationPlayer;
-  [Export] public ShapeCast3D? CrouchShapeCast;
-  [Export] public bool ToggleCrouchMode = true;
+  [Export] private ShapeCast3D? _crouchShapeCast;
+  [Export] private bool _toggleCrouchMode = true;
 
   public override void _Ready() {
     Global.PlayerFpsController = this;
     Input.MouseMode = Input.MouseModeEnum.Captured;
-    CrouchShapeCast?.AddException(this);
+    _crouchShapeCast?.AddException(this);
   }
 
   public override void _PhysicsProcess(double delta) {
@@ -43,7 +43,7 @@ public partial class PlayerFpsController : CharacterBody3D {
 			velocity += GetGravity() * (float)delta;
 		}
     Global.DebugPanelGlobal.AddProperty("MovementSpeed ", Velocity.Length().ToString(CultureInfo.InvariantCulture), 1);
-    Global.DebugPanelGlobal.AddProperty("CrouchShapeCast ", CrouchShapeCast?.IsColliding().ToString()!, 2);
+    Global.DebugPanelGlobal.AddProperty("CrouchShapeCast ", _crouchShapeCast?.IsColliding().ToString()!, 2);
     Global.DebugPanelGlobal.AddProperty("MouseRotation ", _mouseRotation.ToString(), 3);
     Global.DebugPanelGlobal.AddProperty("IsCrouching ", _isCrouching.ToString(), 4);
     Global.DebugPanelGlobal.AddProperty("IsJumping ", (!IsOnFloor()).ToString(), 5);
@@ -82,22 +82,22 @@ public partial class PlayerFpsController : CharacterBody3D {
   {
     CurrentRotation = _rotationInput;
     _mouseRotation.X += _tiltInput * (float)delta;
-    _mouseRotation.X = Mathf.Clamp(_mouseRotation.X, (float)TiltLowerLimit, (float)TiltUpperLimit);
+    _mouseRotation.X = Mathf.Clamp(_mouseRotation.X, (float)_tiltLowerLimit, (float)_tiltUpperLimit);
     _mouseRotation.Y += _rotationInput * (float)delta;
 
     _playerRotation = new Vector3(0.0f, _mouseRotation.Y, 0.0f);
     _cameraRotation = new Vector3(_mouseRotation.X, 0.0f, 0.0f);
 
-    if (CameraController != null) {
-      var tempTransform3d = CameraController.Transform;
+    if (_cameraController != null) {
+      var tempTransform3d = _cameraController.Transform;
       tempTransform3d.Basis = Basis.FromEuler(_cameraRotation);
-      CameraController.Transform = tempTransform3d;
+      _cameraController.Transform = tempTransform3d;
     }
 
-    if (CameraController != null) {
-      var tempRotationVector3 = CameraController.Rotation;
+    if (_cameraController != null) {
+      var tempRotationVector3 = _cameraController.Rotation;
       tempRotationVector3.Z = 0.0f;
-      CameraController.Rotation = tempRotationVector3;
+      _cameraController.Rotation = tempRotationVector3;
     }
 
     var tempGlobalTransformBasis = GlobalTransform;
