@@ -473,13 +473,13 @@ _data = {
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5tb27"]
 
-[node name="PlayerFPSController" type="CharacterBody3D" node_paths=PackedStringArray("CameraController", "AnimationPlayer", "CrouchShapeCast")]
+[node name="PlayerFPSController" type="CharacterBody3D" node_paths=PackedStringArray("_cameraController", "AnimationPlayer", "_crouchShapeCast")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001, 0, 0)
 safe_margin = 0.01
 script = ExtResource("1_an64t")
-CameraController = NodePath("CameraController/Camera3D")
+_cameraController = NodePath("CameraController/Camera3D")
 AnimationPlayer = NodePath("AnimationPlayer")
-CrouchShapeCast = NodePath("ShapeCast3D")
+_crouchShapeCast = NodePath("ShapeCast3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -521,7 +521,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Reticle" type="CenterContainer" parent="UserInterface" node_paths=PackedStringArray("PlayerController", "ReticleLines")]
+[node name="Reticle" type="CenterContainer" parent="UserInterface" node_paths=PackedStringArray("_playerController", "_reticleLines")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -535,10 +535,8 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_67aym")
-PlayerController = NodePath("../..")
-ReticleSpeed = 0.1
-ReticleDistance = 5.0
-ReticleLines = [NodePath("Top"), NodePath("Right"), NodePath("Bottom"), NodePath("Left")]
+_playerController = NodePath("../..")
+_reticleLines = [NodePath("Top"), NodePath("Right"), NodePath("Bottom"), NodePath("Left")]
 
 [node name="Top" type="Line2D" parent="UserInterface/Reticle"]
 points = PackedVector2Array(0, -5, 0, -15)
@@ -573,22 +571,22 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/DebugPanel/MarginContainer"]
 layout_mode = 2
 
-[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("CurrentState")]
+[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("_currentState")]
 script = ExtResource("5_h4cac")
-CurrentState = NodePath("IdlePlayerState")
+_currentState = NodePath("IdlePlayerState")
 
-[node name="IdlePlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("AnimationPlayer")]
+[node name="IdlePlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("_animationPlayer")]
 script = ExtResource("6_tgb7n")
-AnimationPlayer = NodePath("../../AnimationPlayer")
+_animationPlayer = NodePath("../../AnimationPlayer")
 
-[node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("AnimationPlayer")]
+[node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("_animationPlayer")]
 script = ExtResource("7_nilia")
-AnimationPlayer = NodePath("../../AnimationPlayer")
+_animationPlayer = NodePath("../../AnimationPlayer")
 
-[node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("AnimationPlayer")]
+[node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("_animationPlayer")]
 script = ExtResource("8_op238")
-AnimationPlayer = NodePath("../../AnimationPlayer")
-SpeedDefault = 10.0
+_animationPlayer = NodePath("../../AnimationPlayer")
+_speedDefault = 10.0
 
 [node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("AnimationPlayer", "CrouchShapeCast")]
 script = ExtResource("9_p0l1w")
@@ -596,20 +594,19 @@ AnimationPlayer = NodePath("../../AnimationPlayer")
 SpeedDefault = 1.0
 CrouchShapeCast = NodePath("../../ShapeCast3D")
 
-[node name="SlidingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("AnimationPlayer", "CrouchShapeCast")]
+[node name="SlidingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("_animationPlayer", "_crouchShapeCast")]
 script = ExtResource("10_leayp")
-AnimationPlayer = NodePath("../../AnimationPlayer")
-CrouchShapeCast = NodePath("../../ShapeCast3D")
+_animationPlayer = NodePath("../../AnimationPlayer")
+_crouchShapeCast = NodePath("../../ShapeCast3D")
 
-[node name="JumpingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("AnimationPlayer")]
+[node name="JumpingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("_animationPlayer")]
 script = ExtResource("11_kkd20")
-AnimationPlayer = NodePath("../../AnimationPlayer")
-JumpVelocity = 0.5
-DoubleJumpVelocity = 10.0
+_animationPlayer = NodePath("../../AnimationPlayer")
+_doubleJumpVelocity = 100.0
 
-[node name="FallingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("AnimationPlayer")]
+[node name="FallingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("_animationPlayer")]
 script = ExtResource("12_0vnn1")
-AnimationPlayer = NodePath("../../AnimationPlayer")
+_animationPlayer = NodePath("../../AnimationPlayer")
 
 [node name="WeaponViewport" type="SubViewportContainer" parent="."]
 anchors_preset = 15
@@ -624,10 +621,10 @@ handle_input_locally = false
 render_target_update_mode = 4
 script = ExtResource("15_uniwu")
 
-[node name="Camera3D" type="Camera3D" parent="WeaponViewport/SubViewport" node_paths=PackedStringArray("MainCamera")]
+[node name="Camera3D" type="Camera3D" parent="WeaponViewport/SubViewport" node_paths=PackedStringArray("_mainCamera")]
 cull_mask = 1048574
 script = ExtResource("16_g3ei4")
-MainCamera = NodePath("../../../CameraController/Camera3D/WeaponContainer")
+_mainCamera = NodePath("../../../CameraController/Camera3D/WeaponContainer")
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="OnAnimationPlayerAnimationStarter"]
 [connection signal="Transition" from="PlayerStateMachine/IdlePlayerState" to="PlayerStateMachine" method="OnChildTransition"]
