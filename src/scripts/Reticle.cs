@@ -11,12 +11,12 @@ using Vector3 = Godot.Vector3;
 
 public partial class Reticle : CenterContainer {
 
-  [Export] public float DotRadius = 3.0f;
-  [Export] public Color DotColor = Colors.White;
-  [Export] public CharacterBody3D? PlayerController;
-  [Export] public float ReticleSpeed = 0.25f;
-  [Export] public float ReticleDistance = 2.0f;
-  [Export] public Array<Line2D>? ReticleLines;
+  [Export] private float _dotRadius = 3.0f;
+  [Export] private Color _dotColor = Colors.White;
+  [Export] private CharacterBody3D? _playerController;
+  [Export] private float _reticleSpeed = 0.25f;
+  [Export] private float _reticleDistance = 2.0f;
+  [Export] private Array<Line2D>? _reticleLines;
 
 
   public override void _Ready() => QueueRedraw();
@@ -25,20 +25,20 @@ public partial class Reticle : CenterContainer {
 
   public override void _Draw() {
     DrawCircle(Vector2.Zero, 4, Colors.DimGray);
-    DrawCircle(Vector2.Zero, DotRadius, DotColor);
+    DrawCircle(Vector2.Zero, _dotRadius, _dotColor);
   }
 
   private void AdjustReticleLines() {
-    if (PlayerController != null && ReticleLines != null) {
-      var velocity = PlayerController.GetRealVelocity();
+    if (_playerController != null && _reticleLines != null) {
+      var velocity = _playerController.GetRealVelocity();
       var origin = Vector3.Zero;
       var position = Vector2.Zero;
       var speed = origin.DistanceTo(velocity);
 
-      ReticleLines[0].Position = ReticleLines[0].Position.Lerp(position + new Vector2(0, -speed * ReticleDistance), ReticleSpeed); // Top
-      ReticleLines[1].Position = ReticleLines[1].Position.Lerp(position + new Vector2(speed * ReticleDistance, 0), ReticleSpeed); // Right
-      ReticleLines[2].Position = ReticleLines[2].Position.Lerp(position + new Vector2(0, speed * ReticleDistance), ReticleSpeed); // Bottom
-      ReticleLines[3].Position = ReticleLines[3].Position.Lerp(position + new Vector2(-speed * ReticleDistance, 0), ReticleSpeed); // Left
+      _reticleLines[0].Position = _reticleLines[0].Position.Lerp(position + new Vector2(0, -speed * _reticleDistance), _reticleSpeed); // Top
+      _reticleLines[1].Position = _reticleLines[1].Position.Lerp(position + new Vector2(speed * _reticleDistance, 0), _reticleSpeed); // Right
+      _reticleLines[2].Position = _reticleLines[2].Position.Lerp(position + new Vector2(0, speed * _reticleDistance), _reticleSpeed); // Bottom
+      _reticleLines[3].Position = _reticleLines[3].Position.Lerp(position + new Vector2(-speed * _reticleDistance, 0), _reticleSpeed); // Left
 
     }
   }
