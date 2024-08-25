@@ -3,13 +3,13 @@ using Godot;
 namespace PrimeFPSGame.Scripts;
 public partial class WeaponCamera : Camera3D
 {
-    [Export] public Node3D? MainCamera;
+    [Export] private Node3D? _mainCamera;
 
     public override void _Process(double delta)
     {
-        if (MainCamera != null)
+        if (_mainCamera != null)
         {
-            GlobalTransform = MainCamera.GlobalTransform;
+            GlobalTransform = _mainCamera.GlobalTransform;
         }
     }
 }
