@@ -4,32 +4,32 @@ namespace PrimeFPSGame.Scripts;
 
 public partial class SprintingPlayerState : PlayerMovementState {
 
-  [Export] public AnimationPlayer? AnimationPlayer;
-  [Export] public float TopAnimationSpeed = 1.6f;
-  [Export] public float SpeedDefault = 100.0f;
-  [Export] public float Acceleration = 0.1f;
-  [Export] public float Deceleration = 0.25f;
+  [Export] private AnimationPlayer? _animationPlayer;
+  [Export] private float _topAnimationSpeed = 1.6f;
+  [Export] private float _speedDefault = 100.0f;
+  [Export] private float _acceleration = 0.1f;
+  [Export] private float _deceleration = 0.25f;
 
   public override async void Enter(State currentState) {
-    if (AnimationPlayer != null)
+    if (_animationPlayer != null)
     {
-      if (AnimationPlayer.IsPlaying() && AnimationPlayer.CurrentAnimation == "JumpEnd")
+      if (_animationPlayer.IsPlaying() && _animationPlayer.CurrentAnimation == "JumpEnd")
       {
-        await ToSignal(AnimationPlayer, AnimationMixer.SignalName.AnimationFinished);
-        AnimationPlayer.Play("Sprinting");
+        await ToSignal(_animationPlayer, AnimationMixer.SignalName.AnimationFinished);
+        _animationPlayer.Play("Sprinting");
       }
       else
       {
-        AnimationPlayer.Play("Sprinting");
+        _animationPlayer.Play("Sprinting");
       }
     }
   }
   
   public override void Exit()
   {
-    if (AnimationPlayer != null)
+    if (_animationPlayer != null)
     {
-      AnimationPlayer.SpeedScale = 1.0f;
+      _animationPlayer.SpeedScale = 1.0f;
     }
   }
 
@@ -38,7 +38,7 @@ public partial class SprintingPlayerState : PlayerMovementState {
     if (PlayerFpsController != null)
     {
       PlayerFpsController.UpdateGravity(delta);
-      PlayerFpsController.UpdateInput(SpeedDefault, Acceleration, Deceleration);
+      PlayerFpsController.UpdateInput(_speedDefault, _acceleration, _deceleration);
       PlayerFpsController.UpdateVelocity();
       SetAnimationSpeed(PlayerFpsController.Velocity.Length());
 
@@ -63,9 +63,9 @@ public partial class SprintingPlayerState : PlayerMovementState {
   }
 
   private void SetAnimationSpeed(float speed) {
-    var alpha = Mathf.Remap(speed, 0.0, SpeedDefault, 0.0, 1.0);
-    if (AnimationPlayer != null) {
-      AnimationPlayer.SpeedScale = Mathf.Lerp(0.0f, TopAnimationSpeed, (float)alpha);
+    var alpha = Mathf.Remap(speed, 0.0, _speedDefault, 0.0, 1.0);
+    if (_animationPlayer != null) {
+      _animationPlayer.SpeedScale = Mathf.Lerp(0.0f, _topAnimationSpeed, (float)alpha);
     }
   }
   public override void _Input(InputEvent @event) {
