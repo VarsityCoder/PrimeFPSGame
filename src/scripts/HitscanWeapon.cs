@@ -6,44 +6,43 @@ namespace PrimeFPSGame.Scripts;
 
 public partial class HitscanWeapon : Node3D {
 
-  [Export]
-  public float fireRate = 14.0f;
-  private Enemy enemy = new Enemy();
+  [Export] private float _fireRate = 14.0f;
+  private Enemy _enemy = new Enemy();
 
-  [Export] public float recoil = 0.5f;
-  [Export] public int weaponDamage = 10;
+  [Export] private float _recoil = 0.5f;
+  [Export] private int _weaponDamage = 10;
 
-  [Export] public Node3D weaponMesh = new Node3D();
-  public Vector3 weaponPosition;
+  [Export] private Node3D _weaponMesh = new Node3D();
+  private Vector3 _weaponPosition;
 
-  public RayCast3D rayCast3DWeapon = new RayCast3D();
+  private RayCast3D _rayCast3DWeapon = new RayCast3D();
 
-  public Timer timer = new Timer();
+  private Timer _timer = new Timer();
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
-    timer = GetNode<Timer>("CooldownTimer");
-    rayCast3DWeapon = GetNode<RayCast3D>("RayCast3D");
-    weaponPosition = weaponMesh.Position;
+    _timer = GetNode<Timer>("CooldownTimer");
+    _rayCast3DWeapon = GetNode<RayCast3D>("RayCast3D");
+    _weaponPosition = _weaponMesh.Position;
   }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
     if (Input.IsActionPressed("fire")) {
-      if (timer.IsStopped()) {
+      if (_timer.IsStopped()) {
         shoot();
       }
     }
-    weaponMesh.Position = weaponMesh.Position.Lerp(weaponPosition, (float)delta * 10.0f);
+    _weaponMesh.Position = _weaponMesh.Position.Lerp(_weaponPosition, (float)delta * 10.0f);
   }
 
   public void shoot() {
-    var collider = rayCast3DWeapon.GetCollider();
-    timer.Start(1.0f/fireRate);
+    var collider = _rayCast3DWeapon.GetCollider();
+    _timer.Start(1.0f/_fireRate);
     GD.Print(collider);
-    var temporaryWeaponPosition = weaponMesh.Position;
-    temporaryWeaponPosition.Z += recoil;
-    weaponMesh.Position = temporaryWeaponPosition;
+    var temporaryWeaponPosition = _weaponMesh.Position;
+    temporaryWeaponPosition.Z += _recoil;
+    _weaponMesh.Position = temporaryWeaponPosition;
     switch (collider)
     {
       case WeakPoint weakPoint:
