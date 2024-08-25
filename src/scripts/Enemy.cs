@@ -5,10 +5,10 @@ namespace PrimeFPSGame.Scripts;
 using Assets;
 
 public partial class Enemy : CharacterBody3D
-{
-	public const float Speed = 5.0f;
+{ 
+	public const float Speed = 5.0f; 
 	public const float JumpVelocity = 4.5f;
-  public const float attackRange = 1.5f;
+	public const float attackRange = 1.5f;
 
   public NavigationAgent3D navigationAgent3DEnemy = new NavigationAgent3D();
   public Player player = new Player();
