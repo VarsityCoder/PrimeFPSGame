@@ -5,7 +5,7 @@ namespace PrimeFPSGame.Scripts;
 using System.Collections.Generic;
 
 public partial class StateMachine : Node {
-  [Export] public State CurrentState = new State();
+  [Export] private State _currentState = new State();
   private readonly Dictionary<string, State> _statesDictionary = new Dictionary<string, State>();
 
   public override void _Ready() {
@@ -20,22 +20,22 @@ public partial class StateMachine : Node {
       }
     }
     //TODO Deal with null literal
-    Owner.Ready += () => CurrentState.Enter(null!);
+    Owner.Ready += () => _currentState.Enter(null!);
   }
 
   public override void _Process(double delta) {
-    CurrentState.Update((float)delta);
-    Global.DebugPanelGlobal.AddProperty("Current State", CurrentState.Name, 1);
+    _currentState.Update((float)delta);
+    Global.DebugPanelGlobal.AddProperty("Current State", _currentState.Name, 1);
   }
 
-  public override void _PhysicsProcess(double delta) => CurrentState.PhysicsUpdate((float)delta);
+  public override void _PhysicsProcess(double delta) => _currentState.PhysicsUpdate((float)delta);
 
   private void OnChildTransition(string newStateName) {
     var newState = _statesDictionary[newStateName];
-    if (newState != CurrentState) {
-        CurrentState.Exit();
-        newState.Enter(CurrentState);
-        CurrentState = newState;
+    if (newState != _currentState) {
+        _currentState.Exit();
+        newState.Enter(_currentState);
+        _currentState = newState;
     }
     else {
       
