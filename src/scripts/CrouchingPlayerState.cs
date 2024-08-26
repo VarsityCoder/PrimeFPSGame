@@ -41,6 +41,7 @@ public partial class CrouchingPlayerState : PlayerMovementState
             PlayerFpsController.UpdateGravity(delta);
             PlayerFpsController.UpdateInput(SpeedDefault, Acceleration, Deceleration);
             PlayerFpsController.UpdateVelocity();
+            PlayerFpsController.WeaponController?.SwayWeapon(delta, false);
             if (Input.IsActionJustReleased("crouch"))
             {
                 Uncrouch();
