@@ -40,6 +40,7 @@ public partial class SprintingPlayerState : PlayerMovementState {
       PlayerFpsController.UpdateGravity(delta);
       PlayerFpsController.UpdateInput(_speedDefault, _acceleration, _deceleration);
       PlayerFpsController.UpdateVelocity();
+      PlayerFpsController.WeaponController?.SwayWeapon(delta, false);
       SetAnimationSpeed(PlayerFpsController.Velocity.Length());
 
       if (Input.IsActionJustReleased("sprint") || PlayerFpsController.Velocity.Length() == 0f)
