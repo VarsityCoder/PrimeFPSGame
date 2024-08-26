@@ -1,9 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://drqq1iisim2uh"]
+[gd_scene load_steps=32 format=3 uid="uid://drqq1iisim2uh"]
 
 [ext_resource type="Script" path="res://src/scripts/PlayerFpsController.cs" id="1_an64t"]
 [ext_resource type="Script" path="res://src/scripts/Reticle.cs" id="2_67aym"]
 [ext_resource type="Theme" uid="uid://cn4j64ethoics" path="res://src/Assets/Themes/UiTheme.tres" id="3_ek3cj"]
+[ext_resource type="ArrayMesh" uid="uid://bkiqvakahrfho" path="res://src/Assets/BlasterNMesh.res" id="3_jetn8"]
 [ext_resource type="PackedScene" uid="uid://erojknd8ks2j" path="res://src/Assets/weapon_blaster.tscn" id="3_xgkef"]
+[ext_resource type="Script" path="res://src/scripts/WeaponsResource.cs" id="4_3mivm"]
 [ext_resource type="Script" path="res://src/scripts/DebugPanel.cs" id="4_b3rrv"]
 [ext_resource type="Script" path="res://src/scripts/StateMachine.cs" id="5_h4cac"]
 [ext_resource type="Script" path="res://src/scripts/IdlePlayerState.cs" id="6_tgb7n"]
@@ -19,6 +21,31 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5ador"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qbqvo"]
+
+[sub_resource type="Resource" id="Resource_hqclq"]
+script = ExtResource("4_3mivm")
+Name = ""
+Position = Vector3(0.2, -0.28, -0.51)
+Rotation = Vector3(0, 180, 0)
+Scale = Vector3(0, 0, 0)
+SwayMin = Vector2(-20, -20)
+SwayMax = Vector2(20, 20)
+SwaySpeedPosition = 0.2
+SwaySpeedRotation = 0.2
+SwayAmountPosition = 0.25
+SwayAmountRotation = 50.0
+IdleSwayAdjustment = 10.0
+IdleSwayRotationStrength = 30.0
+RandomSwayAmount = 10.0
+Mesh = ExtResource("3_jetn8")
+Shadow = false
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ttrgv"]
+noise_type = 4
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wpile"]
+noise = SubResource("FastNoiseLite_ttrgv")
 
 [sub_resource type="Animation" id="Animation_47c6w"]
 resource_name = "Crouch"
@@ -501,6 +528,9 @@ update_mode = 1
 
 [node name="WeaponBlaster" parent="CameraController/Camera3D/WeaponContainer" instance=ExtResource("3_xgkef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.28, -0.51)
+_weaponType = SubResource("Resource_hqclq")
+_swayNoise = SubResource("NoiseTexture2D_wpile")
+_swaySpeed = 50.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
