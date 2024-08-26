@@ -31,6 +31,7 @@ public partial class IdlePlayerState : PlayerMovementState {
       PlayerFpsController.UpdateGravity(delta);
       PlayerFpsController.UpdateInput(_speedDefault, _acceleration, _deceleration);
       PlayerFpsController.UpdateVelocity();
+      PlayerFpsController.WeaponController?.SwayWeapon(delta, true);
       if (Global.PlayerFpsController.Velocity.Length() > 0.0f && Global.PlayerFpsController.IsOnFloor()) {
         EmitSignal(State.SignalName.Transition, "WalkingPlayerState");
       }
