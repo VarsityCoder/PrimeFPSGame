@@ -526,11 +526,12 @@ update_mode = 1
 
 [node name="WeaponContainer" type="Node3D" parent="CameraController/Camera3D"]
 
-[node name="WeaponBlaster" parent="CameraController/Camera3D/WeaponContainer" instance=ExtResource("3_xgkef")]
+[node name="WeaponBlaster" parent="CameraController/Camera3D/WeaponContainer" node_paths=PackedStringArray("_attackCamera") instance=ExtResource("3_xgkef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.28, -0.51)
 _weaponType = SubResource("Resource_hqclq")
 _swayNoise = SubResource("NoiseTexture2D_wpile")
 _swaySpeed = 50.0
+_attackCamera = NodePath("../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
