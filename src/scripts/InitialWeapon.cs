@@ -91,21 +91,21 @@ public partial class InitialWeapon : Node3D
         }
     }
 
-    private void SwayWeapon(float delta)
+    public void SwayWeapon(float delta, bool isIdle)
     {
-        var swayRandom = GetSwayNoise();
-        var swayRandomAdjusted = swayRandom * _idleSwayAdjustment;
-
-        _time += delta * (_swaySpeed * swayRandom);
-        _randomSwayX = Mathf.Sin(_time * 1.5f + swayRandomAdjusted) / _randomSwayAmount;
-        _randomSwayY = Mathf.Sin(_time - swayRandomAdjusted) / _randomSwayAmount;
-
-
         if (_weaponType != null)
         {
             _mouseMovement = _mouseMovement.Clamp(_weaponType.SwayMin, _weaponType.SwayMax);
+        }
+        if (isIdle && _weaponType != null)
+        {
+            var swayRandom = GetSwayNoise();
+            var swayRandomAdjusted = swayRandom * _idleSwayAdjustment;
+
+            _time += delta * (_swaySpeed * swayRandom);
+            _randomSwayX = Mathf.Sin(_time * 1.5f + swayRandomAdjusted) / _randomSwayAmount;
+            _randomSwayY = Mathf.Sin(_time - swayRandomAdjusted) / _randomSwayAmount;
             var tempPosition = Position;
-            _mouseMovement = _mouseMovement.Clamp(_weaponType.SwayMin, _weaponType.SwayMax);
             tempPosition.X = Mathf.Lerp(Position.X, _weaponType.Position.X - (_mouseMovement.X * _weaponType.SwayAmountPosition + _randomSwayX) 
                 * delta, _weaponType.SwaySpeedPosition);
             
@@ -123,13 +123,31 @@ public partial class InitialWeapon : Node3D
                 _weaponType.SwaySpeedRotation);
             RotationDegrees = tempRotationDegrees;
         }
-    }
+        else
+        {
+            if (_weaponType != null)
+            {
+                var tempPosition = Position;
+                tempPosition.X = Mathf.Lerp(Position.X, _weaponType.Position.X - (_mouseMovement.X * _weaponType.SwayAmountPosition) 
+                    * delta, _weaponType.SwaySpeedPosition);
+            
+                tempPosition.Y = Mathf.Lerp(Position.Y, _weaponType.Position.Y + (_mouseMovement.Y * _weaponType.SwayAmountPosition) 
+                    * delta, _weaponType.SwaySpeedPosition);
+                Position = tempPosition;
 
-    public override void _PhysicsProcess(double delta)
-    {
-        SwayWeapon((float)delta);
-    }
+                var tempRotationDegrees = RotationDegrees;
+                tempRotationDegrees.Y = Mathf.Lerp(RotationDegrees.Y,
+                    _weaponType.Rotation.Y + (_mouseMovement.Y * _weaponType.SwayAmountRotation) * delta,
+                    _weaponType.SwaySpeedRotation);
 
+                tempRotationDegrees.X = Mathf.Lerp(RotationDegrees.X,
+                    _weaponType.Rotation.X - (_mouseMovement.X * _weaponType.SwayAmountRotation) * delta,
+                    _weaponType.SwaySpeedRotation);
+                RotationDegrees = tempRotationDegrees;
+            
+            }
+        }
+    }
     private float GetSwayNoise()
     {
         var playerPosition = Vector3.Zero;
