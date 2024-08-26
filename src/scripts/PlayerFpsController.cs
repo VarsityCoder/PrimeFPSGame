@@ -4,7 +4,10 @@ namespace PrimeFPSGame.Scripts;
 
 using System.Globalization;
 
+
 public partial class PlayerFpsController : CharacterBody3D {
+  
+
   private const float JumpVelocity = 4.5f;
   private bool _mouseInput;
   private float _rotationInput;
@@ -20,18 +23,21 @@ public partial class PlayerFpsController : CharacterBody3D {
   public float CurrentRotation;
 
 
+
   [Export] private double _tiltLowerLimit = Mathf.DegToRad(-90.0);
   [Export] private double _tiltUpperLimit = Mathf.DegToRad(90.0);
   [Export] private Camera3D? _cameraController;
   [Export] private float _mouseSensitivity = 0.5f;
-  [Export] public AnimationPlayer? AnimationPlayer;
+  [Export] protected internal AnimationPlayer? AnimationPlayer;
   [Export] private ShapeCast3D? _crouchShapeCast;
   [Export] private bool _toggleCrouchMode = true;
+  protected internal InitialWeapon? WeaponController;
 
   public override void _Ready() {
     Global.PlayerFpsController = this;
     Input.MouseMode = Input.MouseModeEnum.Captured;
     _crouchShapeCast?.AddException(this);
+    WeaponController = GetNode<Node3D>("CameraController/Camera3D/WeaponContainer/WeaponBlaster") as InitialWeapon;
   }
 
   public override void _PhysicsProcess(double delta) {
