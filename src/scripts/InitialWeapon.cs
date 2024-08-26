@@ -45,6 +45,7 @@ public partial class InitialWeapon : Node3D
     private float _time;
     private float _idleSwayAdjustment;
     private float _idleSwayRotationStrength;
+    private Vector2 _weaponBobAmount = Vector2.Zero;
     
 
     private Vector2 _mouseMovement;
@@ -128,10 +129,10 @@ public partial class InitialWeapon : Node3D
             if (_weaponType != null)
             {
                 var tempPosition = Position;
-                tempPosition.X = Mathf.Lerp(Position.X, _weaponType.Position.X - (_mouseMovement.X * _weaponType.SwayAmountPosition) 
+                tempPosition.X = Mathf.Lerp(Position.X, _weaponType.Position.X - (_mouseMovement.X * _weaponType.SwayAmountPosition + _weaponBobAmount.X) 
                     * delta, _weaponType.SwaySpeedPosition);
             
-                tempPosition.Y = Mathf.Lerp(Position.Y, _weaponType.Position.Y + (_mouseMovement.Y * _weaponType.SwayAmountPosition) 
+                tempPosition.Y = Mathf.Lerp(Position.Y, _weaponType.Position.Y + (_mouseMovement.Y * _weaponType.SwayAmountPosition + _weaponBobAmount.Y) 
                     * delta, _weaponType.SwaySpeedPosition);
                 Position = tempPosition;
 
@@ -147,6 +148,13 @@ public partial class InitialWeapon : Node3D
             
             }
         }
+    }
+
+    public void WeaponBob(float delta, float bobSpeed, float horizontalBobAmount, float verticalBobAmount)
+    {
+        _time += delta;
+        _weaponBobAmount.X = Mathf.Sin(_time * bobSpeed) * horizontalBobAmount;
+        _weaponBobAmount.Y = Mathf.Abs(Mathf.Cos(_time * bobSpeed) * verticalBobAmount);
     }
     private float GetSwayNoise()
     {
