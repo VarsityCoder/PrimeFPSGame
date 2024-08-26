@@ -9,6 +9,9 @@ public partial class WalkingPlayerState : PlayerMovementState {
   [Export] private float _speedDefault = 5.0f;
   [Export] private float _acceleration = 0.1f;
   [Export] private float _deceleration = 0.25f;
+  [Export] private float _bobSpeed = 5f;
+  [Export] private float _horizontalBobAmount = 1f;
+  [Export] private float _verticalBobAmount = 0.5f;
 
   public override async void Enter(State currentState) {
     if (_animationPlayer != null)
@@ -44,6 +47,7 @@ public partial class WalkingPlayerState : PlayerMovementState {
       PlayerFpsController.UpdateInput(_speedDefault, _acceleration, _deceleration);
       PlayerFpsController.UpdateVelocity();
       PlayerFpsController.WeaponController?.SwayWeapon(delta, false);
+      PlayerFpsController.WeaponController?.WeaponBob(delta,_bobSpeed, _horizontalBobAmount,_verticalBobAmount);
       SetAnimationSpeed(Global.PlayerFpsController.Velocity.Length());
       if (Input.IsActionJustPressed("jump") && Global.PlayerFpsController.IsOnFloor())
       {
