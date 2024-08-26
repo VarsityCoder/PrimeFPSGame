@@ -43,6 +43,7 @@ public partial class WalkingPlayerState : PlayerMovementState {
       PlayerFpsController.UpdateGravity(delta);
       PlayerFpsController.UpdateInput(_speedDefault, _acceleration, _deceleration);
       PlayerFpsController.UpdateVelocity();
+      PlayerFpsController.WeaponController?.SwayWeapon(delta, false);
       SetAnimationSpeed(Global.PlayerFpsController.Velocity.Length());
       if (Input.IsActionJustPressed("jump") && Global.PlayerFpsController.IsOnFloor())
       {
