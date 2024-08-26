@@ -38,6 +38,8 @@ public partial class InitialWeapon : Node3D
     private MeshInstance3D _weaponShadow = new MeshInstance3D();
     [Export] private NoiseTexture2D? _swayNoise;
     [Export] private float _swaySpeed = 1.2f;
+    [Export] private Camera3D? _attackCamera;
+    private PackedScene _raycastTest = GD.Load<PackedScene>("res://src/Assets/Flag.tscn");
 
     private float _randomSwayX;
     private float _randomSwayY;
@@ -170,5 +172,33 @@ public partial class InitialWeapon : Node3D
             noiseLocation = _swayNoise.Noise.GetNoise2D(playerPosition.X, playerPosition.Y);
         }
         return noiseLocation;
+    }
+
+    public void Attack()
+    {
+        if (_attackCamera != null)
+        {
+            var spaceState = _attackCamera?.GetWorld3D().DirectSpaceState;
+            var screenCenter = GetViewport().GetWindow().Size / 2;
+            if (_attackCamera != null)
+            {
+                var origin = _attackCamera.ProjectRayOrigin(screenCenter);
+                var end = origin + _attackCamera.ProjectRayNormal(screenCenter ) * 1000;
+                var query = PhysicsRayQueryParameters3D.Create(origin, end);
+                query.CollideWithBodies = true;
+                var result = spaceState?.IntersectRay(query);
+                if (result != null)
+                {
+                    TestRaycast((Vector3)result["position"]);
+                }
+            }
+        }
+    }
+
+    private void TestRaycast(Vector3 position)
+    {
+        var instance = _raycastTest.Instantiate() as Node3D;
+        GetTree().Root.AddChild(instance);
+        if (instance != null) instance.GlobalPosition = position;
     }
 }
