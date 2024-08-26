@@ -28,6 +28,8 @@ public partial class WeaponsResource : Resource
 
     [Export] protected internal float IdleSwayAdjustment = 10.0f;
     [Export] protected internal float IdleSwayRotationStrength = 30.0f;
+    [Export(PropertyHint.Range, "0.1,10,0.1")]
+    protected internal float RandomSwayAmount = 5.0f;
 
     [ExportCategory("Visual Settings")] 
     [Export] protected internal Mesh? Mesh;
