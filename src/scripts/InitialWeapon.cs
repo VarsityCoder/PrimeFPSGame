@@ -17,10 +17,35 @@ public partial class InitialWeapon : Node3D
             }
         }
     }
+
+    [Export] private bool _reset;
+
+    public bool Reset
+    {
+        get => _reset;
+        set
+        {
+            _reset = value;
+            if (Engine.IsEditorHint())
+            {
+                LoadWeapon();
+            }
+        }
+    }
+    
     
     private MeshInstance3D? _weaponMesh;
     private MeshInstance3D _weaponShadow = new MeshInstance3D();
     [Export] private NoiseTexture2D? _swayNoise;
+    [Export] private float _swaySpeed = 1.2f;
+
+    private float _randomSwayX;
+    private float _randomSwayY;
+    private float _randomSwayAmount;
+    private float _time;
+    private float _idleSwayAdjustment;
+    private float _idleSwayRotationStrength;
+    
 
     private Vector2 _mouseMovement;
     
@@ -38,6 +63,9 @@ public partial class InitialWeapon : Node3D
             Position = _weaponType.Position;
             RotationDegrees = _weaponType.Rotation;
             _weaponShadow.Visible = _weaponType.Shadow;
+            _idleSwayAdjustment = _weaponType.IdleSwayAdjustment;
+            _idleSwayRotationStrength = _weaponType.IdleSwayRotationStrength;
+            _randomSwayAmount = _weaponType.RandomSwayAmount;
         }
 
     }
@@ -65,24 +93,33 @@ public partial class InitialWeapon : Node3D
 
     private void SwayWeapon(float delta)
     {
+        var swayRandom = GetSwayNoise();
+        var swayRandomAdjusted = swayRandom * _idleSwayAdjustment;
+
+        _time += delta * (_swaySpeed * swayRandom);
+        _randomSwayX = Mathf.Sin(_time * 1.5f + swayRandomAdjusted) / _randomSwayAmount;
+        _randomSwayY = Mathf.Sin(_time - swayRandomAdjusted) / _randomSwayAmount;
+
+
         if (_weaponType != null)
         {
+            _mouseMovement = _mouseMovement.Clamp(_weaponType.SwayMin, _weaponType.SwayMax);
             var tempPosition = Position;
             _mouseMovement = _mouseMovement.Clamp(_weaponType.SwayMin, _weaponType.SwayMax);
-            tempPosition.X = Mathf.Lerp(Position.X, _weaponType.Position.X - (_mouseMovement.X * _weaponType.SwayAmountPosition) 
+            tempPosition.X = Mathf.Lerp(Position.X, _weaponType.Position.X - (_mouseMovement.X * _weaponType.SwayAmountPosition + _randomSwayX) 
                 * delta, _weaponType.SwaySpeedPosition);
             
-            tempPosition.Y = Mathf.Lerp(Position.Y, _weaponType.Position.Y + (_mouseMovement.Y * _weaponType.SwayAmountPosition) 
+            tempPosition.Y = Mathf.Lerp(Position.Y, _weaponType.Position.Y + (_mouseMovement.Y * _weaponType.SwayAmountPosition + _randomSwayY) 
                 * delta, _weaponType.SwaySpeedPosition);
             Position = tempPosition;
 
             var tempRotationDegrees = RotationDegrees;
             tempRotationDegrees.Y = Mathf.Lerp(RotationDegrees.Y,
-                _weaponType.Rotation.Y + (_mouseMovement.Y * _weaponType.SwayAmountRotation) * delta,
+                _weaponType.Rotation.Y + (_mouseMovement.Y * _weaponType.SwayAmountRotation + (_randomSwayY * _idleSwayRotationStrength)) * delta,
                 _weaponType.SwaySpeedRotation);
 
             tempRotationDegrees.X = Mathf.Lerp(RotationDegrees.X,
-                _weaponType.Rotation.X - (_mouseMovement.X * _weaponType.SwayAmountRotation) * delta,
+                _weaponType.Rotation.X - (_mouseMovement.X * _weaponType.SwayAmountRotation + (_randomSwayX * _idleSwayRotationStrength)) * delta,
                 _weaponType.SwaySpeedRotation);
             RotationDegrees = tempRotationDegrees;
         }
@@ -91,5 +128,21 @@ public partial class InitialWeapon : Node3D
     public override void _PhysicsProcess(double delta)
     {
         SwayWeapon((float)delta);
+    }
+
+    private float GetSwayNoise()
+    {
+        var playerPosition = Vector3.Zero;
+        if (!Engine.IsEditorHint())
+        {
+            playerPosition = Global.PlayerFpsController.GlobalPosition;
+        }
+
+        var noiseLocation = 0f;
+        if (_swayNoise != null)
+        {
+            noiseLocation = _swayNoise.Noise.GetNoise2D(playerPosition.X, playerPosition.Y);
+        }
+        return noiseLocation;
     }
 }
