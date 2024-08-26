@@ -9,6 +9,10 @@ public partial class SprintingPlayerState : PlayerMovementState {
   [Export] private float _speedDefault = 100.0f;
   [Export] private float _acceleration = 0.1f;
   [Export] private float _deceleration = 0.25f;
+  [Export] private float _bobSpeed = 8f;
+  [Export] private float _horizontalBobAmount = 1.5f;
+  [Export] private float _verticalBobAmount = 1f;
+
 
   public override async void Enter(State currentState) {
     if (_animationPlayer != null)
@@ -41,6 +45,7 @@ public partial class SprintingPlayerState : PlayerMovementState {
       PlayerFpsController.UpdateInput(_speedDefault, _acceleration, _deceleration);
       PlayerFpsController.UpdateVelocity();
       PlayerFpsController.WeaponController?.SwayWeapon(delta, false);
+      PlayerFpsController.WeaponController?.WeaponBob(delta, _bobSpeed, _horizontalBobAmount, _verticalBobAmount);
       SetAnimationSpeed(PlayerFpsController.Velocity.Length());
 
       if (Input.IsActionJustReleased("sprint") || PlayerFpsController.Velocity.Length() == 0f)
