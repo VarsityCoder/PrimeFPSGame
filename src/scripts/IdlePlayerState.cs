@@ -48,6 +48,11 @@ public partial class IdlePlayerState : PlayerMovementState {
       {
         EmitSignal(State.SignalName.Transition, "FallingPlayerState");
       }
+
+      if (Input.IsActionJustPressed("fire"))
+      {
+        PlayerFpsController.WeaponController?.Attack();
+      }
     }
   }
 }
