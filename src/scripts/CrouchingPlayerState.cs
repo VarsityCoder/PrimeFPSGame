@@ -10,6 +10,9 @@ public partial class CrouchingPlayerState : PlayerMovementState
     [Export] public float Deceleration = 0.25f;
     [Export] public float CrouchSpeed = 4.0f;
     [Export] public ShapeCast3D? CrouchShapeCast;
+    [Export] private float _bobSpeed = 2f;
+    [Export] private float _horizontalBobAmount = 0.5f;
+    [Export] private float _verticalBobAmount = 0.25f;
 
     private bool _released;
 
@@ -42,6 +45,7 @@ public partial class CrouchingPlayerState : PlayerMovementState
             PlayerFpsController.UpdateInput(SpeedDefault, Acceleration, Deceleration);
             PlayerFpsController.UpdateVelocity();
             PlayerFpsController.WeaponController?.SwayWeapon(delta, false);
+            PlayerFpsController.WeaponController?.WeaponBob(delta, _bobSpeed, _horizontalBobAmount, _verticalBobAmount);
             if (Input.IsActionJustReleased("crouch"))
             {
                 Uncrouch();
