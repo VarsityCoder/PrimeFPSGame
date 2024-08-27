@@ -40,6 +40,7 @@ public partial class InitialWeapon : Node3D
     [Export] private float _swaySpeed = 1.2f;
     [Export] private Camera3D? _attackCamera;
     private PackedScene _raycastTest = GD.Load<PackedScene>("res://src/Assets/Flag.tscn");
+    private Tween? _decalTween;
 
     private float _randomSwayX;
     private float _randomSwayY;
@@ -55,6 +56,8 @@ public partial class InitialWeapon : Node3D
     public override void _Ready()
     {
         _weaponMesh = GetNode<MeshInstance3D>("WeaponMesh");
+        _decalTween = GetTree().CreateTween();
+        _decalTween.Stop();
         LoadWeapon();
     }
 
@@ -87,10 +90,9 @@ public partial class InitialWeapon : Node3D
             LoadWeapon();
         }
 
-        if (@event is InputEventMouseMotion)
+        if (@event is InputEventMouseMotion motion)
         {
-            var m = (InputEventMouseMotion)@event;
-            _mouseMovement = m.Relative;
+            _mouseMovement = motion.Relative;
         }
     }
 
@@ -178,27 +180,41 @@ public partial class InitialWeapon : Node3D
     {
         if (_attackCamera != null)
         {
-            var spaceState = _attackCamera?.GetWorld3D().DirectSpaceState;
+            var spaceState = _attackCamera.GetWorld3D().DirectSpaceState;
             var screenCenter = GetViewport().GetWindow().Size / 2;
-            if (_attackCamera != null)
-            {
-                var origin = _attackCamera.ProjectRayOrigin(screenCenter);
-                var end = origin + _attackCamera.ProjectRayNormal(screenCenter ) * 1000;
-                var query = PhysicsRayQueryParameters3D.Create(origin, end);
-                query.CollideWithBodies = true;
-                var result = spaceState?.IntersectRay(query);
-                if (result != null)
-                {
-                    TestRaycast((Vector3)result["position"]);
-                }
-            }
+            var origin = _attackCamera.ProjectRayOrigin(screenCenter);
+            var end = origin + _attackCamera.ProjectRayNormal(screenCenter ) * 1000;
+            var query = PhysicsRayQueryParameters3D.Create(origin, end);
+            query.CollideWithBodies = true;
+            var result = spaceState?.IntersectRay(query);
+            if (result != null) DecalSpawn((Vector3)result["position"], (Vector3)result["normal"]);
         }
     }
 
-    private void TestRaycast(Vector3 position)
+    private void DecalSpawn(Vector3 position, Vector3 normal)
     {
-        var instance = _raycastTest.Instantiate() as Node3D;
+        var instance = _raycastTest.Instantiate() as Decal;
         GetTree().Root.AddChild(instance);
-        if (instance != null) instance.GlobalPosition = position;
+        if (instance != null)
+        {
+            instance.GlobalPosition = position;
+            instance.LookAt(instance.GlobalTransform.Origin + normal, Vector3.Up);
+            if (normal != Vector3.Up && normal != Vector3.Down)
+            {
+                instance.RotateObjectLocal(new Vector3(1,0,0), 90);
+            }
+
+            if (_decalTween != null && !_decalTween.IsRunning())
+            {
+                //TODO need to figure out why not tweening
+                _decalTween.TweenProperty(instance, "modulate:a", 0, 1.5);
+                GetTree().CreateTimer(2).Timeout += () => instance.QueueFree();
+            }
+
+
+        }
+   
+
+
     }
 }
