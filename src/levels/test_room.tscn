@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://dv5idqfneol04"]
+[gd_scene load_steps=11 format=3 uid="uid://dv5idqfneol04"]
 
 [ext_resource type="Texture2D" uid="uid://bxrqi3jnc8eti" path="res://src/Assets/Prototype Textures/Vector/texture_13.svg" id="1_mdyuh"]
 [ext_resource type="PackedScene" uid="uid://drqq1iisim2uh" path="res://src/Assets/player_fps_controller.tscn" id="3_e284o"]
 [ext_resource type="Texture2D" uid="uid://cblpkweqk7ag8" path="res://src/Assets/Prototype Textures/Vector/texture_01.svg" id="3_rg6b2"]
-[ext_resource type="PackedScene" uid="uid://bmrthsyio252t" path="res://src/Assets/mesh_instance_3d.tscn" id="4_dgd7v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_702ug"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -66,5 +65,3 @@ size = Vector3(10, 2, 10)
 
 [node name="PlayerFPSController" parent="." instance=ExtResource("3_e284o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001, -0.682199, 0)
-
-[node name="MeshInstance3D" parent="." instance=ExtResource("4_dgd7v")]
