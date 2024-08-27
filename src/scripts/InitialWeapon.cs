@@ -187,7 +187,10 @@ public partial class InitialWeapon : Node3D
             var query = PhysicsRayQueryParameters3D.Create(origin, end);
             query.CollideWithBodies = true;
             var result = spaceState?.IntersectRay(query);
-            if (result != null) DecalSpawn((Vector3)result["position"], (Vector3)result["normal"]);
+            if (result != null)
+            {
+                DecalSpawn((Vector3)result["position"], (Vector3)result["normal"]);
+            }
         }
     }
 
@@ -198,7 +201,12 @@ public partial class InitialWeapon : Node3D
         if (instance != null)
         {
             instance.GlobalPosition = position;
-            instance.LookAt(instance.GlobalTransform.Origin + normal, Vector3.Up);
+            if (normal != Vector3.Up)
+            {
+                instance.LookAt(instance.GlobalTransform.Origin + normal, Vector3.Up);
+            }
+
+
             if (normal != Vector3.Up && normal != Vector3.Down)
             {
                 instance.RotateObjectLocal(new Vector3(1,0,0), 90);
@@ -210,11 +218,7 @@ public partial class InitialWeapon : Node3D
                 _decalTween.TweenProperty(instance, "modulate:a", 0, 1.5);
                 GetTree().CreateTimer(2).Timeout += () => instance.QueueFree();
             }
-
-
         }
-   
-
 
     }
 }
