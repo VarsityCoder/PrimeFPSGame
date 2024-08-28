@@ -37,7 +37,7 @@ public partial class PlayerFpsController : CharacterBody3D {
     Global.PlayerFpsController = this;
     Input.MouseMode = Input.MouseModeEnum.Captured;
     _crouchShapeCast?.AddException(this);
-    WeaponController = GetNode<Node3D>("CameraController/Camera3D/WeaponContainer/WeaponBlaster") as InitialWeapon;
+    WeaponController = GetNode<Node3D>("CameraController/Recoil/Camera3D/WeaponContainer/WeaponBlaster") as InitialWeapon;
   }
 
   public override void _PhysicsProcess(double delta) {
