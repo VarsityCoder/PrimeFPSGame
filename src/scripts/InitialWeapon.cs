@@ -57,7 +57,7 @@ public partial class InitialWeapon : Node3D
     
     public override void _Ready()
     {
-        _weaponMesh = GetNode<MeshInstance3D>("WeaponMesh");
+        _weaponMesh = GetNode<MeshInstance3D>("RecoilPosition/WeaponMesh");
         _decalTween = GetTree().CreateTween();
         _decalTween.Stop();
         LoadWeapon();
