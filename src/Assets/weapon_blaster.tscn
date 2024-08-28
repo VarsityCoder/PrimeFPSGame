@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://erojknd8ks2j"]
+[gd_scene load_steps=8 format=3 uid="uid://erojknd8ks2j"]
 
 [ext_resource type="PackedScene" uid="uid://dwy7psh77w67l" path="res://src/Assets/Blaster Kit/Models/GLTF format/blasterN.glb" id="1_7p2yk"]
 [ext_resource type="Script" path="res://src/scripts/InitialWeapon.cs" id="2_hs8o3"]
 [ext_resource type="ArrayMesh" uid="uid://bkiqvakahrfho" path="res://src/Assets/BlasterNMesh.res" id="3_0bti2"]
 [ext_resource type="ArrayMesh" uid="uid://cggnggyxlpkrt" path="res://src/Assets/Blaster Kit/Models/OBJ format/blasterN.obj" id="3_15aqb"]
 [ext_resource type="Script" path="res://src/scripts/WeaponsResource.cs" id="4_5bd5e"]
+[ext_resource type="Script" path="res://src/scripts/WeaponRecoilPhysical.cs" id="5_0wp0c"]
 
 [sub_resource type="Resource" id="Resource_wv8i1"]
 script = ExtResource("4_5bd5e")
@@ -28,9 +29,19 @@ Shadow = false
 script = ExtResource("2_hs8o3")
 _weaponType = SubResource("Resource_wv8i1")
 
-[node name="blasterN" parent="." index="0"]
+[node name="RecoilPosition" type="Node3D" parent="." index="0" node_paths=PackedStringArray("_weaponController")]
+script = ExtResource("5_0wp0c")
+_recoilAmount = Vector3(0.05, 0.05, 0.05)
+_snapAmount = 10.0
+_speed = 20.0
+_weaponController = NodePath("..")
+
+[node name="WeaponMesh" type="MeshInstance3D" parent="RecoilPosition" index="0"]
+mesh = ExtResource("3_15aqb")
+skeleton = NodePath("../..")
+
+[node name="blasterN" parent="." index="1"]
 visible = false
 layers = 2
 
-[node name="WeaponMesh" type="MeshInstance3D" parent="." index="1"]
-mesh = ExtResource("3_15aqb")
+[connection signal="Recoil" from="." to="RecoilPosition" method="AddRecoil"]
