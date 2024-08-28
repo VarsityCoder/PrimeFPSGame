@@ -2,6 +2,8 @@ using Godot;
 namespace PrimeFPSGame.Scripts;
 public partial class InitialWeapon : Node3D
 {
+    [Signal]
+    public delegate void RecoilEventHandler();
 
     [Export] private WeaponsResource? _weaponType;
 
@@ -178,6 +180,7 @@ public partial class InitialWeapon : Node3D
 
     public void Attack()
     {
+        EmitSignal(SignalName.Recoil);
         if (_attackCamera != null)
         {
             var spaceState = _attackCamera.GetWorld3D().DirectSpaceState;
