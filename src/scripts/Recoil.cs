@@ -34,7 +34,6 @@ public partial class Recoil : Node3D
 
     private float GetRandomNumber(float min, float max)
     {
-        GD.Print("We are in the add recoil function");
         Random random = new Random();
         return random.NextSingle() * (max - min) + min;
     }
