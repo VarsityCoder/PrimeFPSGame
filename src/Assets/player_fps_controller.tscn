@@ -534,7 +534,7 @@ update_mode = 1
 [node name="WeaponContainer" type="Node3D" parent="CameraController/Recoil/Camera3D"]
 
 [node name="WeaponBlaster" parent="CameraController/Recoil/Camera3D/WeaponContainer" node_paths=PackedStringArray("_attackCamera") instance=ExtResource("3_xgkef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.28, -0.51)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -0.28, -0.51)
 _weaponType = SubResource("Resource_hqclq")
 _swayNoise = SubResource("NoiseTexture2D_wpile")
 _swaySpeed = 50.0
