@@ -32,7 +32,7 @@ public partial class Recoil : Node3D
             GetRandomNumber(-_recoilAmount.Z, _recoilAmount.Z));
     }
 
-    private float GetRandomNumber(float min, float max)
+    public float GetRandomNumber(float min, float max)
     {
         Random random = new Random();
         return random.NextSingle() * (max - min) + min;
