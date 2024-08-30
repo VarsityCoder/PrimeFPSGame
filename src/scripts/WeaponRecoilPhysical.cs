@@ -8,7 +8,7 @@ public partial class WeaponRecoilPhysical : Node3D
 	[Export] private Vector3 _recoilAmount;
 	[Export] private float _snapAmount;
 	[Export] private float _speed;
-	[Export] private InitialWeapon _weaponController;
+	[Export] private InitialWeapon? _weaponController;
 
 	private Vector3 _currentPosition;
 	private Vector3 _targetPosition;
