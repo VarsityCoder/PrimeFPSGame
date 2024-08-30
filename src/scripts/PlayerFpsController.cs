@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 namespace PrimeFPSGame.Scripts;
@@ -32,6 +33,9 @@ public partial class PlayerFpsController : CharacterBody3D {
   [Export] private ShapeCast3D? _crouchShapeCast;
   [Export] private bool _toggleCrouchMode = true;
   protected internal InitialWeapon? WeaponController;
+  [Export] private float _interactDistance = 2f;
+  private GodotObject? _interactCastResult;
+  
 
   public override void _Ready() {
     Global.PlayerFpsController = this;
@@ -42,7 +46,6 @@ public partial class PlayerFpsController : CharacterBody3D {
 
   public override void _PhysicsProcess(double delta) {
 		var velocity = Velocity;
-
 		// Add the gravity.
 		if (!IsOnFloor())
 		{
@@ -62,9 +65,7 @@ public partial class PlayerFpsController : CharacterBody3D {
 			velocity.Y = JumpVelocity;
       Velocity = velocity;
     }
-
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
+    InteractCast();
 	}
 
   public override void _UnhandledInput(InputEvent @event) {
@@ -146,6 +147,31 @@ public partial class PlayerFpsController : CharacterBody3D {
     }
 
     Velocity = velocity;
+  }
+
+  private void Interact()
+  {
+    
+  }
+
+  private void InteractCast()
+  {
+    if (_cameraController != null)
+    {
+      var spaceState = _cameraController.GetWorld3D().DirectSpaceState;
+      var screenCenter = GetViewport().GetWindow().Size / 2;
+      var origin = _cameraController.ProjectRayOrigin(screenCenter);
+      var end = origin + _cameraController.ProjectRayNormal(screenCenter) * _interactDistance;
+      var query = PhysicsRayQueryParameters3D.Create(origin, end);
+      query.CollideWithBodies = true;
+      var result = spaceState.IntersectRay(query);
+      if (result != null)
+      {
+        var currentCastResult = result["collider"];
+        GD.Print(result);
+      }
+
+    }
   }
 
   public void UpdateVelocity()
