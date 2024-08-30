@@ -4,10 +4,10 @@
 [ext_resource type="Script" path="res://src/scripts/Reticle.cs" id="2_67aym"]
 [ext_resource type="Script" path="res://src/scripts/Recoil.cs" id="2_n1vu1"]
 [ext_resource type="Theme" uid="uid://cn4j64ethoics" path="res://src/Assets/Themes/UiTheme.tres" id="3_ek3cj"]
-[ext_resource type="ArrayMesh" uid="uid://bkiqvakahrfho" path="res://src/Assets/BlasterNMesh.res" id="3_jetn8"]
 [ext_resource type="PackedScene" uid="uid://erojknd8ks2j" path="res://src/Assets/weapon_blaster.tscn" id="3_xgkef"]
 [ext_resource type="Script" path="res://src/scripts/WeaponsResource.cs" id="4_3mivm"]
 [ext_resource type="Script" path="res://src/scripts/DebugPanel.cs" id="4_b3rrv"]
+[ext_resource type="ArrayMesh" uid="uid://chvj7v50fi7wj" path="res://src/Assets/OBJ format/cooking-fork.obj" id="4_cwsp6"]
 [ext_resource type="Script" path="res://src/scripts/StateMachine.cs" id="5_h4cac"]
 [ext_resource type="Script" path="res://src/scripts/IdlePlayerState.cs" id="6_tgb7n"]
 [ext_resource type="Script" path="res://src/scripts/WalkingPlayerState.cs" id="7_nilia"]
@@ -26,8 +26,8 @@
 [sub_resource type="Resource" id="Resource_hqclq"]
 script = ExtResource("4_3mivm")
 Name = ""
-Position = Vector3(0.2, -0.28, -0.51)
-Rotation = Vector3(0, 180, 0)
+Position = Vector3(0.3, -0.28, -0.51)
+Rotation = Vector3(0, 270, 0)
 Scale = Vector3(0, 0, 0)
 SwayMin = Vector2(-20, -20)
 SwayMax = Vector2(20, 20)
@@ -38,7 +38,7 @@ SwayAmountRotation = 50.0
 IdleSwayAdjustment = 10.0
 IdleSwayRotationStrength = 30.0
 RandomSwayAmount = 10.0
-Mesh = ExtResource("3_jetn8")
+Mesh = ExtResource("4_cwsp6")
 Shadow = false
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ttrgv"]
