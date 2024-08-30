@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://erojknd8ks2j"]
+[gd_scene load_steps=14 format=3 uid="uid://erojknd8ks2j"]
 
 [ext_resource type="PackedScene" uid="uid://dwy7psh77w67l" path="res://src/Assets/Blaster Kit/Models/GLTF format/blasterN.glb" id="1_7p2yk"]
 [ext_resource type="Script" path="res://src/scripts/InitialWeapon.cs" id="2_hs8o3"]
 [ext_resource type="ArrayMesh" uid="uid://bkiqvakahrfho" path="res://src/Assets/BlasterNMesh.res" id="3_0bti2"]
-[ext_resource type="ArrayMesh" uid="uid://cggnggyxlpkrt" path="res://src/Assets/Blaster Kit/Models/OBJ format/blasterN.obj" id="3_15aqb"]
 [ext_resource type="Script" path="res://src/scripts/WeaponsResource.cs" id="4_5bd5e"]
 [ext_resource type="Script" path="res://src/scripts/WeaponRecoilPhysical.cs" id="5_0wp0c"]
+[ext_resource type="ArrayMesh" uid="uid://chvj7v50fi7wj" path="res://src/Assets/OBJ format/cooking-fork.obj" id="6_m1sbt"]
+[ext_resource type="Script" path="res://src/scripts/MuzzleFlash.cs" id="7_3fycf"]
 
 [sub_resource type="Resource" id="Resource_wv8i1"]
 script = ExtResource("4_5bd5e")
@@ -25,6 +26,39 @@ RandomSwayAmount = 5.0
 Mesh = ExtResource("3_0bti2")
 Shadow = false
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hrfud"]
+angle_min = -80.0
+angle_max = 80.0
+direction = Vector3(-1, 0, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_xd3hx"]
+colors = PackedColorArray(0.765625, 0.536735, 0.0762634, 1, 0.0449219, 0.0327857, 0.00253591, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uueyj"]
+gradient = SubResource("Gradient_xd3hx")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5w713"]
+transparency = 1
+blend_mode = 1
+albedo_texture = SubResource("GradientTexture2D_uueyj")
+roughness = 0.0
+emission_enabled = true
+emission_energy_multiplier = 16.0
+emission_texture = SubResource("GradientTexture2D_uueyj")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_kri0y"]
+material = SubResource("StandardMaterial3D_5w713")
+size = Vector2(0.05, 0.05)
+
 [node name="WeaponBlaster" instance=ExtResource("1_7p2yk")]
 script = ExtResource("2_hs8o3")
 _weaponType = SubResource("Resource_wv8i1")
@@ -37,11 +71,29 @@ _speed = 20.0
 _weaponController = NodePath("..")
 
 [node name="WeaponMesh" type="MeshInstance3D" parent="RecoilPosition" index="0"]
-mesh = ExtResource("3_15aqb")
+mesh = ExtResource("6_m1sbt")
 skeleton = NodePath("../..")
 
 [node name="blasterN" parent="." index="1"]
 visible = false
 layers = 2
 
+[node name="MuzzleFlash" type="Node3D" parent="." index="2" node_paths=PackedStringArray("_weaponController")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31, 0.07, 0)
+script = ExtResource("7_3fycf")
+_weaponController = NodePath("..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="MuzzleFlash" index="0"]
+visible = false
+light_color = Color(0.941005, 0.523708, 0.476005, 1)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="MuzzleFlash" index="1"]
+emitting = false
+lifetime = 0.05
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_hrfud")
+draw_pass_1 = SubResource("QuadMesh_kri0y")
+
 [connection signal="Recoil" from="." to="RecoilPosition" method="AddRecoil"]
+[connection signal="Recoil" from="." to="MuzzleFlash" method="AddMuzzleFlash"]
