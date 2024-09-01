@@ -33,8 +33,8 @@ public partial class PlayerFpsController : CharacterBody3D {
   [Export] private ShapeCast3D? _crouchShapeCast;
   [Export] private bool _toggleCrouchMode = true;
   protected internal InitialWeapon? WeaponController;
-  [Export] private float _interactDistance = 2f;
-  private GodotObject? _interactCastResult;
+  [Export] private float _interactDistance = 10f;
+  private Variant? _interactCastResult;
   
 
   public override void _Ready() {
@@ -130,6 +130,14 @@ public partial class PlayerFpsController : CharacterBody3D {
       Velocity = tempVector3;
   }
 
+  public override void _Input(InputEvent @event)
+  {
+    if (@event.IsActionPressed("interact"))
+    {
+      Interact();
+    }
+  }
+
   public void UpdateInput(float speed, float acceleration, float deceleration) 
   {
     var velocity = Velocity;
@@ -151,7 +159,11 @@ public partial class PlayerFpsController : CharacterBody3D {
 
   private void Interact()
   {
-    
+    GD.Print("In the interact function");
+    if (_interactCastResult != null)
+    {
+      GD.Print(_interactCastResult);
+    }
   }
 
   private void InteractCast()
@@ -165,12 +177,11 @@ public partial class PlayerFpsController : CharacterBody3D {
       var query = PhysicsRayQueryParameters3D.Create(origin, end);
       query.CollideWithBodies = true;
       var result = spaceState.IntersectRay(query);
-      if (result != null)
+      if (result != null && result.Keys.Contains("collider"))
       {
         var currentCastResult = result["collider"];
-        GD.Print(result);
+        _interactCastResult = currentCastResult;
       }
-
     }
   }
 
