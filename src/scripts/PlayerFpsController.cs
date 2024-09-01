@@ -181,14 +181,16 @@ public partial class PlayerFpsController : CharacterBody3D {
         var currentCastResult = result["collider"];
         if ((Node)currentCastResult != _interactCastResult)
         {
+       
           if (_interactCastResult != null && _interactCastResult.HasUserSignal("Unfocused"))
           {
-            GD.Print(_interactCastResult + "Unfocused!");
+            _interactCastResult.EmitSignal("Unfocused");
           }
           _interactCastResult = (Node)currentCastResult;
           if (_interactCastResult != null && _interactCastResult.HasUserSignal("Focused"))
           {
-            GD.Print(_interactCastResult + "Focused!");
+            _interactCastResult.EmitSignal("Focused");
+
           }
         }
 
