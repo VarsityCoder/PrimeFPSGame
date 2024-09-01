@@ -7,7 +7,7 @@ public partial class InteractionComponent : Node
 {
 	private Node? _parent;
 	private Material _highlightMaterial = GD.Load<Material>("res://src/Assets/Materials/InteractableHighlight.tres");
-	[Export] private MeshInstance3D? _meshInstance;
+	private MeshInstance3D? _meshInstance;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -69,7 +69,19 @@ public partial class InteractionComponent : Node
 		}
 		else
 		{
-			_meshInstance = GetParent<MeshInstance3D>();
+			if (_parent != null)
+			{
+				foreach (Node? child in _parent.GetChildren())
+				{
+					{
+						if (child is MeshInstance3D instance3D)
+						{
+							_meshInstance = instance3D;
+							GD.Print("Mesh was set");
+						}
+					}
+				}
+			}
 		}
 	}
 }
