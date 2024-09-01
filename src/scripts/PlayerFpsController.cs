@@ -34,7 +34,7 @@ public partial class PlayerFpsController : CharacterBody3D {
   [Export] private bool _toggleCrouchMode = true;
   protected internal InitialWeapon? WeaponController;
   [Export] private float _interactDistance = 10f;
-  private Variant? _interactCastResult;
+  private Node? _interactCastResult;
   
 
   public override void _Ready() {
@@ -159,9 +159,9 @@ public partial class PlayerFpsController : CharacterBody3D {
 
   private void Interact()
   {
-    if (_interactCastResult != null)
+    if (_interactCastResult != null && _interactCastResult.HasUserSignal("Interacted"))
     {
-      GD.Print(_interactCastResult);
+      _interactCastResult.EmitSignal("Interacted");
     }
   }
 
@@ -176,10 +176,22 @@ public partial class PlayerFpsController : CharacterBody3D {
       var query = PhysicsRayQueryParameters3D.Create(origin, end);
       query.CollideWithBodies = true;
       var result = spaceState.IntersectRay(query);
-      if (result != null && result.Keys.Contains("collider"))
+      if (result.Keys.Contains("collider"))
       {
         var currentCastResult = result["collider"];
-        _interactCastResult = currentCastResult;
+        if ((Node)currentCastResult != _interactCastResult)
+        {
+          if (_interactCastResult != null && _interactCastResult.HasUserSignal("Unfocused"))
+          {
+            GD.Print(_interactCastResult + "Unfocused!");
+          }
+          _interactCastResult = (Node)currentCastResult;
+          if (_interactCastResult != null && _interactCastResult.HasUserSignal("Focused"))
+          {
+            GD.Print(_interactCastResult + "Focused!");
+          }
+        }
+
       }
     }
   }
