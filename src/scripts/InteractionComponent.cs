@@ -27,7 +27,6 @@ public partial class InteractionComponent : Node
 	{
 		if (_meshInstance != null)
 		{
-			GD.Print("We are InRange");
 			_meshInstance.MaterialOverlay = _highlightMaterial;
 		}
 	}
@@ -36,7 +35,6 @@ public partial class InteractionComponent : Node
 	{
 		if (_meshInstance != null)
 		{
-			GD.Print("We are OutRange");
 			_meshInstance.MaterialOverlay = null;
 		}
 
