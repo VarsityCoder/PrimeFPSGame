@@ -159,7 +159,6 @@ public partial class PlayerFpsController : CharacterBody3D {
 
   private void Interact()
   {
-    GD.Print("In the interact function");
     if (_interactCastResult != null)
     {
       GD.Print(_interactCastResult);
