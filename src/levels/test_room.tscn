@@ -33,19 +33,18 @@ albedo_texture = ExtResource("3_rg6b2")
 
 [node name="TestRoom" type="Node3D"]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="ItemPickup" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5167, 0, -7.73284)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ItemPickup"]
 shape = SubResource("ConcavePolygonShape3D_0ska3")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ItemPickup"]
 mesh = SubResource("BoxMesh_5x6h5")
 skeleton = NodePath("../..")
 
-[node name="InteractionComponent" type="Node" parent="StaticBody3D" node_paths=PackedStringArray("_meshInstance")]
+[node name="InteractionComponent" type="Node" parent="ItemPickup"]
 script = ExtResource("3_wmqdv")
-_meshInstance = NodePath("../MeshInstance3D")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_n3sqs")
