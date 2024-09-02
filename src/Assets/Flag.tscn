@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://bh7826kipcx0j"]
 
-[ext_resource type="Texture2D" uid="uid://divoaqlt7vs4q" path="res://src/Assets/Prototype Textures/Preview.png" id="1_qth05"]
+[sub_resource type="Texture2DRD" id="Texture2DRD_dkfjq"]
 
 [node name="Decal" type="Decal"]
 size = Vector3(1, 1, 1)
-texture_albedo = ExtResource("1_qth05")
+texture_albedo = SubResource("Texture2DRD_dkfjq")
