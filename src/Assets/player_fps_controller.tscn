@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://drqq1iisim2uh"]
+[gd_scene load_steps=36 format=3 uid="uid://drqq1iisim2uh"]
 
 [ext_resource type="Script" path="res://src/scripts/PlayerFpsController.cs" id="1_an64t"]
 [ext_resource type="Script" path="res://src/scripts/Reticle.cs" id="2_67aym"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://src/scripts/SprintingPlayerState.cs" id="8_op238"]
 [ext_resource type="Script" path="res://src/scripts/ContextComponent.cs" id="9_0dkjl"]
 [ext_resource type="Script" path="res://src/scripts/CrouchingPlayerState.cs" id="9_p0l1w"]
+[ext_resource type="Texture2D" uid="uid://dhvyyvkhlyaar" path="res://src/keyboard_e.png" id="10_jpqiv"]
 [ext_resource type="Script" path="res://src/scripts/SlidingPlayerState.cs" id="10_leayp"]
 [ext_resource type="Script" path="res://src/scripts/JumpingPlayerState.cs" id="11_kkd20"]
 [ext_resource type="Script" path="res://src/scripts/FallingPlayerState.cs" id="12_0vnn1"]
@@ -502,6 +503,9 @@ _data = {
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5tb27"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_u8415"]
+font_size = 32
+
 [node name="PlayerFPSController" type="CharacterBody3D" node_paths=PackedStringArray("_cameraController", "AnimationPlayer", "_crouchShapeCast")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001, 0, 0)
 safe_margin = 0.01
@@ -610,11 +614,20 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/DebugPanel/MarginContainer"]
 layout_mode = 2
 
-[node name="ContextComponent" type="CenterContainer" parent="UserInterface"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="ContextComponent" type="CenterContainer" parent="UserInterface" node_paths=PackedStringArray("_icon", "_context")]
+y_sort_enabled = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("9_0dkjl")
+_icon = NodePath("HBoxContainer/TextureRect")
+_context = NodePath("HBoxContainer/Label")
+_defaultIcon = ExtResource("10_jpqiv")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UserInterface/ContextComponent"]
 layout_mode = 2
@@ -624,6 +637,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="UserInterface/ContextComponent/HBoxContainer"]
 layout_mode = 2
+label_settings = SubResource("LabelSettings_u8415")
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("_currentState")]
 script = ExtResource("5_h4cac")
