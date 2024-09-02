@@ -193,7 +193,6 @@ public partial class PlayerFpsController : CharacterBody3D {
 
           }
         }
-
       }
     }
   }
