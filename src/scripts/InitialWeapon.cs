@@ -165,7 +165,7 @@ public partial class InitialWeapon : Node3D
     private float GetSwayNoise()
     {
         var playerPosition = Vector3.Zero;
-        if (!Engine.IsEditorHint())
+        if (!Engine.IsEditorHint() && Global.PlayerFpsController != null)
         {
             playerPosition = Global.PlayerFpsController.GlobalPosition;
         }
