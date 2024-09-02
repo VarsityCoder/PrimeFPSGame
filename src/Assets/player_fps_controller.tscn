@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://drqq1iisim2uh"]
+[gd_scene load_steps=34 format=3 uid="uid://drqq1iisim2uh"]
 
 [ext_resource type="Script" path="res://src/scripts/PlayerFpsController.cs" id="1_an64t"]
 [ext_resource type="Script" path="res://src/scripts/Reticle.cs" id="2_67aym"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://src/scripts/IdlePlayerState.cs" id="6_tgb7n"]
 [ext_resource type="Script" path="res://src/scripts/WalkingPlayerState.cs" id="7_nilia"]
 [ext_resource type="Script" path="res://src/scripts/SprintingPlayerState.cs" id="8_op238"]
+[ext_resource type="Script" path="res://src/scripts/ContextComponent.cs" id="9_0dkjl"]
 [ext_resource type="Script" path="res://src/scripts/CrouchingPlayerState.cs" id="9_p0l1w"]
 [ext_resource type="Script" path="res://src/scripts/SlidingPlayerState.cs" id="10_leayp"]
 [ext_resource type="Script" path="res://src/scripts/JumpingPlayerState.cs" id="11_kkd20"]
@@ -613,6 +614,16 @@ layout_mode = 2
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("9_0dkjl")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UserInterface/ContextComponent"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UserInterface/ContextComponent/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UserInterface/ContextComponent/HBoxContainer"]
+layout_mode = 2
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("_currentState")]
 script = ExtResource("5_h4cac")
