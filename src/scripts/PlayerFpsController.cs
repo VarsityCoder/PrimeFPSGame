@@ -51,11 +51,15 @@ public partial class PlayerFpsController : CharacterBody3D {
 		{
 			velocity += GetGravity() * (float)delta;
 		}
-    Global.DebugPanelGlobal.AddProperty("MovementSpeed ", Velocity.Length().ToString(CultureInfo.InvariantCulture), 1);
-    Global.DebugPanelGlobal.AddProperty("CrouchShapeCast ", _crouchShapeCast?.IsColliding().ToString()!, 2);
-    Global.DebugPanelGlobal.AddProperty("MouseRotation ", _mouseRotation.ToString(), 3);
-    Global.DebugPanelGlobal.AddProperty("IsCrouching ", _isCrouching.ToString(), 4);
-    Global.DebugPanelGlobal.AddProperty("IsJumping ", (!IsOnFloor()).ToString(), 5);
+
+    if (Global.DebugPanelGlobal != null)
+    {
+      Global.DebugPanelGlobal.AddProperty("MovementSpeed ", Velocity.Length().ToString(CultureInfo.InvariantCulture), 1);
+      Global.DebugPanelGlobal.AddProperty("CrouchShapeCast ", _crouchShapeCast?.IsColliding().ToString()!, 2);
+      Global.DebugPanelGlobal.AddProperty("MouseRotation ", _mouseRotation.ToString(), 3);
+      Global.DebugPanelGlobal.AddProperty("IsCrouching ", _isCrouching.ToString(), 4);
+      Global.DebugPanelGlobal.AddProperty("IsJumping ", (!IsOnFloor()).ToString(), 5);
+    }
 
     UpdateCamera(delta);
 
