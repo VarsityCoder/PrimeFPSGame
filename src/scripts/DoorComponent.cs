@@ -22,12 +22,10 @@ public partial class DoorComponent : Node
 		_originalPosition = _parent.Position;
 		_parent.Ready += ConnectParent;
 		EmitSignal(Node.SignalName.Ready);
-		GD.Print("We have assigned parent");
 	}
 
 	private void ConnectParent()
 	{
-		GD.Print("We are in the connect parent function");
 		if (_parent != null)
 		{
 			_parent.Connect("Interacted", new Callable(this, "OpenDoor"));
@@ -37,7 +35,6 @@ public partial class DoorComponent : Node
 
 	private void OpenDoor()
 	{
-		GD.Print("We are in the open door function");
 		var tween = GetTree().CreateTween();
 		tween.TweenProperty(_parent, "position", _originalPosition + (_direction * _doorSize), _speed)
 			.SetTrans(_transition).SetEase(_easeType);
@@ -47,7 +44,6 @@ public partial class DoorComponent : Node
 
 	private void CloseDoor()
 	{
-		GD.Print("We are in close door function");
 		var tween = GetTree().CreateTween();
 		tween.TweenProperty(_parent, "position", _originalPosition, _speed).SetTrans(_transition).SetEase(_easeType);
 		
