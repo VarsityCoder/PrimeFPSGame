@@ -18,7 +18,7 @@ public partial class WalkingPlayerState : PlayerMovementState {
     {
       if (_animationPlayer.IsPlaying() && _animationPlayer.CurrentAnimation == "JumpEnd")
       {
-        await ToSignal(_animationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+        await ToSignal(_animationPlayer, AnimationMixer.SignalName.AnimationFinished);
         _animationPlayer.Play("Walking");
       }
       else
@@ -48,24 +48,28 @@ public partial class WalkingPlayerState : PlayerMovementState {
       PlayerFpsController.UpdateVelocity();
       PlayerFpsController.WeaponController?.SwayWeapon(delta, false);
       PlayerFpsController.WeaponController?.WeaponBob(delta,_bobSpeed, _horizontalBobAmount,_verticalBobAmount);
-      SetAnimationSpeed(Global.PlayerFpsController.Velocity.Length());
-      if (Input.IsActionJustPressed("jump") && Global.PlayerFpsController.IsOnFloor())
+      if (Global.PlayerFpsController != null)
       {
-        EmitSignal(State.SignalName.Transition, "JumpingPlayerState");
+        SetAnimationSpeed(Global.PlayerFpsController.Velocity.Length());
+        if (Input.IsActionJustPressed("jump") && Global.PlayerFpsController.IsOnFloor())
+        {
+          EmitSignal(State.SignalName.Transition, "JumpingPlayerState");
+        }
+        if (PlayerFpsController?.Velocity.Length() == 0.0f)
+        {
+          EmitSignal(State.SignalName.Transition, "IdlePlayerState");
+        }
+        if (Input.IsActionPressed("sprint") && Global.PlayerFpsController.IsOnFloor())
+        {
+          EmitSignal(State.SignalName.Transition, "SprintingPlayerState");
+        }
+        if (Input.IsActionJustPressed("crouch") && Global.PlayerFpsController.IsOnFloor())
+        {
+          EmitSignal(State.SignalName.Transition, "CrouchingPlayerState");
+        }
+
       }
-      if (PlayerFpsController?.Velocity.Length() == 0.0f)
-      {
-        EmitSignal(State.SignalName.Transition, "IdlePlayerState");
-      }
-      if (Input.IsActionPressed("sprint") && Global.PlayerFpsController.IsOnFloor())
-      {
-        EmitSignal(State.SignalName.Transition, "SprintingPlayerState");
-      }
-      if (Input.IsActionJustPressed("crouch") && Global.PlayerFpsController.IsOnFloor())
-      {
-        EmitSignal(State.SignalName.Transition, "CrouchingPlayerState");
-      }
- 
+
       if (PlayerFpsController is { Velocity.Y: < -3f } && !PlayerFpsController.IsOnFloor())
       {
         EmitSignal(State.SignalName.Transition, "FallingPlayerState");
