@@ -25,7 +25,10 @@ public partial class StateMachine : Node {
 
   public override void _Process(double delta) {
     _currentState.Update((float)delta);
-    Global.DebugPanelGlobal.AddProperty("Current State", _currentState.Name, 1);
+    if (Global.DebugPanelGlobal != null)
+    {
+      Global.DebugPanelGlobal.AddProperty("Current State", _currentState.Name, 1);
+    }
   }
 
   public override void _PhysicsProcess(double delta) => _currentState.PhysicsUpdate((float)delta);
