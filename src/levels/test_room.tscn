@@ -83,6 +83,7 @@ material = SubResource("StandardMaterial3D_ffgkv")
 
 [node name="PlayerFPSController" parent="." instance=ExtResource("3_e284o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001, -0.682199, 0)
+_interactDistance = 2.0
 
 [node name="ItemPickup2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5167, 0, 5.90188)
@@ -96,6 +97,7 @@ skeleton = NodePath("../..")
 
 [node name="InteractionComponent" type="Node" parent="ItemPickup2"]
 script = ExtResource("3_wmqdv")
+_context = "Item"
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8178, 10.0308)
@@ -120,6 +122,7 @@ shape = SubResource("ConvexPolygonShape3D_e58u8")
 
 [node name="InteractionComponent" type="Node" parent="CSGBox3D4/AnimatableBody3D"]
 script = ExtResource("3_wmqdv")
+_context = "Open Door"
 
 [node name="DoorComponent" type="Node" parent="CSGBox3D4/AnimatableBody3D"]
 script = ExtResource("6_fngch")
