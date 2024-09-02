@@ -5,9 +5,14 @@ namespace PrimeFPSGame.Scripts;
 [GlobalClass]
 public partial class InteractionComponent : Node
 {
+	[Export] private string? _context;
+	[Export] private bool _overrideIcon;
+	[Export] private Texture2D _newIcon = new Texture2D();
+	
 	private Node? _parent;
 	private Material _highlightMaterial = GD.Load<Material>("res://src/Assets/Materials/InteractableHighlight.tres");
 	private MeshInstance3D? _meshInstance;
+	
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -16,18 +21,14 @@ public partial class InteractionComponent : Node
 		ConnectParent();
 		SetDefaultMesh();
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		
-	}
-
+	
 	private void InRange()
 	{
-		if (_meshInstance != null)
+		if (_meshInstance != null && _context != null)
 		{
 			_meshInstance.MaterialOverlay = _highlightMaterial;
+			Global.UiContext?.UpdateContent(_context);
+			Global.UiContext?.UpdateIcon(_newIcon, _overrideIcon);
 		}
 	}
 
@@ -36,6 +37,7 @@ public partial class InteractionComponent : Node
 		if (_meshInstance != null)
 		{
 			_meshInstance.MaterialOverlay = null;
+			Global.UiContext?.Reset();
 		}
 
 	}
