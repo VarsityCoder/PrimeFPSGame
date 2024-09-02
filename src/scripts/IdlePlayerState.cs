@@ -32,26 +32,28 @@ public partial class IdlePlayerState : PlayerMovementState {
       PlayerFpsController.UpdateInput(_speedDefault, _acceleration, _deceleration);
       PlayerFpsController.UpdateVelocity();
       PlayerFpsController.WeaponController?.SwayWeapon(delta, true);
-      if (Global.PlayerFpsController.Velocity.Length() > 0.0f && Global.PlayerFpsController.IsOnFloor()) {
-        EmitSignal(State.SignalName.Transition, "WalkingPlayerState");
-      }
-      if (Input.IsActionJustPressed("crouch") && Global.PlayerFpsController.IsOnFloor()) {
-        EmitSignal(State.SignalName.Transition, "CrouchingPlayerState");
-      }
-
-      if (Input.IsActionJustPressed("jump") && Global.PlayerFpsController.IsOnFloor())
+      if (Global.PlayerFpsController != null)
       {
-        EmitSignal(State.SignalName.Transition, "JumpingPlayerState");
-      }
+        if (Global.PlayerFpsController.Velocity.Length() > 0.0f && Global.PlayerFpsController.IsOnFloor()) {
+          EmitSignal(State.SignalName.Transition, "WalkingPlayerState");
+        }
+        if (Input.IsActionJustPressed("crouch") && Global.PlayerFpsController.IsOnFloor()) {
+          EmitSignal(State.SignalName.Transition, "CrouchingPlayerState");
+        }
 
-      if (PlayerFpsController.Velocity.Y < -3f && !PlayerFpsController.IsOnFloor())
-      {
-        EmitSignal(State.SignalName.Transition, "FallingPlayerState");
-      }
+        if (Input.IsActionJustPressed("jump") && Global.PlayerFpsController.IsOnFloor())
+        {
+          EmitSignal(State.SignalName.Transition, "JumpingPlayerState");
+        }
+        if (PlayerFpsController.Velocity.Y < -3f && !PlayerFpsController.IsOnFloor())
+        {
+          EmitSignal(State.SignalName.Transition, "FallingPlayerState");
+        }
 
-      if (Input.IsActionJustPressed("fire"))
-      {
-        PlayerFpsController.WeaponController?.Attack();
+        if (Input.IsActionJustPressed("fire"))
+        {
+          PlayerFpsController.WeaponController?.Attack();
+        }
       }
     }
   }
