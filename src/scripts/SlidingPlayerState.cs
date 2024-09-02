@@ -24,7 +24,7 @@ public partial class SlidingPlayerState : PlayerMovementState
 
     public override void Update(float delta)
     {
-        if (PlayerFpsController != null)
+        if (PlayerFpsController != null && Global.PlayerFpsController != null)
         {
             PlayerFpsController.UpdateGravity(delta);
             PlayerFpsController.UpdateVelocity();
