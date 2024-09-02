@@ -63,7 +63,7 @@ public partial class InteractionComponent : Node
 	{
 		if (_meshInstance != null)
 		{
-			GD.Print("The mesh has already been set");
+			
 		}
 		else
 		{
@@ -75,7 +75,6 @@ public partial class InteractionComponent : Node
 						if (child is MeshInstance3D instance3D)
 						{
 							_meshInstance = instance3D;
-							GD.Print("Mesh was set");
 						}
 					}
 				}
