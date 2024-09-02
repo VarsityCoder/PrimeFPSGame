@@ -12,8 +12,9 @@ public partial class ContextComponent : CenterContainer
 		Global.UiContext = this;
 		Reset();	
 	}
-	private void Reset()
+	public void Reset()
 	{
+		GD.Print("In Reset function");
 		if (_icon != null && _context != null)
 		{
 			_icon.Texture = null;
@@ -22,8 +23,9 @@ public partial class ContextComponent : CenterContainer
 
 	}
 
-	private void _updateIcon(Texture2D image, bool isOverride)
+	public void UpdateIcon(Texture2D image, bool isOverride)
 	{
+		GD.Print("In UpdateIcon function");
 		if (_icon != null)
 		{
 			_icon.Texture = isOverride ? image : _defaultIcon;
@@ -31,8 +33,9 @@ public partial class ContextComponent : CenterContainer
 
 	}
 
-	private void UpdateContext(string text)
+	public void UpdateContent(string text)
 	{
+		GD.Print("In UpdateContent function");
 		if (_context != null)
 		{
 			_context.Text = text;
