@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dv5idqfneol04"]
+[gd_scene load_steps=16 format=3 uid="uid://dv5idqfneol04"]
 
 [ext_resource type="Texture2D" uid="uid://bxrqi3jnc8eti" path="res://src/Assets/Prototype Textures/Vector/texture_13.svg" id="1_mdyuh"]
 [ext_resource type="PackedScene" uid="uid://drqq1iisim2uh" path="res://src/Assets/player_fps_controller.tscn" id="3_e284o"]
@@ -31,6 +31,12 @@ albedo_texture = ExtResource("1_mdyuh")
 albedo_texture = ExtResource("3_rg6b2")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ffgkv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_101ji"]
+size = Vector3(2, 3, 0.1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_e58u8"]
+points = PackedVector3Array(1.02381, 1.52351, 0.0690336, -1.02381, -1.52351, -0.0737955, -1.02381, -1.52351, 0.0690336, -1.02381, 1.52351, -0.0737955, 1.02381, -1.52351, -0.0737955, 1.02381, -1.52351, 0.0690336, -1.02381, 1.52351, 0.0690336, 1.02381, 1.52351, -0.0737955)
 
 [node name="TestRoom" type="Node3D"]
 
@@ -89,3 +95,29 @@ skeleton = NodePath("../..")
 
 [node name="InteractionComponent" type="Node" parent="ItemPickup2"]
 script = ExtResource("3_wmqdv")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8178, 10.0308)
+use_collision = true
+size = Vector3(10, 5, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -0.123745)
+operation = 2
+size = Vector3(2, 3, 1.5)
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="CSGBox3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CSGBox3D4/AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.956212, 0.257936)
+mesh = SubResource("BoxMesh_101ji")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D4/AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.956212, 0.257936)
+shape = SubResource("ConvexPolygonShape3D_e58u8")
+
+[node name="InteractionComponent" type="Node" parent="CSGBox3D4/AnimatableBody3D"]
+script = ExtResource("3_wmqdv")
+
+[node name="DoorComponent" type="Node" parent="CSGBox3D4/AnimatableBody3D"]
