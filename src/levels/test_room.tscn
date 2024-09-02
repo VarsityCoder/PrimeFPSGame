@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://dv5idqfneol04"]
+[gd_scene load_steps=17 format=3 uid="uid://dv5idqfneol04"]
 
 [ext_resource type="Texture2D" uid="uid://bxrqi3jnc8eti" path="res://src/Assets/Prototype Textures/Vector/texture_13.svg" id="1_mdyuh"]
 [ext_resource type="PackedScene" uid="uid://drqq1iisim2uh" path="res://src/Assets/player_fps_controller.tscn" id="3_e284o"]
 [ext_resource type="Texture2D" uid="uid://cblpkweqk7ag8" path="res://src/Assets/Prototype Textures/Vector/texture_01.svg" id="3_rg6b2"]
 [ext_resource type="Script" path="res://src/scripts/InteractionComponent.cs" id="3_wmqdv"]
 [ext_resource type="ArrayMesh" uid="uid://bf518x01bx2d6" path="res://src/Assets/OBJ format/flag.obj" id="5_ge2dr"]
+[ext_resource type="Script" path="res://src/scripts/DoorComponent.cs" id="6_fngch"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0ska3"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
@@ -121,3 +122,8 @@ shape = SubResource("ConvexPolygonShape3D_e58u8")
 script = ExtResource("3_wmqdv")
 
 [node name="DoorComponent" type="Node" parent="CSGBox3D4/AnimatableBody3D"]
+script = ExtResource("6_fngch")
+_direction = Vector3(-2, 0, 0)
+_doorSize = Vector3(2, 3, 0.1)
+_transition = 6
+_easeType = 1
