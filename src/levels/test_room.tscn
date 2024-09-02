@@ -123,7 +123,7 @@ script = ExtResource("3_wmqdv")
 
 [node name="DoorComponent" type="Node" parent="CSGBox3D4/AnimatableBody3D"]
 script = ExtResource("6_fngch")
-_direction = Vector3(-2, 0, 0)
+_direction = Vector3(-1, 0, 0)
 _doorSize = Vector3(2, 3, 0.1)
 _transition = 6
 _easeType = 1
