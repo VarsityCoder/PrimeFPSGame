@@ -97,7 +97,7 @@ skeleton = NodePath("../..")
 
 [node name="InteractionComponent" type="Node" parent="ItemPickup2"]
 script = ExtResource("3_wmqdv")
-_context = "Item"
+_context = "Graham's Item"
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8178, 10.0308)
