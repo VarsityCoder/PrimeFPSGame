@@ -127,7 +127,9 @@ _context = "Open Door"
 [node name="DoorComponent" type="Node" parent="CSGBox3D4/AnimatableBody3D"]
 script = ExtResource("6_fngch")
 _doorType = 1
+_forwardDirection = 2
 _direction = Vector3(-1, 0, 0)
 _doorSize = Vector3(2, 3, 0.1)
+_speed = 2.0
 _transition = 6
 _easeType = 1
