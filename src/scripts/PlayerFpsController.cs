@@ -1,3 +1,4 @@
+using System.Linq;
 using Godot;
 
 namespace PrimeFPSGame.Scripts;
@@ -196,6 +197,11 @@ public partial class PlayerFpsController : CharacterBody3D {
 
           }
         }
+      }
+      //TODO find a better way to handle this. It works but it isn't the best
+      else if(!result.Keys.Contains("collider"))
+      {
+        _interactCastResult?.EmitSignal("Unfocused");
       }
     }
   }
