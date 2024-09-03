@@ -6,11 +6,19 @@ public partial class DoorComponent : Node
 {
 	enum DoorType
 	{
-		SLIDING,
-		ROTATING
+		Sliding,
+		Rotating
+	}
+
+	enum ForwardDirection
+	{
+		X,
+		Y,
+		Z
 	}
 
 	[Export] private DoorType _doorType;
+	[Export] private ForwardDirection _forwardDirection;
 	[Export] private Vector3 _direction;
 	[Export] private Vector3 _doorSize;
 	[Export] private float _speed = .5f;
@@ -23,6 +31,8 @@ public partial class DoorComponent : Node
 	private Vector3 _originalPosition;
 	private Node3D? _parent;
 	private Vector3 _originalRotation;
+	private float _rotationAdjustment;
+	private Vector3 _doorDirection;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -35,11 +45,59 @@ public partial class DoorComponent : Node
 		EmitSignal(Node.SignalName.Ready);
 	}
 
+	private void CheckDoor()
+	{
+		if (_parent != null)
+		{
+			if (_forwardDirection == ForwardDirection.X)
+			{
+				_doorDirection = _parent.GlobalTransform.Basis.X;
+			}
+
+			if (_forwardDirection == ForwardDirection.Y)
+			{
+				_doorDirection = _parent.GlobalTransform.Basis.Y;
+			}
+
+			if (_forwardDirection == ForwardDirection.Z)
+			{
+				_doorDirection = _parent.GlobalTransform.Basis.Z;
+			}
+			
+		}
+
+		if (_parent != null)
+		{
+			var doorPosition = _parent.GlobalPosition;
+			if (Global.PlayerFpsController != null)
+			{
+				var playerPosition = Global.PlayerFpsController.GlobalPosition;
+				var directionToPlayer = doorPosition.DirectionTo(playerPosition);
+				var doorDot = directionToPlayer.Dot(_doorDirection);
+
+
+
+				if (doorDot < 0)
+				{
+					_rotationAdjustment = 1;
+				}
+				else
+				{
+					_rotationAdjustment = -1;
+				}
+			}
+		}
+
+		OpenDoor();
+
+
+	}
+
 	private void ConnectParent()
 	{
 		if (_parent != null)
 		{
-			_parent.Connect("Interacted", new Callable(this, "OpenDoor"));
+			_parent.Connect("Interacted", new Callable(this, "CheckDoor"));
 		}
 
 	}
@@ -47,15 +105,15 @@ public partial class DoorComponent : Node
 	private void OpenDoor()
 	{
 		var tween = GetTree().CreateTween();
-		if (_doorType == DoorType.SLIDING)
+		if (_doorType == DoorType.Sliding)
 		{
 			tween.TweenProperty(_parent, "position", _originalPosition + (_direction * _doorSize), _speed)
 				.SetTrans(_transition).SetEase(_easeType);
 		}
 
-		if (_doorType == DoorType.ROTATING)
+		if (_doorType == DoorType.Rotating)
 		{
-			tween.TweenProperty(_parent, "rotation", _originalRotation + (_rotation * Mathf.DegToRad(_rotationAmount)),
+			tween.TweenProperty(_parent, "rotation", _originalRotation + (_rotation * _rotationAdjustment * Mathf.DegToRad(_rotationAmount)),
 				_speed).SetTrans(_transition).SetEase(_easeType);
 		}
 		tween.TweenInterval(_closeTime);
@@ -65,12 +123,12 @@ public partial class DoorComponent : Node
 	private void CloseDoor()
 	{
 		var tween = GetTree().CreateTween();
-		if (_doorType == DoorType.SLIDING)
+		if (_doorType == DoorType.Sliding)
 		{
 			tween.TweenProperty(_parent, "position", _originalPosition, _speed).SetTrans(_transition).SetEase(_easeType);
 		}
 
-		if (_doorType == DoorType.ROTATING)
+		if (_doorType == DoorType.Rotating)
 		{
 			tween.TweenProperty(_parent, "rotation", _originalRotation, _speed).SetTrans(_transition).SetEase(_easeType);
 		}
