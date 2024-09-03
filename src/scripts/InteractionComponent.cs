@@ -14,7 +14,6 @@ public partial class InteractionComponent : Node
 	private MeshInstance3D? _meshInstance;
 	
 	
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_parent = GetParent<Node>();
@@ -24,20 +23,25 @@ public partial class InteractionComponent : Node
 	
 	private void InRange()
 	{
+
 		if (_meshInstance != null && _context != null)
 		{
+			Global.UiContext?.Update(_context,_newIcon, _overrideIcon);
 			_meshInstance.MaterialOverlay = _highlightMaterial;
-			Global.UiContext?.UpdateContent(_context);
-			Global.UiContext?.UpdateIcon(_newIcon, _overrideIcon);
+			//TODO potentially use messagebus in the future
+			//EmitSignal(MessageBus.SignalName.InteractionFocused);
+
 		}
 	}
 
 	private void OutOfRange()
 	{
+		Global.UiContext?.Reset();
 		if (_meshInstance != null)
 		{
 			_meshInstance.MaterialOverlay = null;
-			Global.UiContext?.Reset();
+			//TODO potentially use messagebus in the future
+			//EmitSignal(MessageBus.SignalName.InteractionUnfocused);
 		}
 
 	}
@@ -58,7 +62,6 @@ public partial class InteractionComponent : Node
 			_parent.Connect("Unfocused", new Callable(this, "OutOfRange"));
 			_parent.Connect("Interacted", new Callable(this, "OnInteract"));
 		}
-
 	}
 
 	private void SetDefaultMesh()
@@ -66,8 +69,7 @@ public partial class InteractionComponent : Node
 		if (_meshInstance != null)
 		{
 			
-		}
-		else
+		} else
 		{
 			if (_parent != null)
 			{
