@@ -15,8 +15,8 @@ public partial class ContextComponent : CenterContainer
 	{
 		Global.UiContext = this;
 		//TODO get messagebus working
-		_messageBus.Connect("InteractionFocused", new Callable(this, "Update"));
-		_messageBus.Connect("InteractionUnfocused", new Callable(this, "Reset"));
+		// _messageBus.Connect("InteractionFocused", new Callable(this, "Update"));
+		// _messageBus.Connect("InteractionUnfocused", new Callable(this, "Reset"));
 		Reset();
 	}
 	public void Reset()
