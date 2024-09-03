@@ -110,14 +110,14 @@ operation = 2
 size = Vector3(2, 3, 1.5)
 
 [node name="AnimatableBody3D" type="AnimatableBody3D" parent="CSGBox3D4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, -0.6, -0.4)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CSGBox3D4/AnimatableBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.956212, 0.257936)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, -0.356212, 0.257936)
 mesh = SubResource("BoxMesh_101ji")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D4/AnimatableBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.956212, 0.257936)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, -0.356212, 0.257936)
 shape = SubResource("ConvexPolygonShape3D_e58u8")
 
 [node name="InteractionComponent" type="Node" parent="CSGBox3D4/AnimatableBody3D"]
@@ -126,6 +126,7 @@ _context = "Open Door"
 
 [node name="DoorComponent" type="Node" parent="CSGBox3D4/AnimatableBody3D"]
 script = ExtResource("6_fngch")
+_doorType = 1
 _direction = Vector3(-1, 0, 0)
 _doorSize = Vector3(2, 3, 0.1)
 _transition = 6
