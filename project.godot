@@ -18,8 +18,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://src/scripts/Global.cs"
 MessageBus="*res://src/scripts/MessageBus.cs"
+Global="*res://src/scripts/Global.cs"
 
 [display]
 
