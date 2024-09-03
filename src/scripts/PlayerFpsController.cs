@@ -182,7 +182,7 @@ public partial class PlayerFpsController : CharacterBody3D {
       if (result.Keys.Contains("collider"))
       {
         var currentCastResult = result["collider"];
-        if ((Node)currentCastResult != _interactCastResult)
+        if ((Node)currentCastResult != _interactCastResult )
         {
        
           if (_interactCastResult != null && _interactCastResult.HasUserSignal("Unfocused"))
