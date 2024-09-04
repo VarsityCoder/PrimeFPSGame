@@ -17,6 +17,12 @@ public partial class DoorComponent : Node
 		Z
 	}
 
+	enum DoorStatus
+	{
+		Open,
+		Closed
+	}
+
 	[Export] private DoorType _doorType;
 	[Export] private ForwardDirection _forwardDirection;
 	[Export] private Vector3 _direction;
@@ -27,12 +33,14 @@ public partial class DoorComponent : Node
 	[Export] private Tween.EaseType _easeType;
 	[Export] private Vector3 _rotation = new Vector3(0, 1, 0);
 	[Export] private float _rotationAmount = 90f;
+	[Export] private bool _closeAutomatically = true;
 
 	private Vector3 _originalPosition;
 	private Node3D? _parent;
 	private Vector3 _originalRotation;
 	private float _rotationAdjustment;
 	private Vector3 _doorDirection;
+	private DoorStatus _doorStatus = DoorStatus.Closed;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -62,6 +70,15 @@ public partial class DoorComponent : Node
 			if (_forwardDirection == ForwardDirection.Z)
 			{
 				_doorDirection = _parent.GlobalTransform.Basis.Z;
+			}
+
+			if (_doorStatus == DoorStatus.Closed)
+			{
+				OpenDoor();
+			} 
+			if (_doorStatus == DoorStatus.Open)
+			{
+				CloseDoor();
 			}
 			
 		}
@@ -104,6 +121,7 @@ public partial class DoorComponent : Node
 
 	private void OpenDoor()
 	{
+		_doorStatus = DoorStatus.Open;
 		var tween = GetTree().CreateTween();
 		if (_doorType == DoorType.Sliding)
 		{
@@ -116,12 +134,17 @@ public partial class DoorComponent : Node
 			tween.TweenProperty(_parent, "rotation", _originalRotation + (_rotation * _rotationAdjustment * Mathf.DegToRad(_rotationAmount)),
 				_speed).SetTrans(_transition).SetEase(_easeType);
 		}
-		tween.TweenInterval(_closeTime);
-		tween.TweenCallback(new Callable(this, "CloseDoor"));
+
+		if (_closeAutomatically)
+		{
+			tween.TweenInterval(_closeTime);
+			tween.TweenCallback(new Callable(this, "CloseDoor"));
+		}
 	}
 
 	private void CloseDoor()
 	{
+		_doorStatus = DoorStatus.Closed;
 		var tween = GetTree().CreateTween();
 		if (_doorType == DoorType.Sliding)
 		{
