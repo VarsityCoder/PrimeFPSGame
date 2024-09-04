@@ -132,4 +132,5 @@ _direction = Vector3(-1, 0, 0)
 _doorSize = Vector3(2, 3, 0.1)
 _speed = 2.0
 _transition = 6
-_easeType = 1
+_easeType = 3
+_closeAutomatically = false
