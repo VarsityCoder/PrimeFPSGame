@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Godot;
 namespace PrimeFPSGame.Scripts;
 [GlobalClass]
-public partial class DoorComponent : Node
+public partial class DoorComponent : Area3D
 {
 	enum DoorType
 	{
@@ -23,6 +23,13 @@ public partial class DoorComponent : Node
 		Closed
 	}
 
+	enum DoorOperation
+	{
+		Manual,
+		Close_Automatically,
+		Open_Close_Automatically
+	}
+
 	[Export] private DoorType _doorType;
 	[Export] private ForwardDirection _forwardDirection;
 	[Export] private Vector3 _direction;
@@ -31,9 +38,9 @@ public partial class DoorComponent : Node
 	[Export] private float _closeTime = 2f;
 	[Export] private Tween.TransitionType _transition;
 	[Export] private Tween.EaseType _easeType;
-	[Export] private Vector3 _rotation = new Vector3(0, 1, 0);
+	[Export] private Vector3 _rotationAxis = new Vector3(0, 1, 0);
 	[Export] private float _rotationAmount = 90f;
-	[Export] private bool _closeAutomatically = true;
+	[Export] private DoorOperation _doorOperation;
 
 	private Vector3 _originalPosition;
 	private Node3D? _parent;
@@ -80,7 +87,6 @@ public partial class DoorComponent : Node
 			{
 				CloseDoor();
 			}
-			
 		}
 
 		if (_parent != null)
@@ -91,9 +97,6 @@ public partial class DoorComponent : Node
 				var playerPosition = Global.PlayerFpsController.GlobalPosition;
 				var directionToPlayer = doorPosition.DirectionTo(playerPosition);
 				var doorDot = directionToPlayer.Dot(_doorDirection);
-
-
-
 				if (doorDot < 0)
 				{
 					_rotationAdjustment = 1;
@@ -104,15 +107,12 @@ public partial class DoorComponent : Node
 				}
 			}
 		}
-
 		OpenDoor();
-
-
 	}
 
 	private void ConnectParent()
 	{
-		if (_parent != null)
+		if (_parent != null && _doorOperation == DoorOperation.Manual)
 		{
 			_parent.Connect("Interacted", new Callable(this, "CheckDoor"));
 		}
@@ -131,11 +131,11 @@ public partial class DoorComponent : Node
 
 		if (_doorType == DoorType.Rotating)
 		{
-			tween.TweenProperty(_parent, "rotation", _originalRotation + (_rotation * _rotationAdjustment * Mathf.DegToRad(_rotationAmount)),
+			tween.TweenProperty(_parent, "rotation", _originalRotation + (_rotationAxis * _rotationAdjustment * Mathf.DegToRad(_rotationAmount)),
 				_speed).SetTrans(_transition).SetEase(_easeType);
 		}
 
-		if (_closeAutomatically)
+		if (_doorOperation == DoorOperation.Close_Automatically)
 		{
 			tween.TweenInterval(_closeTime);
 			tween.TweenCallback(new Callable(this, "CloseDoor"));
@@ -156,5 +156,23 @@ public partial class DoorComponent : Node
 			tween.TweenProperty(_parent, "rotation", _originalRotation, _speed).SetTrans(_transition).SetEase(_easeType);
 		}
 
+	}
+
+	private void BodyEnteredCheck(Node3D body)
+	{
+		if (_doorOperation == DoorOperation.Open_Close_Automatically && body.IsInGroup("player"))
+		{
+			CheckDoor();
+		}
+		
+	}
+
+	private void BodyExitedCheck(Node3D body)
+	{
+		if (_doorOperation == DoorOperation.Open_Close_Automatically && body.IsInGroup("player") && _doorStatus == DoorStatus.Open)
+		{
+			CheckDoor();
+		}
+		
 	}
 }
