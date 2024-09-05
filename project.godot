@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="PrimeFPSGame"
-run/main_scene="res://src/levels/test_room.tscn"
+run/main_scene="res://src/levels/HotelLevel.tscn"
 config/features=PackedStringArray("4.3", "C#", "Mobile")
 boot_splash/image="res://src/Godot-Ver1-Dark 2.png"
 config/icon="res://icon.png"
@@ -29,6 +29,10 @@ window/size/viewport_height=800
 [dotnet]
 
 project/assembly_name="PrimeFPSGame"
+
+[global_group]
+
+player=""
 
 [input]
 
