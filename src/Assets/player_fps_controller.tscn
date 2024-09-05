@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://drqq1iisim2uh"]
+[gd_scene load_steps=38 format=4 uid="uid://drqq1iisim2uh"]
 
 [ext_resource type="Script" path="res://src/scripts/PlayerFpsController.cs" id="1_an64t"]
 [ext_resource type="Script" path="res://src/scripts/Reticle.cs" id="2_67aym"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://erojknd8ks2j" path="res://src/Assets/weapon_blaster.tscn" id="3_xgkef"]
 [ext_resource type="Script" path="res://src/scripts/WeaponsResource.cs" id="4_3mivm"]
 [ext_resource type="Script" path="res://src/scripts/DebugPanel.cs" id="4_b3rrv"]
-[ext_resource type="ArrayMesh" uid="uid://chvj7v50fi7wj" path="res://src/Assets/OBJ format/cooking-fork.obj" id="4_cwsp6"]
 [ext_resource type="Script" path="res://src/scripts/StateMachine.cs" id="5_h4cac"]
 [ext_resource type="Script" path="res://src/scripts/IdlePlayerState.cs" id="6_tgb7n"]
 [ext_resource type="Script" path="res://src/scripts/WalkingPlayerState.cs" id="7_nilia"]
@@ -25,6 +24,42 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qbqvo"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j3ey7"]
+load_path = "res://.godot/imported/colormap.png-d61332cdec1990f70487aa5ac9a83ec1.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ge4n"]
+resource_name = "colormap"
+vertex_color_is_srgb = true
+albedo_texture = SubResource("CompressedTexture2D_j3ey7")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_lmrd0"]
+_surfaces = [{
+"aabb": AABB(-0.341336, 0, -0.0374642, 0.682672, 0.0721166, 0.0749284),
+"attribute_data": PackedByteArray("/////wAAwD2amTk//////wAAwD2amTk//////wAAwD2amTk//////wAAwD2YZis//////wAAwD2YZis//////wAAwD2YZis//////wAAwD1z9iw//////wAAwD1z9iw//////wAAwD2amTk//////wAAwD2YZis//////wAAwD2YZis//////wAAwD2amTk//////wAAwD3ACTg//////wAAwD3ACTg//////wAAwD3ACTg//////wAAwD2YZis//////wAAwD2amTk//////wAAwD1z9iw//////wAAwD2YZis//////wAAwD3ACTg//////wAAwD2amTk//////wAAwD1z9iw//////wAAwD1z9iw//////wAAwD3ACTg//////wAAwD3ACTg//////wAAwD1z9iw//////wAAwD2YZis//////wAAwD2amTk//////wAAeD+pBk0//////wAAeD/W32s//////wAAeD9mZkY//////wAAeD/W32s//////wAAeD/W32s//////wAAeD/W32s//////wAAeD9mZkY//////wAAeD+pBk0//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD+pBk0//////wAAeD9mZkY//////wAAeD/W32s//////wAAeD/W32s//////wAAeD/W32s//////wAAeD/W32s//////wAAeD9mZkY//////wAAeD+pBk0//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI/"),
+"format": 34359742495,
+"index_count": 108,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABAAGAAUABgAEAAcACAAJAAoACQAIAAsAAQAMAAIADAABAA0ADgAPABAADwAOABEAEgATABQAEwASABUAFgAXABgAFwAWABkACwAaAAkAGgALABsAHAAdAB4AHQAcAB8AHwAgAB0AHQAgACEAIQAgACIAIgAgACMAHwAkACAAJAAfACUAJgAnACgAKAApACYAKQAoACoAKAArACoAKwAsACoALAAtACoAKQAqAC4ALgAvACkAMAAxADIAMQAwADMANAA1ADYANgA3ADQA"),
+"material": SubResource("StandardMaterial3D_5ge4n"),
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 56,
+"vertex_data": PackedByteArray("nsOuPgAAAACpE1Amm9yhPgAAAAA2EgW9m9yhPgAAAAA2EgU9nsOuPgrXozypE1Amm9yhPgrXozw2EgU9m9yhPgrXozw2EgW9l2LBPU7RkTxNl8+8l2LBPU7RkTxNl888m9yhPgAAAAA2EgW9nsOuPgrXozypE1Amm9yhPgrXozw2EgW9nsOuPgAAAACpE1Aml2LBPeAtEDtNl888l2LBPeAtEDtNl8+8l2LBPeAtEDtNl888m9yhPgrXozw2EgU9m9yhPgAAAAA2EgU9l2LBPU7RkTxNl888m9yhPgrXozw2EgW9l2LBPeAtEDtNl8+8m9yhPgAAAAA2EgW9l2LBPU7RkTxNl8+8l2LBPU7RkTxNl8+8l2LBPeAtEDtNl888l2LBPeAtEDtNl8+8l2LBPU7RkTxNl888m9yhPgrXozw2EgU9m9yhPgAAAAA2EgU9Q+6cvreUgD0VdBm9Lc8TvhJgnjzDmky8nsOuvtqxkz3Dmky8Lc8TvhJgnjwVdBm9Lc8TvhJgnjwVdBk9Lc8TvhJgnjzDmkw8nsOuvtqxkz3Dmkw8Q+6cvreUgD0VdBk94EjgvQrXIzzDmkw84EjgvQrXIzzDmky8Q+6cvreUgD0VdBm9nsOuvtqxkz3Dmky8Lc8TvhJgnjzDmky8Lc8TvhJgnjwVdBm9Lc8TvhJgnjwVdBk9Lc8TvhJgnjzDmkw8nsOuvtqxkz3Dmkw8Q+6cvreUgD0VdBk94EjgvQrXIzzDmkw84EjgvQrXIzzDmky8l2LBPQrXIzznOLg84EjgvQrXIzzDmky8l2LBPQrXIzznOLi84EjgvQrXIzzDmkw8l2LBPQrXIzznOLg8l2LBPQrXIzznOLi84EjgvQrXIzzDmky84EjgvQrXIzzDmkw8/38AAP///78df+EA////vx1/4QD///+//3///////78dfx3/////vx1/Hf////+/vX69/v///7+9fr3+////v///6bf///+/////f////7///+m3////v////3////+/vX5BAf///7+9fkEB////vwB8/3////8/AHz/f////z8AfP9/////PwB8/3////8/AAD/+////78AAP/7////vwAA//v///+/AAD/+////78AAP9/////vwAA/3////+/AAD/f////78AAP9/////vxXI/3////8/Fcj/f////z8Mm/Lk////vwyb8uT///+/DJvy5P///78Mm/Lk////vwyb8uT///+/DJvy5P///78Mm/Lk////vwyb8uT///+/DJvy5P///78Mm/Lk////v/JkDBv///+/8mQMG////7/yZAwb////v/JkDBv///+/8mQMG////7/yZAwb////v/JkDBv///+/8mQMG////7/yZAwb////v/JkDBv///+//3///////7//f///////v/9///////+//3///////7//fwAA////v/9/AAD///+//38AAP///7//fwAA////vw==")
+}, {
+"aabb": AABB(-0.341336, 0, -0.0374642, 0.682672, 0.0721166, 0.0749284),
+"attribute_data": PackedByteArray("/////wAAwD2amTk//////wAAwD2amTk//////wAAwD2amTk//////wAAwD2YZis//////wAAwD2YZis//////wAAwD2YZis//////wAAwD1z9iw//////wAAwD1z9iw//////wAAwD2amTk//////wAAwD2YZis//////wAAwD2YZis//////wAAwD2amTk//////wAAwD3ACTg//////wAAwD3ACTg//////wAAwD3ACTg//////wAAwD2YZis//////wAAwD2amTk//////wAAwD1z9iw//////wAAwD2YZis//////wAAwD3ACTg//////wAAwD2amTk//////wAAwD1z9iw//////wAAwD1z9iw//////wAAwD3ACTg//////wAAwD3ACTg//////wAAwD1z9iw//////wAAwD2YZis//////wAAwD2amTk//////wAAeD+pBk0//////wAAeD/W32s//////wAAeD9mZkY//////wAAeD/W32s//////wAAeD/W32s//////wAAeD/W32s//////wAAeD9mZkY//////wAAeD+pBk0//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD+pBk0//////wAAeD9mZkY//////wAAeD/W32s//////wAAeD/W32s//////wAAeD/W32s//////wAAeD/W32s//////wAAeD9mZkY//////wAAeD+pBk0//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI//////wAAeD8ZgHI/"),
+"format": 34359742495,
+"index_count": 108,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABAAGAAUABgAEAAcACAAJAAoACQAIAAsAAQAMAAIADAABAA0ADgAPABAADwAOABEAEgATABQAEwASABUAFgAXABgAFwAWABkACwAaAAkAGgALABsAHAAdAB4AHQAcAB8AHwAgAB0AHQAgACEAIQAgACIAIgAgACMAHwAkACAAJAAfACUAJgAnACgAKAApACYAKQAoACoAKAArACoAKwAsACoALAAtACoAKQAqAC4ALgAvACkAMAAxADIAMQAwADMANAA1ADYANgA3ADQA"),
+"material": SubResource("StandardMaterial3D_5ge4n"),
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 56,
+"vertex_data": PackedByteArray("nsOuPgAAAACpE1Amm9yhPgAAAAA2EgW9m9yhPgAAAAA2EgU9nsOuPgrXozypE1Amm9yhPgrXozw2EgU9m9yhPgrXozw2EgW9l2LBPU7RkTxNl8+8l2LBPU7RkTxNl888m9yhPgAAAAA2EgW9nsOuPgrXozypE1Amm9yhPgrXozw2EgW9nsOuPgAAAACpE1Aml2LBPeAtEDtNl888l2LBPeAtEDtNl8+8l2LBPeAtEDtNl888m9yhPgrXozw2EgU9m9yhPgAAAAA2EgU9l2LBPU7RkTxNl888m9yhPgrXozw2EgW9l2LBPeAtEDtNl8+8m9yhPgAAAAA2EgW9l2LBPU7RkTxNl8+8l2LBPU7RkTxNl8+8l2LBPeAtEDtNl888l2LBPeAtEDtNl8+8l2LBPU7RkTxNl888m9yhPgrXozw2EgU9m9yhPgAAAAA2EgU9Q+6cvreUgD0VdBm9Lc8TvhJgnjzDmky8nsOuvtqxkz3Dmky8Lc8TvhJgnjwVdBm9Lc8TvhJgnjwVdBk9Lc8TvhJgnjzDmkw8nsOuvtqxkz3Dmkw8Q+6cvreUgD0VdBk94EjgvQrXIzzDmkw84EjgvQrXIzzDmky8Q+6cvreUgD0VdBm9nsOuvtqxkz3Dmky8Lc8TvhJgnjzDmky8Lc8TvhJgnjwVdBm9Lc8TvhJgnjwVdBk9Lc8TvhJgnjzDmkw8nsOuvtqxkz3Dmkw8Q+6cvreUgD0VdBk94EjgvQrXIzzDmkw84EjgvQrXIzzDmky8l2LBPQrXIzznOLg84EjgvQrXIzzDmky8l2LBPQrXIzznOLi84EjgvQrXIzzDmkw8l2LBPQrXIzznOLg8l2LBPQrXIzznOLi84EjgvQrXIzzDmky84EjgvQrXIzzDmkw8/38AAP///78df+EA////vx1/4QD///+//3///////78dfx3/////vx1/Hf////+/vX69/v///7+9fr3+////v///6bf///+/////f////7///+m3////v////3////+/vX5BAf///7+9fkEB////vwB8/3////8/AHz/f////z8AfP9/////PwB8/3////8/AAD/+////78AAP/7////vwAA//v///+/AAD/+////78AAP9/////vwAA/3////+/AAD/f////78AAP9/////vxXI/3////8/Fcj/f////z8Mm/Lk////vwyb8uT///+/DJvy5P///78Mm/Lk////vwyb8uT///+/DJvy5P///78Mm/Lk////vwyb8uT///+/DJvy5P///78Mm/Lk////v/JkDBv///+/8mQMG////7/yZAwb////v/JkDBv///+/8mQMG////7/yZAwb////v/JkDBv///+/8mQMG////7/yZAwb////v/JkDBv///+//3///////7//f///////v/9///////+//3///////7//fwAA////v/9/AAD///+//38AAP///7//fwAA////vw==")
+}]
+blend_shape_mode = 0
+
 [sub_resource type="Resource" id="Resource_hqclq"]
 script = ExtResource("4_3mivm")
 Name = ""
@@ -40,7 +75,7 @@ SwayAmountRotation = 50.0
 IdleSwayAdjustment = 10.0
 IdleSwayRotationStrength = 30.0
 RandomSwayAmount = 10.0
-Mesh = ExtResource("4_cwsp6")
+Mesh = SubResource("ArrayMesh_lmrd0")
 Shadow = false
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ttrgv"]
@@ -534,6 +569,7 @@ _speed = 4.0
 cull_mask = 1048573
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Recoil/Camera3D"]
+visible = false
 update_mode = 1
 
 [node name="WeaponContainer" type="Node3D" parent="CameraController/Recoil/Camera3D"]
