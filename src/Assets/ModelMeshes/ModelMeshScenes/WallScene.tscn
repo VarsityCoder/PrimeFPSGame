@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://8ep4ff21ceoj"]
+
+[ext_resource type="ArrayMesh" uid="uid://dt8u2x3wce2ku" path="res://src/Assets/ModelMeshes/wall_Mesh wall.res" id="1_7wnh3"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_d1o3m"]
+points = PackedVector3Array(0.993766, 1.27489, -3.46945e-18, -0.0102341, -0.0101058, -0.0602341, 0.00917828, 0.0147396, -3.46945e-18, 1.01318, -0.0101058, -0.0602341, -0.0102341, 1.29973, -0.0602341, 1.01318, 1.29973, -0.0602341, 0.00917828, 1.27489, -3.46945e-18, 0.993766, 0.0147396, -3.46945e-18)
+
+[node name="HotelWall" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_7wnh3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_d1o3m")
