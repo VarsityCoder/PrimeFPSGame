@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cv0mvdhs63xic"]
+
+[ext_resource type="ArrayMesh" uid="uid://baiwlgfy6nhik" path="res://src/Assets/ModelMeshes/wallCorner_Mesh wallCorner.res" id="1_qsbvq"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_p1acc"]
+points = PackedVector3Array(0.481022, -0.0101058, -0.560234, 0.461335, 1.2895, -0.0119092, 0.562877, 1.29973, -0.560234, 0.562877, -0.0101058, -0.0894924, 0.461325, 2.22045e-16, -0.0118551, 0.481022, 1.29973, -0.560234, 0.562877, 1.29973, -0.0894924, 0.562877, -0.0101058, -0.560234, 0.460536, 1.29973, -0.0894924, 0.460536, -0.0101058, -0.0894924)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_67xcf"]
+points = PackedVector3Array(0.460536, 1.29973, 0.012877, -0.0102341, -0.0101058, -0.068996, -0.0102341, -0.0101058, 0.012877, -0.0102341, 1.29973, -0.068996, 0.460536, -0.0101058, -0.068996, 0.460536, -0.0101058, 0.012877, -0.0102341, 1.29973, 0.012877, 0.460536, 1.29973, -0.068996)
+
+[node name="WallRounded" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_qsbvq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_p1acc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_67xcf")
