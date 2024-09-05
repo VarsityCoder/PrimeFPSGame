@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dt35jqhrv6q24"]
+
+[ext_resource type="ArrayMesh" uid="uid://del1geqy5x53b" path="res://src/Assets/ModelMeshes/floorFull_Mesh floorFull.res" id="1_4f2ar"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ux20p"]
+points = PackedVector3Array(1.00794, 0.0555493, 0.00773764, -0.00784016, -0.00793651, -1.00774, -0.00784016, -0.00793651, 0.00773764, -0.00784016, 0.0555493, -1.00774, 1.00794, -0.00793651, -1.00774, -0.00784016, 0.0555493, 0.00773764, 1.00794, -0.00793651, 0.00773764, 1.00794, 0.0555493, -1.00774)
+
+[node name="FloorFullScene" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_4f2ar")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_ux20p")
