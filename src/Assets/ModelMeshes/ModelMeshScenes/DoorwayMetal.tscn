@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://bob6uxxt7128r"]
+
+[ext_resource type="ArrayMesh" uid="uid://bcp7h68kfmf5w" path="res://src/Assets/ModelMeshes/doorwayFront_Mesh doorwayFront.res" id="1_qv0x2"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vkvgp"]
+points = PackedVector3Array(0.488712, 0.953417, 0.0150438, 0.344526, 0.969441, -0.0971009, 0.344526, 1.01751, -0.0971009, 0.344526, 0.969441, 0.0150438, 0.488712, 1.01751, -0.0971009, 0.488712, 1.01751, 0.0150438, 0.488712, 0.953417, -0.0971009, 0.344526, 1.01751, 0.0150438, 0.45666, 0.953417, 0.0150438, 0.45666, 0.953417, -0.0971009)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_d6ggn"]
+points = PackedVector3Array(0.456679, -0.00801188, -0.0971009, 0.488726, 0.953417, 0.0150438, 0.456679, 0.953417, 0.0150438, 0.488726, -0.00801188, 0.0150438, 0.488726, 0.953417, -0.0971009, 0.456679, 0.953417, -0.0971009, 0.456679, -0.00801188, 0.0150438, 0.488726, -0.00801188, -0.0971009)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nc1qs"]
+points = PackedVector3Array(0.344512, 0.969441, 0.0150438, -0.00801194, 0.953417, -0.0971009, -0.00801194, 1.01751, -0.0971009, -0.00801194, 0.953417, 0.0150438, -0.00801194, 1.01751, 0.0150438, 0.344512, 1.01751, -0.0971009, 0.344512, 0.969441, -0.0971009, 0.344512, 1.01751, 0.0150438, 0.0401254, 0.953417, 0.0150438, 0.0401254, 0.953417, -0.0971009)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_d2ki2"]
+points = PackedVector3Array(-0.0080119, -0.00801188, -0.0971009, 0.0400595, 0.953417, 0.0150438, -0.0080119, 0.953417, 0.0150438, 0.0400595, -0.00801188, 0.0150438, 0.0400595, 0.953417, -0.0971009, -0.0080119, 0.953417, -0.0971009, -0.0080119, -0.00801188, 0.0150438, 0.0400595, -0.00801188, -0.0971009)
+
+[node name="DoorwayMetal" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_qv0x2")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_vkvgp")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_d6ggn")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_nc1qs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_d2ki2")
