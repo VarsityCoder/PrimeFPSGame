@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://04oyoclnckex"]
+[gd_scene load_steps=15 format=3 uid="uid://04oyoclnckex"]
 
 [ext_resource type="PackedScene" uid="uid://dt35jqhrv6q24" path="res://src/Assets/ModelMeshes/ModelMeshScenes/FloorFullScene.tscn" id="1_r64fs"]
 [ext_resource type="PackedScene" uid="uid://drqq1iisim2uh" path="res://src/Assets/player_fps_controller.tscn" id="2_crbwl"]
@@ -6,6 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://cv0mvdhs63xic" path="res://src/Assets/ModelMeshes/ModelMeshScenes/WallRounded.tscn" id="4_jilem"]
 [ext_resource type="PackedScene" uid="uid://cqq513gos0dyj" path="res://src/Assets/ModelMeshes/ModelMeshScenes/DoorwayWide.tscn" id="5_icm5a"]
 [ext_resource type="PackedScene" uid="uid://bob6uxxt7128r" path="res://src/Assets/ModelMeshes/ModelMeshScenes/DoorwayMetal.tscn" id="6_tpsjb"]
+[ext_resource type="PackedScene" uid="uid://lumlllgdy0ya" path="res://src/Assets/ModelMeshes/ModelMeshScenes/DoorMatScene.tscn" id="7_fcru6"]
+[ext_resource type="PackedScene" uid="uid://cqdocprided26" path="res://src/Assets/ModelMeshes/ModelMeshScenes/RectangleRug.tscn" id="8_5lr2f"]
+[ext_resource type="PackedScene" uid="uid://bkudqq4ska76d" path="res://src/Assets/ModelMeshes/ModelMeshScenes/ShowerRoundBase.tscn" id="9_ukllh"]
+[ext_resource type="PackedScene" uid="uid://mdytss72j6xe" path="res://src/Assets/ModelMeshes/ModelMeshScenes/Toiler.tscn" id="10_c1tus"]
+[ext_resource type="PackedScene" uid="uid://bkbj3mxrkj4qo" path="res://src/Assets/ModelMeshes/ModelMeshScenes/double_bed.tscn" id="11_qwym7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kiqe4"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -336,6 +341,21 @@ transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 32, 3.
 
 [node name="DoorwayMetal" parent="Hotel/Room" instance=ExtResource("6_tpsjb")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 22.025, 4, -7.7)
+
+[node name="DoorMat Scene" parent="Hotel/Room" instance=ExtResource("7_fcru6")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 22.3, 4.05417, -8.3)
+
+[node name="RectangleRug" parent="Hotel/Room" instance=ExtResource("8_5lr2f")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 16.4, 4, -0.3)
+
+[node name="ShowerRound" parent="Hotel/Room" instance=ExtResource("9_ukllh")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 30.2, 3.97, -6.3)
+
+[node name="Toilet" parent="Hotel/Room" instance=ExtResource("10_c1tus")]
+transform = Transform3D(-4, 0, -6.03983e-07, 0, 4, 0, 6.03983e-07, 0, -4, 31.8, 4.44395, -1.6)
+
+[node name="DoubleBed" parent="Hotel/Room" instance=ExtResource("11_qwym7")]
+transform = Transform3D(2.26494e-07, 0, 3, 0, 3, 0, -3, 0, 2.26494e-07, 19.5, 4.05288, -2.4)
 
 [node name="Room2" type="Node3D" parent="Hotel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
