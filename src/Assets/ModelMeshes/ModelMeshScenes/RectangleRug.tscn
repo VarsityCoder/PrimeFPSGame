@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqdocprided26"]
+
+[ext_resource type="ArrayMesh" uid="uid://bk475iidi6mrm" path="res://src/Assets/ModelMeshes/rugRectangle_Mesh rugRectangle.res" id="1_71jer"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_oiwrj"]
+points = PackedVector3Array(1.58246, 0.0124603, 0.0145238, -0.0123042, -0.0124603, -0.93246, -0.0123042, 0.0124603, -0.93246, 1.58246, -0.0124603, -0.93246, -0.0123042, -0.0124603, 0.0145238, -0.0123042, 0.0124603, 0.0145238, 1.58246, 0.0124603, -0.93246, 1.58246, -0.0124603, 0.0145238)
+
+[node name="RectangleRug" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_71jer")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_oiwrj")
