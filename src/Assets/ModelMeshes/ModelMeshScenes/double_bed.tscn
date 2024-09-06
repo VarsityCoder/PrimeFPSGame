@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkbj3mxrkj4qo"]
+
+[ext_resource type="ArrayMesh" uid="uid://cs8oyxbpb82sq" path="res://src/Assets/ModelMeshes/bedDouble_Mesh bedDouble.res" id="1_jcn4p"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ogb6g"]
+points = PackedVector3Array(0.0120055, -0.00892857, -0.0805302, 0.933, 0.0484194, -0.017463, 0.940423, 0.241071, -0.991071, 0.0120055, 0.241071, -0.00908062, 0.0301011, 0.05, -0.953711, 0.922328, 0.05, -0.953711, 0.0120055, 0.241071, -0.991071, 0.940423, 0.241071, -0.00908062, 0.940423, -0.00892857, -0.0805302, 0.0451632, -2.77556e-17, -0.02688, 0.907265, 1.38778e-17, -0.02688, 0.023, 0.0489483, -0.0211663)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0u6ga"]
+points = PackedVector3Array(0.0120055, -0.00892857, -1.00894, 0.958357, 0.383929, -1.00894, 0.958357, 0.383929, -1.1339, -0.00592858, 0.383929, -1.00894, -0.00592858, 0.0447163, -1.1339, 0.940423, -0.00892857, -1.1339, 0.940515, 0.05, -0.993714, -0.00592858, 0.383929, -1.1339, 0.0120055, 0.241068, -0.991072, 0.940423, -0.00892857, -1.00894, 0.0120055, -0.00892857, -1.1339, 0.940423, 0.241068, -0.991072, 0.0119132, 0.05, -0.993714, 0.958357, 0.0447163, -1.1339)
+
+[node name="DoubleBed" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_jcn4p")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_ogb6g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_0u6ga")
