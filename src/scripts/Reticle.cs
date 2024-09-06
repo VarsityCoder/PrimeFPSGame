@@ -3,15 +3,13 @@ using Godot;
 
 namespace PrimeFPSGame.Scripts;
 
-using System.CodeDom.Compiler;
-using System.Numerics;
 using Godot.Collections;
 using Vector2 = Godot.Vector2;
 using Vector3 = Godot.Vector3;
 
 public partial class Reticle : CenterContainer {
 
-  [Export] private float _dotRadius = 3.0f;
+  [Export] private float _dotRadius = 1.0f;
   [Export] private Color _dotColor = Colors.White;
   [Export] private CharacterBody3D? _playerController;
   [Export] private float _reticleSpeed = 0.25f;
