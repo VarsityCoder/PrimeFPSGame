@@ -170,7 +170,8 @@ _direction = Vector3(-1, 0, 0)
 _doorSize = Vector3(2, 3, 0.1)
 _speed = 2.0
 _transition = 6
-_easeType = 1
+_easeType = 2
+_doorOperation = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D4/AnimatableBody3D/DoorComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7, 0, 0.2)
