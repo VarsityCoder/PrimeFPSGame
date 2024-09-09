@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://caoc0ac4s8dpq"]
+
+[ext_resource type="ArrayMesh" uid="uid://bk1uduek6d4bl" path="res://src/Assets/ModelMeshes/bathroomSinkSquare_Mesh bathroomSinkSquare.res" id="1_glbb0"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dx7jo"]
+points = PackedVector3Array(0.197937, 0.641396, -0.371746, 0.234762, 0.622989, -0.288897, 0.197937, 0.622989, -0.288897, 0.234762, 0.604578, -0.371746, 0.197937, 0.604578, -0.288897, 0.234762, 0.641396, -0.371746, 0.197937, 0.604578, -0.371746, 0.234762, 0.641396, -0.307314, 0.234762, 0.604578, -0.288897, 0.197937, 0.641396, -0.307314)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3g7gh"]
+points = PackedVector3Array(0.197587, 0.5668, -0.418369, 0.234747, 0.641389, -0.371746, 0.262371, 0.61378, -0.38096, 0.234747, 0.632191, -0.417773, 0.161111, 0.61378, -0.38096, 0.235342, 0.5668, -0.380603, 0.25869, 0.587508, -0.4161, 0.161111, 0.61378, -0.417773, 0.161111, 0.58617, -0.38096, 0.197944, 0.641389, -0.408564, 0.197944, 0.641389, -0.371746, 0.262371, 0.61378, -0.417773, 0.234747, 0.604574, -0.371746, 0.161111, 0.58617, -0.417773, 0.262371, 0.58617, -0.38096, 0.235342, 0.5668, -0.418369, 0.197587, 0.5668, -0.380603, 0.234747, 0.641389, -0.408564, 0.197944, 0.604574, -0.371746, 0.197944, 0.632191, -0.417773)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5bwnb"]
+points = PackedVector3Array(0.00185344, 0.565857, -0.45, 0.429753, 0.565539, -0.449227, 0.00723265, 0.564288, -0.15, 0.0138239, 0.448085, -0.454573, 0.0138239, 0.448085, -0.141618, 0.409661, 0.448085, -0.454573, 0.425466, 0.564288, -0.15, 0.409661, 0.448085, -0.141618, 0.1564, 0.443337, -0.443739, 0.425466, 0.546857, -0.15, 0.00723265, 0.538141, -0.15)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_oh0ku"]
+points = PackedVector3Array(0.1564, 0.0656825, -0.449452, 0.286772, 0.4568, -0.310552, 0.145926, 0.4568, -0.310552, 0.280794, 0.438863, -0.454589, 0.280794, 0.0521968, -0.307316, 0.280794, 0.0521968, -0.454589, 0.1564, 0.0656825, -0.312452, 0.1564, 0.425378, -0.449452)
+
+[node name="BathroomSinkSquare" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_glbb0")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_dx7jo")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_3g7gh")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_5bwnb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_oh0ku")
