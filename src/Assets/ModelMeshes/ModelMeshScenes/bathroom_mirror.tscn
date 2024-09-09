@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cew6yinet3t3w"]
+
+[ext_resource type="ArrayMesh" uid="uid://beb8hxetckwqb" path="res://src/Assets/ModelMeshes/bathroomMirror_Mesh bathroomMirror.res" id="1_e5ggq"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_03pcn"]
+points = PackedVector3Array(0.224176, 0.438049, -0.0177571, -0.0034492, 0.0448397, -0.0522492, -0.0034492, 0.0448397, -0.0177571, 0.306979, 0.0448397, -0.0522492, 0.00347893, 0.417342, -0.0522492, 0.306979, 0.0448397, -0.0177571, 0.306979, 0.410452, -0.0522492, -0.0034492, 0.410452, -0.0177571, 0.306979, 0.410452, -0.0177571, 0.0724563, 0.438049, -0.0522492, 0.0724563, 0.438049, -0.0177571, 0.224176, 0.438049, -0.0522492, -0.0034492, 0.410452, -0.0522492, 0.293153, 0.417342, -0.0177571, 0.00347893, 0.417342, -0.0177571, 0.251767, 0.431083, -0.0522492, 0.293153, 0.417342, -0.0522492, 0.251767, 0.431083, -0.0177571)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_noxko"]
+points = PackedVector3Array(0.306979, 0.0379386, 0.0995159, -0.0034492, -0.00344921, -0.0522492, 0.003606, 0.0437422, -0.0488, -0.0034492, 0.0172494, 0.0995159, 0.306979, -0.00344921, -0.0522492, 0.299924, 0.0437422, -0.0488, -0.0034492, 0.0379386, 0.0995159, 0.306979, 0.0172494, 0.0995159, 0.306979, -0.00344921, -0.0177544, -0.0034492, 0.0448397, -0.0177544, -0.0034492, -0.00344921, -0.0177544, 0.306979, 0.0448397, -0.0177544)
+
+[node name="BathroomMirror" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_e5ggq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_03pcn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_noxko")
