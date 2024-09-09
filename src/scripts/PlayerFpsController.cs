@@ -32,8 +32,8 @@ public partial class PlayerFpsController : CharacterBody3D {
   [Export] private ShapeCast3D? _crouchShapeCast;
   [Export] private bool _toggleCrouchMode = true;
   protected internal InitialWeapon? WeaponController;
-  [Export] private float _interactDistance = 10f;
-  private Node? _interactCastResult;
+
+
   
 
   public override void _Ready() {
@@ -68,7 +68,6 @@ public partial class PlayerFpsController : CharacterBody3D {
 			velocity.Y = JumpVelocity;
       Velocity = velocity;
     }
-    InteractCast();
 	}
 
   public override void _UnhandledInput(InputEvent @event) {
@@ -133,14 +132,6 @@ public partial class PlayerFpsController : CharacterBody3D {
       Velocity = tempVector3;
   }
 
-  public override void _Input(InputEvent @event)
-  {
-    if (@event.IsActionPressed("interact"))
-    {
-      Interact();
-    }
-  }
-
   public void UpdateInput(float speed, float acceleration, float deceleration) 
   {
     var velocity = Velocity;
@@ -160,50 +151,9 @@ public partial class PlayerFpsController : CharacterBody3D {
     Velocity = velocity;
   }
 
-  private void Interact()
-  {
-    if (_interactCastResult != null && _interactCastResult.HasUserSignal("Interacted"))
-    {
-      _interactCastResult.EmitSignal("Interacted");
-    }
-  }
 
-  private void InteractCast()
-  {
-    if (_cameraController != null)
-    {
-      var spaceState = _cameraController.GetWorld3D().DirectSpaceState;
-      var screenCenter = GetViewport().GetWindow().Size / 2;
-      var origin = _cameraController.ProjectRayOrigin(screenCenter);
-      var end = origin + _cameraController.ProjectRayNormal(screenCenter) * _interactDistance;
-      var query = PhysicsRayQueryParameters3D.Create(origin, end);
-      query.CollideWithBodies = true;
-      var result = spaceState.IntersectRay(query);
-      if (result.Keys.Contains("collider"))
-      {
-        var currentCastResult = result["collider"];
-        if ((Node)currentCastResult != _interactCastResult )
-        {
-       
-          if (_interactCastResult != null && _interactCastResult.HasUserSignal("Unfocused"))
-          {
-            _interactCastResult.EmitSignal("Unfocused");
-          }
-          _interactCastResult = (Node)currentCastResult;
-          if (_interactCastResult != null && _interactCastResult.HasUserSignal("Focused"))
-          {
-            _interactCastResult.EmitSignal("Focused");
 
-          }
-        }
-      }
-      //TODO find a better way to handle this. It works but it isn't the best
-      else if(!result.Keys.Contains("collider"))
-      {
-        _interactCastResult?.EmitSignal("Unfocused");
-      }
-    }
-  }
+
 
   public void UpdateVelocity()
   {
