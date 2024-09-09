@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://drqq1iisim2uh"]
+[gd_scene load_steps=39 format=4 uid="uid://drqq1iisim2uh"]
 
 [ext_resource type="Script" path="res://src/scripts/PlayerFpsController.cs" id="1_an64t"]
 [ext_resource type="Script" path="res://src/scripts/Reticle.cs" id="2_67aym"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://erojknd8ks2j" path="res://src/Assets/weapon_blaster.tscn" id="3_xgkef"]
 [ext_resource type="Script" path="res://src/scripts/WeaponsResource.cs" id="4_3mivm"]
 [ext_resource type="Script" path="res://src/scripts/DebugPanel.cs" id="4_b3rrv"]
+[ext_resource type="Script" path="res://src/scripts/InteractionRaycast.cs" id="5_0k1sp"]
 [ext_resource type="Script" path="res://src/scripts/StateMachine.cs" id="5_h4cac"]
 [ext_resource type="Script" path="res://src/scripts/IdlePlayerState.cs" id="6_tgb7n"]
 [ext_resource type="Script" path="res://src/scripts/WalkingPlayerState.cs" id="7_nilia"]
@@ -577,8 +578,10 @@ _swayNoise = SubResource("NoiseTexture2D_wpile")
 _swaySpeed = 50.0
 _attackCamera = NodePath("../..")
 
-[node name="InteractionRaycast" type="RayCast3D" parent="CameraController/Recoil/Camera3D"]
+[node name="InteractionRaycast" type="RayCast3D" parent="CameraController/Recoil/Camera3D" node_paths=PackedStringArray("_cameraController")]
 target_position = Vector3(0, 0, -2)
+script = ExtResource("5_0k1sp")
+_cameraController = NodePath("..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
