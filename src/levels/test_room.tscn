@@ -121,7 +121,6 @@ material = SubResource("StandardMaterial3D_ffgkv")
 
 [node name="PlayerFPSController" parent="." groups=["player"] instance=ExtResource("3_e284o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001, -0.682199, -11.5)
-_interactDistance = 2.0
 
 [node name="ItemPickup2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5167, 0, 5.90188)
@@ -171,7 +170,6 @@ _doorSize = Vector3(2, 3, 0.1)
 _speed = 2.0
 _transition = 6
 _easeType = 2
-_doorOperation = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D4/AnimatableBody3D/DoorComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7, 0, 0.2)
