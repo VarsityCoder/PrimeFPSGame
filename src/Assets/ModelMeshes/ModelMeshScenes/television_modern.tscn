@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bi1b47he0idlb"]
+
+[ext_resource type="ArrayMesh" uid="uid://1ggk1nfcvsma" path="res://src/Assets/ModelMeshes/televisionModern_Mesh televisionModern.res" id="1_shd0m"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6vx84"]
+points = PackedVector3Array(-0.0468569, 0.0214, -0.0508827, 0.334179, 0.453647, 0.0267, 0.329893, 0.0696, 0.0262313, -0.334179, 0.453647, 0.0267, -0.329893, 0.0696, 0.0262313, 0.347835, 0.461968, -0.0044212, -0.347835, 0.461968, -0.0044212, -0.0434453, 0.222868, -0.0478952, 0.347835, 0.0597884, -0.0044212, -0.347835, 0.0597884, -0.0044212, 0.0468569, 0.0214, -0.0508827, -0.0468569, 0.0214, -0.00399483, 0.0434453, 0.222868, -0.0478952, 0.0468569, 0.0214, -0.00399483)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1jory"]
+points = PackedVector3Array(0.0434474, 0.0380444, -0.00440311, -0.184787, -0.00543492, -0.0696349, -0.184787, -0.00543492, 0.071673, 0.184787, -0.00543492, -0.0696349, 0.184787, -0.00543492, 0.071673, -0.173898, 0.0271746, -0.0696349, -0.173898, 0.0271746, 0.060801, 0.173898, 0.0271746, -0.0696349, 0.173898, 0.0271746, 0.060801, -0.0434474, 0.0380444, -0.00440311, 0.184787, 0.00543492, 0.071673, -0.184787, 0.00543492, 0.071673, -0.0348, 0.0337175, -0.0381452, 0.0348, 0.0337175, -0.0381452)
+
+[node name="TelevisionModern" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_shd0m")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_6vx84")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_1jory")
