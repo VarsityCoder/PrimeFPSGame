@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://04oyoclnckex"]
+[gd_scene load_steps=26 format=3 uid="uid://04oyoclnckex"]
 
 [ext_resource type="PackedScene" uid="uid://dt35jqhrv6q24" path="res://src/Assets/ModelMeshes/ModelMeshScenes/FloorFullScene.tscn" id="1_r64fs"]
 [ext_resource type="PackedScene" uid="uid://drqq1iisim2uh" path="res://src/Assets/player_fps_controller.tscn" id="2_crbwl"]
@@ -11,6 +11,17 @@
 [ext_resource type="PackedScene" uid="uid://bkudqq4ska76d" path="res://src/Assets/ModelMeshes/ModelMeshScenes/ShowerRoundBase.tscn" id="9_ukllh"]
 [ext_resource type="PackedScene" uid="uid://mdytss72j6xe" path="res://src/Assets/ModelMeshes/ModelMeshScenes/Toiler.tscn" id="10_c1tus"]
 [ext_resource type="PackedScene" uid="uid://bkbj3mxrkj4qo" path="res://src/Assets/ModelMeshes/ModelMeshScenes/double_bed.tscn" id="11_qwym7"]
+[ext_resource type="PackedScene" uid="uid://bpq7f4athho33" path="res://src/Assets/ModelMeshes/ModelMeshScenes/room_light.tscn" id="12_ng2m6"]
+[ext_resource type="PackedScene" uid="uid://cew6yinet3t3w" path="res://src/Assets/ModelMeshes/ModelMeshScenes/bathroom_mirror.tscn" id="14_g6d7l"]
+[ext_resource type="PackedScene" uid="uid://caoc0ac4s8dpq" path="res://src/Assets/ModelMeshes/ModelMeshScenes/bathroom_sink_square.tscn" id="14_yhgt8"]
+[ext_resource type="PackedScene" uid="uid://k3vt1ypifsc7" path="res://src/Assets/ModelMeshes/ModelMeshScenes/wall_half.tscn" id="15_mslmj"]
+[ext_resource type="PackedScene" uid="uid://c0n325yixac4m" path="res://src/Assets/ModelMeshes/ModelMeshScenes/television_cabinet.tscn" id="16_pghkc"]
+[ext_resource type="PackedScene" uid="uid://bi1b47he0idlb" path="res://src/Assets/ModelMeshes/ModelMeshScenes/television_modern.tscn" id="17_yhx0h"]
+[ext_resource type="PackedScene" uid="uid://b1e4uh5bvff1g" path="res://src/Assets/ModelMeshes/ModelMeshScenes/lounge_sofa_corner.tscn" id="18_3v26m"]
+[ext_resource type="PackedScene" uid="uid://cdhllxy73cv1y" path="res://src/Assets/ModelMeshes/ModelMeshScenes/computer_desk.tscn" id="19_i0tlv"]
+[ext_resource type="PackedScene" uid="uid://bfemkyolfls51" path="res://src/Assets/ModelMeshes/ModelMeshScenes/desk_chair.tscn" id="20_xwl1h"]
+[ext_resource type="PackedScene" uid="uid://ch58fbyg8tx10" path="res://src/Assets/ModelMeshes/ModelMeshScenes/bed_cabinet.tscn" id="21_ersk8"]
+[ext_resource type="PackedScene" uid="uid://xl05pnsyubma" path="res://src/Assets/ModelMeshes/ModelMeshScenes/lamp_round_table.tscn" id="22_n2q0l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kiqe4"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -174,7 +185,7 @@ transform = Transform3D(1.52855e-14, 3.49691e-07, 8, 8, -3.49691e-07, 0, 3.49691
 [node name="Ceiling" type="Node3D" parent="SceneModels"]
 
 [node name="CeilingFullScene" parent="SceneModels/Ceiling" instance=ExtResource("1_r64fs")]
-transform = Transform3D(80, 0, 0, 0, 80, 0, 0, 0, 80, 0, 17.8, 0)
+transform = Transform3D(80, 0, 0, 0, 80, 0, 0, 0, 80, 0, 19, 0)
 
 [node name="PlayerFPSController" parent="." instance=ExtResource("2_crbwl")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 9.799, 6.14395, -2.6)
@@ -352,10 +363,52 @@ transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 16.4, 4, -0.3)
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 30.2, 3.97, -6.3)
 
 [node name="Toilet" parent="Hotel/Room" instance=ExtResource("10_c1tus")]
-transform = Transform3D(-4, 0, -6.03983e-07, 0, 4, 0, 6.03983e-07, 0, -4, 31.8, 4.44395, -1.6)
+transform = Transform3D(-4, 0, -6.03983e-07, 0, 4, 0, 6.03983e-07, 0, -4, 28.9, 4.04395, -1.6)
 
 [node name="DoubleBed" parent="Hotel/Room" instance=ExtResource("11_qwym7")]
-transform = Transform3D(2.26494e-07, 0, 3, 0, 3, 0, -3, 0, 2.26494e-07, 19.5, 4.05288, -2.4)
+transform = Transform3D(2.26494e-07, 0, 3, 0, 3, 0, -3, 0, 2.26494e-07, 19.5, 4.05288, -2)
+
+[node name="RoomLight" parent="Hotel/Room" instance=ExtResource("12_ng2m6")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 25.3, 11, -3.1)
+
+[node name="BathroomMirror" parent="Hotel/Room" instance=ExtResource("14_g6d7l")]
+transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 31.7, 5.8, -4.3)
+
+[node name="BathroomSinkSquare" parent="Hotel/Room" instance=ExtResource("14_yhgt8")]
+transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 30.5, 3.85728, -4.5)
+
+[node name="WallHalf" parent="Hotel/Room" instance=ExtResource("15_mslmj")]
+transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, 27.6, 4.1, -0.1)
+
+[node name="WallHalf2" parent="Hotel/Room" instance=ExtResource("15_mslmj")]
+transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, 27.6, 4.1, -2.1)
+
+[node name="WallHalf3" parent="Hotel/Room" instance=ExtResource("15_mslmj")]
+transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, 27.6, 4.1, -4.1)
+
+[node name="WallHalf4" parent="Hotel/Room" instance=ExtResource("15_mslmj")]
+transform = Transform3D(-1.74846e-07, 0, 4, 4, -1.74846e-07, 1.74846e-07, 1.74846e-07, 4, 7.64274e-15, 27.6, 7.2, -8)
+
+[node name="TelevisionCabinet" parent="Hotel/Room" instance=ExtResource("16_pghkc")]
+transform = Transform3D(3.01992e-07, 0, -4, 0, 4, 0, 4, 0, 3.01992e-07, 26.4, 4.063, -5)
+
+[node name="TelevisionModern" parent="Hotel/Room" instance=ExtResource("17_yhx0h")]
+transform = Transform3D(-1.74846e-07, 0, -4, 0, 4, 0, 4, 0, -1.74846e-07, 27.1, 5.4, -3.4)
+
+[node name="LoungeSofaCorner" parent="Hotel/Room" instance=ExtResource("18_3v26m")]
+transform = Transform3D(-3, 0, 4.52987e-07, 0, 3, 0, -4.52987e-07, 0, -3, 25.9, 4.07073, -4.7)
+
+[node name="ComputerDesk" parent="Hotel/Room" instance=ExtResource("19_i0tlv")]
+transform = Transform3D(-1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, 17.3, 4.1, -5.7)
+
+[node name="DeskChair" parent="Hotel/Room" instance=ExtResource("20_xwl1h")]
+transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 17.8, 4.7, -6.8)
+
+[node name="BedCabinet" parent="Hotel/Room" instance=ExtResource("21_ersk8")]
+transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, 17, 4.14606, -0.5)
+
+[node name="LampRoundTable" parent="Hotel/Room" instance=ExtResource("22_n2q0l")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 16.5, 5.1, -0.9)
 
 [node name="Room2" type="Node3D" parent="Hotel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
