@@ -134,12 +134,8 @@ public partial class DoorComponent : Area3D
 			tween.TweenProperty(_parent, "rotation", _originalRotation + (_rotationAxis * _rotationAdjustment * Mathf.DegToRad(_rotationAmount)),
 				_speed).SetTrans(_transition).SetEase(_easeType);
 		}
-
-		if (_doorOperation == DoorOperation.Close_Automatically)
-		{
-			tween.TweenInterval(_closeTime);
-			tween.TweenCallback(new Callable(this, "CloseDoor"));
-		}
+		tween.TweenInterval(_closeTime);
+		tween.TweenCallback(new Callable(this, "CloseDoor"));
 	}
 
 	private void CloseDoor()
