@@ -120,7 +120,7 @@ size = Vector3(10, 2, 10)
 material = SubResource("StandardMaterial3D_ffgkv")
 
 [node name="PlayerFPSController" parent="." groups=["player"] instance=ExtResource("3_e284o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001, -0.682199, -11.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001, -0.682199, -1.9)
 
 [node name="ItemPickup2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5167, 0, 5.90188)
@@ -161,7 +161,7 @@ shape = SubResource("ConvexPolygonShape3D_e58u8")
 script = ExtResource("3_wmqdv")
 _context = "Open Door"
 
-[node name="DoorComponent" type="Area3D" parent="CSGBox3D4/AnimatableBody3D"]
+[node name="DoorComponent" type="Area3D" parent="CSGBox3D4/AnimatableBody3D" node_paths=PackedStringArray("_visibleRoom")]
 script = ExtResource("6_fngch")
 _doorType = 1
 _forwardDirection = 2
@@ -170,12 +170,26 @@ _doorSize = Vector3(2, 3, 0.1)
 _speed = 2.0
 _transition = 6
 _easeType = 2
+_visibleRoom = NodePath("../../../VisibleRoom")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D4/AnimatableBody3D/DoorComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7, 0, 0.2)
 shape = SubResource("SphereShape3D_bs8ii")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CSGBox3D4/AnimatableBody3D/DoorComponent"]
+
+[node name="VisibleRoom" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 13.1)
+visible = false
+
+[node name="CSGBox3D" type="CSGBox3D" parent="VisibleRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 23.3)
+size = Vector3(10, 10, 10)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="VisibleRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.4)
+operation = 2
+size = Vector3(9, 9, 9)
 
 [connection signal="body_entered" from="CSGBox3D4/AnimatableBody3D/DoorComponent" to="CSGBox3D4/AnimatableBody3D/DoorComponent" method="BodyEnteredCheck"]
 [connection signal="body_exited" from="CSGBox3D4/AnimatableBody3D/DoorComponent" to="CSGBox3D4/AnimatableBody3D/DoorComponent" method="BodyExitedCheck"]
