@@ -188,7 +188,7 @@ transform = Transform3D(1.52855e-14, 3.49691e-07, 8, 8, -3.49691e-07, 0, 3.49691
 transform = Transform3D(80, 0, 0, 0, 80, 0, 0, 0, 80, 0, 19, 0)
 
 [node name="PlayerFPSController" parent="." instance=ExtResource("2_crbwl")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 9.799, 6.14395, -2.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.799, 6.14395, -2.6)
 
 [node name="Hotel" type="Node3D" parent="."]
 
