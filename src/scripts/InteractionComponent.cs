@@ -1,4 +1,5 @@
 using Godot;
+
 namespace PrimeFPSGame.Scripts;
 
 
@@ -9,9 +10,15 @@ public partial class InteractionComponent : Node
 	[Export] private bool _overrideIcon;
 	[Export] private Texture2D _newIcon = new Texture2D();
 	
+	[Signal]
+	public delegate void PlayerInteractedEventHandler(Node Parent);
+	
+	
+	
 	private Node? _parent;
 	private Material _highlightMaterial = GD.Load<Material>("res://src/Assets/Materials/InteractableHighlight.tres");
 	private MeshInstance3D? _meshInstance;
+	private RigidBody3D? _rigidBody3D;
 	
 	
 	public override void _Ready()
@@ -30,7 +37,6 @@ public partial class InteractionComponent : Node
 			_meshInstance.MaterialOverlay = _highlightMaterial;
 			//TODO potentially use messagebus in the future
 			//EmitSignal(MessageBus.SignalName.InteractionFocused);
-
 		}
 	}
 
@@ -48,7 +54,7 @@ public partial class InteractionComponent : Node
 
 	private void OnInteract()
 	{
-		GD.Print(_parent?.Name);
+		if (_parent != null) EmitSignal(InteractionComponent.SignalName.PlayerInteracted, _parent);
 	}
 
 	private void ConnectParent()
@@ -76,9 +82,14 @@ public partial class InteractionComponent : Node
 				foreach (Node? child in _parent.GetChildren())
 				{
 					{
-						if (child is MeshInstance3D instance3D)
+						if (child is MeshInstance3D instance3D )
 						{
 							_meshInstance = instance3D;
+						}
+
+						if (child is RigidBody3D rigidBody3D)
+						{
+							_rigidBody3D = rigidBody3D;
 						}
 					}
 				}
