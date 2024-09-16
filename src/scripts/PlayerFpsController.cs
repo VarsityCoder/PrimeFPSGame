@@ -26,7 +26,7 @@ public partial class PlayerFpsController : CharacterBody3D {
 
   [Export] private double _tiltLowerLimit = Mathf.DegToRad(-90.0);
   [Export] private double _tiltUpperLimit = Mathf.DegToRad(90.0);
-  [Export] private Camera3D? _cameraController;
+  [Export] public Camera3D? CameraController;
   [Export] private float _mouseSensitivity = 0.5f;
   [Export] protected internal AnimationPlayer? AnimationPlayer;
   [Export] private ShapeCast3D? _crouchShapeCast;
@@ -36,7 +36,9 @@ public partial class PlayerFpsController : CharacterBody3D {
 
   
 
-  public override void _Ready() {
+  public override void _Ready()
+  {
+    CameraController = GetNode<Camera3D>("CameraController/Recoil/Camera3D");
     Global.PlayerFpsController = this;
     Input.MouseMode = Input.MouseModeEnum.Captured;
     _crouchShapeCast?.AddException(this);
@@ -97,16 +99,16 @@ public partial class PlayerFpsController : CharacterBody3D {
     _playerRotation = new Vector3(0.0f, _mouseRotation.Y, 0.0f);
     _cameraRotation = new Vector3(_mouseRotation.X, 0.0f, 0.0f);
 
-    if (_cameraController != null) {
-      var tempTransform3d = _cameraController.Transform;
+    if (CameraController != null) {
+      var tempTransform3d = CameraController.Transform;
       tempTransform3d.Basis = Basis.FromEuler(_cameraRotation);
-      _cameraController.Transform = tempTransform3d;
+      CameraController.Transform = tempTransform3d;
     }
 
-    if (_cameraController != null) {
-      var tempRotationVector3 = _cameraController.Rotation;
+    if (CameraController != null) {
+      var tempRotationVector3 = CameraController.Rotation;
       tempRotationVector3.Z = 0.0f;
-      _cameraController.Rotation = tempRotationVector3;
+      CameraController.Rotation = tempRotationVector3;
     }
 
     var tempGlobalTransformBasis = GlobalTransform;
