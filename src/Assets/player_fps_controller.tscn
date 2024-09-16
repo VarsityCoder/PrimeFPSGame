@@ -542,11 +542,11 @@ _data = {
 [sub_resource type="LabelSettings" id="LabelSettings_u8415"]
 font_size = 32
 
-[node name="PlayerFPSController" type="CharacterBody3D" node_paths=PackedStringArray("_cameraController", "AnimationPlayer", "_crouchShapeCast")]
+[node name="PlayerFPSController" type="CharacterBody3D" node_paths=PackedStringArray("CameraController", "AnimationPlayer", "_crouchShapeCast")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001, 0, 0)
 safe_margin = 0.01
 script = ExtResource("1_an64t")
-_cameraController = NodePath("CameraController/Recoil/Camera3D")
+CameraController = NodePath("CameraController/Recoil/Camera3D")
 AnimationPlayer = NodePath("AnimationPlayer")
 _crouchShapeCast = NodePath("ShapeCast3D")
 
@@ -580,6 +580,7 @@ _attackCamera = NodePath("../..")
 
 [node name="InteractionRaycast" type="RayCast3D" parent="CameraController/Recoil/Camera3D" node_paths=PackedStringArray("_cameraController")]
 target_position = Vector3(0, 0, -2)
+collision_mask = 9
 script = ExtResource("5_0k1sp")
 _cameraController = NodePath("..")
 
