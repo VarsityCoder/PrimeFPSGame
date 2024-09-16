@@ -1,10 +1,12 @@
-[gd_scene load_steps=20 format=4 uid="uid://dv5idqfneol04"]
+[gd_scene load_steps=23 format=4 uid="uid://dv5idqfneol04"]
 
 [ext_resource type="Texture2D" uid="uid://bxrqi3jnc8eti" path="res://src/Assets/Prototype Textures/Vector/texture_13.svg" id="1_mdyuh"]
 [ext_resource type="PackedScene" uid="uid://drqq1iisim2uh" path="res://src/Assets/player_fps_controller.tscn" id="3_e284o"]
 [ext_resource type="Texture2D" uid="uid://cblpkweqk7ag8" path="res://src/Assets/Prototype Textures/Vector/texture_01.svg" id="3_rg6b2"]
 [ext_resource type="Script" path="res://src/scripts/InteractionComponent.cs" id="3_wmqdv"]
 [ext_resource type="Script" path="res://src/scripts/DoorComponent.cs" id="6_fngch"]
+[ext_resource type="Script" path="res://src/scripts/PickupComponent.cs" id="7_jdjh4"]
+[ext_resource type="ArrayMesh" uid="uid://k5cys6mguqb7" path="res://src/Assets/ModelMeshes/bathroomSink_Mesh bathroomSink.res" id="7_kb8jl"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0ska3"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
@@ -76,6 +78,9 @@ points = PackedVector3Array(1.02381, 1.52351, 0.0690336, -1.02381, -1.52351, -0.
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bs8ii"]
 radius = 4.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_km3q6"]
+points = PackedVector3Array(0.191082, -0.00445139, 0.00774819, -0.00444445, -0.00445139, -0.294444, 0.0783161, -0.396078, -0.29, 0.337124, 0.1043, -0.29, 0.271097, -0.404444, -0.161067, 0.00344656, 0.0835682, -0.0670042, 0.0755712, -0.404444, -0.161067, 0.335761, 0.085328, -0.0663158, 0.264114, -0.38501, -0.284121, 0.146696, 0.164444, -0.1256, 0.000654095, 0.1043, -0.29, -0.00444445, -0.00445139, -0.0633629, 0.342222, -0.00445139, -0.294444, 0.342222, -0.00445139, -0.0633629, 0.14804, 0.0803602, -0.00140317, 0.0933525, -0.00445139, -0.0011555, 0.128915, -0.404444, -0.134474, 0.271097, -0.00445139, -0.0100296, 0.208863, -0.404444, -0.134474, 0.191082, 0.164444, -0.1256, 0.23943, 0.0791736, -0.0105587, 0.0222274, -0.00445139, -0.036711, 0.0806768, 0.0816088, -0.0173237, 0.31555, -0.00445139, -0.036711, 0.0844618, -0.404444, -0.152193, 0.146696, -0.00445139, 0.00774819, 0.244425, -0.00445139, -0.0011555, 0.280709, 0.0787563, -0.0274043, 0.189758, 0.0805588, -0.0012625, 0.235535, -0.404444, -0.143348, 0.0469045, 0.0818662, -0.0339894, 0.149384, 0.13, -0.221421)
 
 [node name="TestRoom" type="Node3D"]
 
@@ -161,7 +166,7 @@ shape = SubResource("ConvexPolygonShape3D_e58u8")
 script = ExtResource("3_wmqdv")
 _context = "Open Door"
 
-[node name="DoorComponent" type="Area3D" parent="CSGBox3D4/AnimatableBody3D" node_paths=PackedStringArray("_visibleRoom")]
+[node name="DoorComponent" type="Area3D" parent="CSGBox3D4/AnimatableBody3D"]
 script = ExtResource("6_fngch")
 _doorType = 1
 _forwardDirection = 2
@@ -170,7 +175,6 @@ _doorSize = Vector3(2, 3, 0.1)
 _speed = 2.0
 _transition = 6
 _easeType = 2
-_visibleRoom = NodePath("../../../VisibleRoom")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D4/AnimatableBody3D/DoorComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7, 0, 0.2)
@@ -190,6 +194,26 @@ size = Vector3(10, 10, 10)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.4)
 operation = 2
 size = Vector3(9, 9, 9)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.2, 1.9)
+disable_mode = 1
+collision_layer = 8
+
+[node name="InteractionComponent" type="Node" parent="RigidBody3D"]
+script = ExtResource("3_wmqdv")
+_context = "Pickup"
+
+[node name="PickupComponent" type="Node" parent="RigidBody3D/InteractionComponent" node_paths=PackedStringArray("_playerFpsController", "_object")]
+script = ExtResource("7_jdjh4")
+_playerFpsController = NodePath("../../../PlayerFPSController")
+_object = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = ExtResource("7_kb8jl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("ConvexPolygonShape3D_km3q6")
 
 [connection signal="body_entered" from="CSGBox3D4/AnimatableBody3D/DoorComponent" to="CSGBox3D4/AnimatableBody3D/DoorComponent" method="BodyEnteredCheck"]
 [connection signal="body_exited" from="CSGBox3D4/AnimatableBody3D/DoorComponent" to="CSGBox3D4/AnimatableBody3D/DoorComponent" method="BodyExitedCheck"]
