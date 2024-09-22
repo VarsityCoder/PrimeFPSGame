@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dss1q5qynmc2h"]
+[gd_scene load_steps=5 format=3 uid="uid://dss1q5qynmc2h"]
+
+[ext_resource type="Script" path="res://src/scripts/portal/Portal.cs" id="1_u6i73"]
+[ext_resource type="Script" path="res://src/scripts/portal/PortalCamera.cs" id="2_jyrim"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qsbww"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_40hka"]
 
 [node name="Portal" type="Area3D"]
+script = ExtResource("1_u6i73")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_qsbww")
@@ -12,6 +16,7 @@ shape = SubResource("BoxShape3D_qsbww")
 [node name="SubViewport" type="SubViewport" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
+script = ExtResource("2_jyrim")
 
 [node name="MultiPortalBlocker" type="StaticBody3D" parent="."]
 
