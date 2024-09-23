@@ -9,7 +9,7 @@ public partial class Portal : Area3D
     [Export] private int _verticalViewportResolution = 512;
     private int _id = -1;
     private Tween? _tween;
-    public PortalCamera? _camera3D;
+    public PortalCamera? Camera3D;
     private SubViewport? _subViewport;
     private Portal _exitPortal = new Portal();
 
@@ -19,23 +19,23 @@ public partial class Portal : Area3D
         set
         {
             _exitPortal = value;
-            if (_exitPortal._camera3D != null)
+            if (_exitPortal.Camera3D != null)
             {
                 if (Global.PlayerFpsController?.CameraController != null)
                 {
-                    _exitPortal._camera3D.Far = Global.PlayerFpsController.CameraController.Far;
-                    _exitPortal._camera3D.Fov = Global.PlayerFpsController.CameraController.Fov;
-                    _exitPortal._camera3D.KeepAspect = Global.PlayerFpsController.CameraController.KeepAspect;
+                    _exitPortal.Camera3D.Far = Global.PlayerFpsController.CameraController.Far;
+                    _exitPortal.Camera3D.Fov = Global.PlayerFpsController.CameraController.Fov;
+                    _exitPortal.Camera3D.KeepAspect = Global.PlayerFpsController.CameraController.KeepAspect;
                 }
             }
-            _camera3D?.SetProcess(true);
+            Camera3D?.SetProcess(true);
         }
     }
     
     public override void _Ready()
     {
         _subViewport = GetNode<SubViewport>("SubViewport");
-        _camera3D = GetNode<PortalCamera>("SubViewport/Camera3D");
+        Camera3D = GetNode<PortalCamera>("SubViewport/Camera3D");
         Connect("BodyEntered", new Callable(this, "OnBodyEntered"));
         Connect("BodyExited", new Callable(this, "OnBodyExited"));
         SetupViewportSize();
