@@ -8,7 +8,7 @@ public partial class PickupComponent : Node
 
     [Export] private Vector3 _pickupDistance = new Vector3(0,0,-1);
     private Camera3D? _camera;
-    [Export] private PlayerFpsController _playerFpsController;
+    [Export] private PlayerFpsController? _playerFpsController;
 
     private InteractionComponent? _parent;
     [Export] private Node3D? _object;
@@ -67,7 +67,7 @@ public partial class PickupComponent : Node
 
     public override void _PhysicsProcess(double delta)
     {
-        if (_pickedUp && _object != null && _playerFpsController.CameraController != null)
+        if (_pickedUp && _object != null && _playerFpsController?.CameraController != null)
         {
             var cameraTransform = _playerFpsController.CameraController.GlobalTransform;
             _object.GlobalTransform = _object.GlobalTransform.InterpolateWith(cameraTransform.TranslatedLocal(_pickupDistance), PickupLerp);
