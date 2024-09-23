@@ -20,16 +20,16 @@ public partial class PortalCamera : Camera3D
 
     public override void _Process(double delta)
     {
-        if (_portal != null && _exitPortal != null && _exitPortal._camera3D != null && Global.PlayerFpsController != null 
+        if (_portal != null && _exitPortal != null && _exitPortal.Camera3D != null && Global.PlayerFpsController != null 
             && Global.PlayerFpsController.CameraController != null)
         {
             var t = _portal.GlobalTransform.AffineInverse() * Global.PlayerFpsController.CameraController.GlobalTransform;
             t = t.Rotated(Vector3.Up, Single.Pi);
-            t = _exitPortal._camera3D.GlobalTransform * t;
-            _exitPortal._camera3D.GlobalTransform = t;
+            t = _exitPortal.Camera3D.GlobalTransform * t;
+            _exitPortal.Camera3D.GlobalTransform = t;
         }
 
-        if (_exitPortal != null && _exitPortal._camera3D != null)
+        if (_exitPortal != null && _exitPortal.Camera3D != null)
         {
             var corner1 = _exitPortal.ToGlobal(new Vector3(_meshAabb.Position.X, _meshAabb.Position.Y, 0) * ExitScale);
             var corner2 = _exitPortal.ToGlobal(new Vector3(_meshAabb.Position.X + _meshAabb.Size.X, _meshAabb.Position.Y, 0) * ExitScale);
@@ -38,12 +38,12 @@ public partial class PortalCamera : Camera3D
 
             var cameraForward = -_exitPortal.GlobalTransform.Basis.Z.Normalized();
 
-            var d1 = (corner1 - _exitPortal._camera3D.GlobalPosition).Dot(cameraForward);
-            var d2 = (corner2 - _exitPortal._camera3D.GlobalPosition).Dot(cameraForward);
-            var d3 = (corner3 - _exitPortal._camera3D.GlobalPosition).Dot(cameraForward);
-            var d4 = (corner4 - _exitPortal._camera3D.GlobalPosition).Dot(cameraForward);
+            var d1 = (corner1 - _exitPortal.Camera3D.GlobalPosition).Dot(cameraForward);
+            var d2 = (corner2 - _exitPortal.Camera3D.GlobalPosition).Dot(cameraForward);
+            var d3 = (corner3 - _exitPortal.Camera3D.GlobalPosition).Dot(cameraForward);
+            var d4 = (corner4 - _exitPortal.Camera3D.GlobalPosition).Dot(cameraForward);
         
-            _exitPortal._camera3D.Near = float.Max(ExitCameraNearMin, float.Min(float.Min(d1,d2), float.Min(d3,d4)) - _exitNearSubtract);
+            _exitPortal.Camera3D.Near = float.Max(ExitCameraNearMin, float.Min(float.Min(d1,d2), float.Min(d3,d4)) - _exitNearSubtract);
         }
     }
 }
