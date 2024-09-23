@@ -52,9 +52,9 @@ public partial class Portal : Area3D
 
     private void OnBodyEntered(Node3D body)
     {
-        var characterBodyNode = body as CharacterBody3D;
-        if (characterBodyNode != null && characterBodyNode.IsInGroup("Player"))
+        if (body is CharacterBody3D characterBodyNode && !_teleporting && characterBodyNode.IsInGroup("Player"))
         {
+            _teleporting = true;
             var h = characterBodyNode.GetNode<Node3D>("PlayerFPSController/CameraController");
             var c = h.GetNode<Camera3D>("Recoil/Camera3D");
             var inForward = -GlobalTransform.Basis.Z;
