@@ -9,7 +9,7 @@ public partial class Portal : Area3D
     [Export] private int _verticalViewportResolution = 512;
     private int _id = -1;
     private Tween? _tween;
-    private PortalCamera? _camera3D;
+    public PortalCamera? _camera3D;
     private SubViewport? _subViewport;
     private Portal _exitPortal = new Portal();
 
