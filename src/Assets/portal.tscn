@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dss1q5qynmc2h"]
+[gd_scene load_steps=7 format=3 uid="uid://dss1q5qynmc2h"]
 
 [ext_resource type="Material" uid="uid://ce8ayy8m2t5gw" path="res://src/Assets/Materials/PortalMaterial.tres" id="1_06p8p"]
 [ext_resource type="Script" path="res://src/scripts/portal/StencilPortal.cs" id="2_4g3jv"]
@@ -13,6 +13,10 @@ radius = 1.0
 height = 2.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_syrw5"]
+radius = 0.75
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ubq26"]
+radius = 1.0
 
 [node name="portal" type="MeshInstance3D"]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
@@ -27,6 +31,7 @@ _otherPortalPath = NodePath("../portal2")
 [node name="helper" type="Node3D" parent="."]
 
 [node name="Inside" type="MeshInstance3D" parent="."]
+visible = false
 cast_shadow = 0
 mesh = SubResource("SphereMesh_hhoo4")
 
@@ -34,3 +39,11 @@ mesh = SubResource("SphereMesh_hhoo4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TransferArea"]
 shape = SubResource("SphereShape3D_syrw5")
+
+[node name="InsideArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InsideArea"]
+shape = SubResource("SphereShape3D_ubq26")
+
+[connection signal="body_entered" from="TransferArea" to="." method="OnBodyEntered"]
+[connection signal="body_exited" from="InsideArea" to="." method="OnBodyExited"]
