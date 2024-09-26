@@ -28,7 +28,7 @@ public partial class StencilPortal : MeshInstance3D
 
     public override void _Process(double delta)
     {
-        if (_current && _helper != null && _otherPortal != null && _otherPortal._helper != null)
+        if (_current && _helper != null && _otherPortal is { _helper: not null })
         {
             var mainCam = GetViewport().GetCamera3D();
             _helper.GlobalTransform = mainCam.GlobalTransform;
@@ -47,6 +47,48 @@ public partial class StencilPortal : MeshInstance3D
             if (Visible)
             {
                 Visible = false;
+            }
+        }
+    }
+
+    private void OnBodyEntered(Node3D body)
+    {
+        if (!body.IsInGroup("player"))
+        {
+            return;
+        }
+
+        if (!_current)
+        {
+            _current = true;
+            Visible = true;
+        }
+
+        if (_inside != null && _helper != null && _otherPortal is { _helper: not null })
+        {
+            if (_current && _inside.Visible)
+            {
+                _helper.GlobalTransform = body.GlobalTransform;
+                _otherPortal._helper.Transform = _helper.Transform;
+                body.GlobalTransform = _otherPortal._helper.GlobalTransform;
+                _current = false;
+                _inside.Visible = false;
+            }
+        }
+    }
+
+    private void OnBodyExited(Node3D body)
+    {
+        if (!body.IsInGroup("player"))
+        {
+            return;
+        }
+
+        if (_inside != null)
+        {
+            if (_current && !_inside.Visible)
+            {
+                _inside.Visible = true;
             }
         }
     }
