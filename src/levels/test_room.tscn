@@ -1,12 +1,16 @@
-[gd_scene load_steps=23 format=4 uid="uid://dv5idqfneol04"]
+[gd_scene load_steps=34 format=4 uid="uid://dv5idqfneol04"]
 
 [ext_resource type="Texture2D" uid="uid://bxrqi3jnc8eti" path="res://src/Assets/Prototype Textures/Vector/texture_13.svg" id="1_mdyuh"]
 [ext_resource type="PackedScene" uid="uid://drqq1iisim2uh" path="res://src/Assets/player_fps_controller.tscn" id="3_e284o"]
 [ext_resource type="Texture2D" uid="uid://cblpkweqk7ag8" path="res://src/Assets/Prototype Textures/Vector/texture_01.svg" id="3_rg6b2"]
 [ext_resource type="Script" path="res://src/scripts/InteractionComponent.cs" id="3_wmqdv"]
+[ext_resource type="Shader" path="res://src/Assets/Shaders/portals.gdshader" id="5_aveb7"]
+[ext_resource type="Script" path="res://src/scripts/portal/StencilCamera.cs" id="5_lrqil"]
 [ext_resource type="Script" path="res://src/scripts/DoorComponent.cs" id="6_fngch"]
 [ext_resource type="Script" path="res://src/scripts/PickupComponent.cs" id="7_jdjh4"]
 [ext_resource type="ArrayMesh" uid="uid://k5cys6mguqb7" path="res://src/Assets/ModelMeshes/bathroomSink_Mesh bathroomSink.res" id="7_kb8jl"]
+[ext_resource type="Script" path="res://src/scripts/portal/StencilPortal.cs" id="10_gggar"]
+[ext_resource type="Material" uid="uid://ce8ayy8m2t5gw" path="res://src/Assets/Materials/PortalMaterial.tres" id="10_wyxp0"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0ska3"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
@@ -33,6 +37,21 @@ albedo_texture = ExtResource("1_mdyuh")
 albedo_texture = ExtResource("3_rg6b2")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ffgkv"]
+
+[sub_resource type="Environment" id="Environment_h5hr8"]
+background_mode = 1
+background_energy_multiplier = 0.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cf34q"]
+viewport_path = NodePath("PlayerFPSController/StencilViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mxn0u"]
+resource_local_to_scene = true
+shader = ExtResource("5_aveb7")
+shader_parameter/stencil_tex = SubResource("ViewportTexture_cf34q")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_p7iq2"]
+viewport_path = NodePath("PlayerFPSController/PortalViewport")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j3ey7"]
 load_path = "res://.godot/imported/colormap.png-d61332cdec1990f70487aa5ac9a83ec1.s3tc.ctex"
@@ -82,6 +101,14 @@ radius = 4.0
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_km3q6"]
 points = PackedVector3Array(0.191082, -0.00445139, 0.00774819, -0.00444445, -0.00445139, -0.294444, 0.0783161, -0.396078, -0.29, 0.337124, 0.1043, -0.29, 0.271097, -0.404444, -0.161067, 0.00344656, 0.0835682, -0.0670042, 0.0755712, -0.404444, -0.161067, 0.335761, 0.085328, -0.0663158, 0.264114, -0.38501, -0.284121, 0.146696, 0.164444, -0.1256, 0.000654095, 0.1043, -0.29, -0.00444445, -0.00445139, -0.0633629, 0.342222, -0.00445139, -0.294444, 0.342222, -0.00445139, -0.0633629, 0.14804, 0.0803602, -0.00140317, 0.0933525, -0.00445139, -0.0011555, 0.128915, -0.404444, -0.134474, 0.271097, -0.00445139, -0.0100296, 0.208863, -0.404444, -0.134474, 0.191082, 0.164444, -0.1256, 0.23943, 0.0791736, -0.0105587, 0.0222274, -0.00445139, -0.036711, 0.0806768, 0.0816088, -0.0173237, 0.31555, -0.00445139, -0.036711, 0.0844618, -0.404444, -0.152193, 0.146696, -0.00445139, 0.00774819, 0.244425, -0.00445139, -0.0011555, 0.280709, 0.0787563, -0.0274043, 0.189758, 0.0805588, -0.0012625, 0.235535, -0.404444, -0.143348, 0.0469045, 0.0818662, -0.0339894, 0.149384, 0.13, -0.221421)
 
+[sub_resource type="SphereMesh" id="SphereMesh_ycru6"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_hhoo4"]
+material = ExtResource("10_wyxp0")
+
+[sub_resource type="SphereMesh" id="SphereMesh_u6nso"]
+material = ExtResource("10_wyxp0")
+
 [node name="TestRoom" type="Node3D"]
 
 [node name="ItemPickup" type="StaticBody3D" parent="."]
@@ -124,8 +151,38 @@ use_collision = true
 size = Vector3(10, 2, 10)
 material = SubResource("StandardMaterial3D_ffgkv")
 
-[node name="PlayerFPSController" parent="." groups=["player"] instance=ExtResource("3_e284o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001, -0.682199, -1.9)
+[node name="PlayerFPSController" parent="." instance=ExtResource("3_e284o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001, -0.682199, -6)
+
+[node name="StencilViewport" type="SubViewport" parent="PlayerFPSController"]
+screen_space_aa = 1
+size = Vector2i(1600, 800)
+render_target_update_mode = 3
+
+[node name="StencilCamera" type="Camera3D" parent="PlayerFPSController/StencilViewport" node_paths=PackedStringArray("_player")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 2.7)
+cull_mask = 16
+environment = SubResource("Environment_h5hr8")
+script = ExtResource("5_lrqil")
+_player = NodePath("../..")
+
+[node name="PortalViewport" type="SubViewport" parent="PlayerFPSController"]
+screen_space_aa = 1
+size = Vector2i(1600, 800)
+render_target_update_mode = 3
+
+[node name="PortalCamera" type="Camera3D" parent="PlayerFPSController/PortalViewport"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+cull_mask = 1048559
+
+[node name="TextureRect" type="TextureRect" parent="PlayerFPSController"]
+material = SubResource("ShaderMaterial_mxn0u")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_p7iq2")
 
 [node name="ItemPickup2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5167, 0, 5.90188)
@@ -182,19 +239,6 @@ shape = SubResource("SphereShape3D_bs8ii")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CSGBox3D4/AnimatableBody3D/DoorComponent"]
 
-[node name="VisibleRoom" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 13.1)
-visible = false
-
-[node name="CSGBox3D" type="CSGBox3D" parent="VisibleRoom"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 23.3)
-size = Vector3(10, 10, 10)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="VisibleRoom"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.4)
-operation = 2
-size = Vector3(9, 9, 9)
-
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.2, 1.9)
 disable_mode = 1
@@ -214,6 +258,37 @@ mesh = ExtResource("7_kb8jl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("ConvexPolygonShape3D_km3q6")
+
+[node name="portal" type="MeshInstance3D" parent="." node_paths=PackedStringArray("_portalCamera")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+layers = 16
+cast_shadow = 0
+mesh = SubResource("SphereMesh_ycru6")
+surface_material_override/0 = ExtResource("10_wyxp0")
+script = ExtResource("10_gggar")
+_current = true
+_otherPortalPath = NodePath("../portal2")
+_portalCamera = NodePath("../PlayerFPSController/PortalViewport/PortalCamera")
+
+[node name="helper" type="Node3D" parent="portal"]
+
+[node name="Inside" type="MeshInstance3D" parent="portal"]
+mesh = SubResource("SphereMesh_hhoo4")
+
+[node name="portal2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("_portalCamera")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 20.1, 4.5, 28.2)
+layers = 16
+cast_shadow = 0
+mesh = SubResource("SphereMesh_ycru6")
+surface_material_override/0 = ExtResource("10_wyxp0")
+script = ExtResource("10_gggar")
+_otherPortalPath = NodePath("../portal")
+_portalCamera = NodePath("../PlayerFPSController/PortalViewport/PortalCamera")
+
+[node name="helper" type="Node3D" parent="portal2"]
+
+[node name="Inside" type="MeshInstance3D" parent="portal2"]
+mesh = SubResource("SphereMesh_u6nso")
 
 [connection signal="body_entered" from="CSGBox3D4/AnimatableBody3D/DoorComponent" to="CSGBox3D4/AnimatableBody3D/DoorComponent" method="BodyEnteredCheck"]
 [connection signal="body_exited" from="CSGBox3D4/AnimatableBody3D/DoorComponent" to="CSGBox3D4/AnimatableBody3D/DoorComponent" method="BodyExitedCheck"]
