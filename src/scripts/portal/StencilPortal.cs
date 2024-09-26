@@ -34,9 +34,6 @@ public partial class StencilPortal : MeshInstance3D
             _helper.GlobalTransform = mainCam.GlobalTransform;
             _otherPortal._helper.Transform = _helper.Transform;
             if (_portalCamera != null) _portalCamera.GlobalTransform = _otherPortal._helper.GlobalTransform;
-            // var diff = GlobalTransform.Origin - mainCam.GlobalTransform.Origin;
-            // var angle = mainCam.GlobalTransform.Basis.Z.AngleTo(diff);
-            // var nearDistance = _helper.Transform.Origin.Length() * double.Abs(double.Cos(angle));
             if (!Visible)
             {
                 Visible = true;
