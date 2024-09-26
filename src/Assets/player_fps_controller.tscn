@@ -709,6 +709,7 @@ _crouchShapeCast = NodePath("../../ShapeCast3D")
 [node name="JumpingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("_animationPlayer")]
 script = ExtResource("11_kkd20")
 _animationPlayer = NodePath("../../AnimationPlayer")
+_jumpVelocity = 10.0
 _doubleJumpVelocity = 100.0
 
 [node name="FallingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("_animationPlayer")]
