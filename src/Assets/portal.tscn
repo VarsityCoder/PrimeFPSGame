@@ -1,60 +1,25 @@
-[gd_scene load_steps=11 format=3 uid="uid://dss1q5qynmc2h"]
+[gd_scene load_steps=5 format=3 uid="uid://dss1q5qynmc2h"]
 
-[ext_resource type="Script" path="res://src/scripts/portal/Portal.cs" id="1_u6i73"]
-[ext_resource type="Script" path="res://src/scripts/portal/PortalCamera.cs" id="2_jyrim"]
-[ext_resource type="Shader" path="res://src/Assets/Shaders/portal.gdshader" id="2_okipc"]
-[ext_resource type="Texture2D" uid="uid://l5xpdm76wtip" path="res://src/Assets/Sprites/portal-mask.png" id="3_8ff3p"]
+[ext_resource type="Material" uid="uid://ce8ayy8m2t5gw" path="res://src/Assets/Materials/PortalMaterial.tres" id="1_06p8p"]
+[ext_resource type="Script" path="res://src/scripts/portal/StencilPortal.cs" id="2_4g3jv"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_0t8w8"]
+[sub_resource type="SphereMesh" id="SphereMesh_ycru6"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_dtqit"]
-frequency = 0.02
+[sub_resource type="SphereMesh" id="SphereMesh_hhoo4"]
+material = ExtResource("1_06p8p")
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_67n5y"]
-width = 256
-height = 256
-seamless = true
-noise = SubResource("FastNoiseLite_dtqit")
+[node name="portal" type="MeshInstance3D" node_paths=PackedStringArray("_portalCamera")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+layers = 16
+cast_shadow = 0
+mesh = SubResource("SphereMesh_ycru6")
+surface_material_override/0 = ExtResource("1_06p8p")
+script = ExtResource("2_4g3jv")
+_current = true
+_otherPortalPath = NodePath("../portal2")
+_portalCamera = NodePath("")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gpuer"]
-render_priority = 0
-shader = ExtResource("2_okipc")
-shader_parameter/color = Color(0.932302, 0.108895, 1, 1)
-shader_parameter/emission = 35.0
-shader_parameter/speed = 0.3
-shader_parameter/mask_tex = ExtResource("3_8ff3p")
-shader_parameter/border_noise_tex = SubResource("NoiseTexture2D_67n5y")
+[node name="helper" type="Node3D" parent="."]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3sj5a"]
-points = PackedVector3Array(-0.507937, -0.507937, -0.00793651, 0.507937, 0.507937, 0.00793651, 0.507937, 0.507937, -0.00793651, -0.507937, 0.507937, 0.00793651, 0.507937, -0.507937, 0.00793651, 0.507937, -0.507937, -0.00793651, -0.507937, 0.507937, -0.00793651, -0.507937, -0.507937, 0.00793651)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_40hka"]
-size = Vector3(2.7, 3.6, 0.1)
-
-[node name="Portal" type="Area3D"]
-process_priority = 1000
-monitorable = false
-script = ExtResource("1_u6i73")
-
-[node name="PortalMesh" type="MeshInstance3D" parent="."]
-unique_name_in_owner = true
-mesh = SubResource("QuadMesh_0t8w8")
-surface_material_override/0 = SubResource("ShaderMaterial_gpuer")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_3sj5a")
-
-[node name="SubViewport" type="SubViewport" parent="."]
-size = Vector2i(384, 512)
-render_target_update_mode = 3
-
-[node name="Camera3D" type="Camera3D" parent="SubViewport"]
-fov = 50.0
-script = ExtResource("2_jyrim")
-
-[node name="MultiPortalBlocker" type="StaticBody3D" parent="."]
-collision_layer = 4
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MultiPortalBlocker"]
-shape = SubResource("BoxShape3D_40hka")
+[node name="Inside" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_hhoo4")
