@@ -13,7 +13,6 @@ radius = 1.0
 height = 2.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_syrw5"]
-radius = 0.75
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ubq26"]
 radius = 1.0
@@ -46,4 +45,5 @@ shape = SubResource("SphereShape3D_syrw5")
 shape = SubResource("SphereShape3D_ubq26")
 
 [connection signal="body_entered" from="TransferArea" to="." method="OnBodyEntered"]
+[connection signal="body_exited" from="TransferArea" to="." method="OnBodyExited"]
 [connection signal="body_exited" from="InsideArea" to="." method="OnBodyExited"]
