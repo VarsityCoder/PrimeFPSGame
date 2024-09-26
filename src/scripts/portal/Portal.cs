@@ -11,33 +11,46 @@ public partial class Portal : Area3D
     private Tween? _tween;
     public PortalCamera? Camera3D;
     private SubViewport? _subViewport;
-    private Portal _exitPortal = new Portal();
+    private Portal? _exitPortal = null;
+    private ShaderMaterial? _material;
 
-    public Portal ExitPortal
+    public Portal? ExitPortal
     {
         get => _exitPortal;
         set
         {
             _exitPortal = value;
-            if (_exitPortal.Camera3D != null)
+            if (_exitPortal?.Camera3D != null)
             {
                 if (Global.PlayerFpsController?.CameraController != null)
                 {
                     _exitPortal.Camera3D.Far = Global.PlayerFpsController.CameraController.Far;
                     _exitPortal.Camera3D.Fov = Global.PlayerFpsController.CameraController.Fov;
                     _exitPortal.Camera3D.KeepAspect = Global.PlayerFpsController.CameraController.KeepAspect;
+                    _material?.SetShaderParameter("cam_view_tex", _exitPortal.GetNode<SubViewport>("SubViewport").GetTexture());
+                }            
+                else
+                {
+                    _material?.SetShaderParameter("cam_view_tex", new Variant());
                 }
             }
-            Camera3D?.SetProcess(true);
+
+            if (Camera3D != null)
+            {
+                Camera3D.ExitPortal = value;
+
+                Camera3D.SetProcess(value != null);
+            }
         }
     }
     
     public override void _Ready()
     {
+        
         _subViewport = GetNode<SubViewport>("SubViewport");
         Camera3D = GetNode<PortalCamera>("SubViewport/Camera3D");
-        Connect("BodyEntered", new Callable(this, "OnBodyEntered"));
-        Connect("BodyExited", new Callable(this, "OnBodyExited"));
+        Connect("body_entered", new Callable(this, "OnBodyEntered"));
+        Connect("body_exited", new Callable(this, "OnBodyExited"));
         SetupViewportSize();
     }
 
@@ -51,60 +64,66 @@ public partial class Portal : Area3D
     }
 
     private void OnBodyEntered(Node3D body)
-    {
-        if (body is CharacterBody3D characterBodyNode && !_teleporting && characterBodyNode.IsInGroup("Player"))
+    {           
+        GD.Print("In on body entered");
+        if (!_teleporting && Global.PlayerFpsController.IsInGroup("player"))
         {
+            GD.Print("In if statement");
             _teleporting = true;
-            var h = characterBodyNode.GetNode<Node3D>("PlayerFPSController/CameraController");
+            var h = Global.PlayerFpsController.GetNode<Node3D>("CameraController");
             var c = h.GetNode<Camera3D>("Recoil/Camera3D");
             var inForward = -GlobalTransform.Basis.Z;
-            var outForward = -_exitPortal.GlobalTransform.Basis.Z;
-            var inUp = GlobalTransform.Basis.Y;
-            var outUp = _exitPortal.GlobalTransform.Basis.Y;
-            var initCamRot = c.Rotation;
-            var initYaw = c.GlobalTransform.Basis.Z.SignedAngleTo(inForward, inUp);
-            var outIsHorizontal = outForward.Dot(Vector3.Up) > 0.9;
+            if (_exitPortal != null)
+            {
+                GD.Print("We are in _exitportal if");
+                var outForward = -_exitPortal.GlobalTransform.Basis.Z;
+                var inUp = GlobalTransform.Basis.Y;
+                var outUp = _exitPortal.GlobalTransform.Basis.Y;
+                var initCamRot = c.Rotation;
+                var initYaw = c.GlobalTransform.Basis.Z.SignedAngleTo(inForward, inUp);
+                var outIsHorizontal = outForward.Dot(Vector3.Up) > 0.9;
 
-            var posDiff = characterBodyNode.GlobalPosition - GlobalPosition;
-            body.GlobalRotation = _exitPortal.GlobalPosition + posDiff;
+                var posDiff = Global.PlayerFpsController.GlobalPosition - GlobalPosition;
+                Global.PlayerFpsController.GlobalRotation = _exitPortal.GlobalPosition + posDiff;
             
-            c.Rotation = Vector3.Zero;
-            h.LookAt(body.GlobalPosition + outForward, outUp);
-            var tempVector3 = h.Rotation;
-            tempVector3.Y -= initYaw;
-            h.Rotation = tempVector3;
-            var pitch = Vector3.Up.SignedAngleTo(h.GlobalTransform.Basis.Y, h.GlobalTransform.Basis.X);
-            h.RotateX(pitch);
-            c.Rotation = initCamRot;
-            c.Rotation += Vector3.Right * inUp.SignedAngleTo(outUp, _exitPortal.GlobalTransform.Basis.X);
+                c.Rotation = Vector3.Zero;
+                h.LookAt(  Global.PlayerFpsController.GlobalPosition + outForward, outUp);
+                var tempVector3 = h.Rotation;
+                tempVector3.Y -= initYaw;
+                h.Rotation = tempVector3;
+                var pitch = Vector3.Up.SignedAngleTo(h.GlobalTransform.Basis.Y, h.GlobalTransform.Basis.X);
+                h.RotateX(pitch);
+                c.Rotation = initCamRot;
+                c.Rotation += Vector3.Right * inUp.SignedAngleTo(outUp, _exitPortal.GlobalTransform.Basis.X);
             
-            if(!outIsHorizontal)
-            {
-                if (c.RotationDegrees.X < -100.0)
+                if(!outIsHorizontal)
                 {
-                    var tempVector3CRotation = c.Rotation;
-                    tempVector3CRotation.X += Single.Pi;
-                    c.Rotation = tempVector3CRotation;
-                } 
-                else if (c.RotationDegrees.X > 100.0)
-                {
-                    var tempVector3CRotation = c.Rotation;
-                    tempVector3CRotation.X -= Single.Pi;
-                    c.Rotation = tempVector3CRotation;
+                    if (c.RotationDegrees.X < -100.0)
+                    {
+                        var tempVector3CRotation = c.Rotation;
+                        tempVector3CRotation.X += Single.Pi;
+                        c.Rotation = tempVector3CRotation;
+                    } 
+                    else if (c.RotationDegrees.X > 100.0)
+                    {
+                        var tempVector3CRotation = c.Rotation;
+                        tempVector3CRotation.X -= Single.Pi;
+                        c.Rotation = tempVector3CRotation;
+                    }
+                    var p = new Plane(-outForward);
+                    var velXz = p.Project(Global.PlayerFpsController.Velocity);
+                    var velY = Global.PlayerFpsController.Velocity.Project(inUp);
+                    Global.PlayerFpsController.Velocity = velXz.Length() * -c.GlobalTransform.Basis.Z + velY * outUp;
                 }
-                var p = new Plane(-outForward);
-                var velXz = p.Project(characterBodyNode.Velocity);
-                var velY = characterBodyNode.Velocity.Project(inUp);
-                characterBodyNode.Velocity = velXz.Length() * -c.GlobalTransform.Basis.Z + velY * outUp;
-            }
-            else
-            {
-                characterBodyNode.Velocity = outForward * characterBodyNode.Velocity.Length();
-            }
-            if (outForward.Dot(Vector3.Up) > 0.9)
-            {
-                characterBodyNode.Velocity += Vector3.Up * 0.1f;
-                characterBodyNode.GlobalTranslate(Vector3.Up * 0.3f);
+                else
+                {
+                    Global.PlayerFpsController.Velocity = outForward * Global.PlayerFpsController.Velocity.Length();
+                }
+                if (outForward.Dot(Vector3.Up) > 0.9)
+                {
+                    Global.PlayerFpsController.Velocity += Vector3.Up * 0.1f;
+                    Global.PlayerFpsController.GlobalTranslate(Vector3.Up * 0.3f);
+                }
             }
         }
     }
@@ -114,7 +133,13 @@ public partial class Portal : Area3D
         body = body as CharacterBody3D;
         if (body != null && body.IsInGroup("player"))
         {
+            GD.Print("We are in body exited");
             _teleporting = false;
         }
+    }
+
+    private void SetExitPortal()
+    {
+        
     }
 }
