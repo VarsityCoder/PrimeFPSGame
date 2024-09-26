@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="WeaponsResource" load_steps=3 format=3 uid="uid://d3qlvn76ptf1i"]
 
-[ext_resource type="ArrayMesh" uid="uid://chvj7v50fi7wj" path="res://src/Assets/OBJ format/cooking-fork.obj" id="1_kllyq"]
 [ext_resource type="Script" path="res://src/scripts/WeaponsResource.cs" id="1_stgsn"]
+
+[sub_resource type="Resource" id="Resource_4e3ah"]
+metadata/__load_path__ = "res://src/Assets/OBJ format/cooking-fork.obj"
 
 [resource]
 script = ExtResource("1_stgsn")
@@ -18,5 +20,5 @@ SwayAmountRotation = 30.0
 IdleSwayAdjustment = 10.0
 IdleSwayRotationStrength = 30.0
 RandomSwayAmount = 5.0
-Mesh = ExtResource("1_kllyq")
+Mesh = SubResource("Resource_4e3ah")
 Shadow = false
