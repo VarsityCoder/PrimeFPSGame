@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://dkckpa0faoelp"]
+
+[ext_resource type="Shader" path="res://art/shaders/portal.gdshader" id="1_o6los"]
+[ext_resource type="Texture2D" uid="uid://bc2ohy2mbeki7" path="res://art/textures/portal-mask.png" id="2_y4jch"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_s8xjc"]
+noise_type = 0
+frequency = 0.02
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2e8nm"]
+width = 256
+height = 256
+seamless = true
+noise = SubResource("FastNoiseLite_s8xjc")
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_o6los")
+shader_parameter/color = Color(1, 0.560784, 0.188235, 1)
+shader_parameter/emission = 35.0
+shader_parameter/speed = 0.3
+shader_parameter/mask_tex = ExtResource("2_y4jch")
+shader_parameter/border_noise_tex = SubResource("NoiseTexture2D_2e8nm")
