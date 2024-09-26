@@ -542,7 +542,7 @@ _data = {
 [sub_resource type="LabelSettings" id="LabelSettings_u8415"]
 font_size = 32
 
-[node name="PlayerFPSController" type="CharacterBody3D" node_paths=PackedStringArray("CameraController", "AnimationPlayer", "_crouchShapeCast")]
+[node name="PlayerFPSController" type="CharacterBody3D" node_paths=PackedStringArray("CameraController", "AnimationPlayer", "_crouchShapeCast") groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001, 0, 0)
 safe_margin = 0.01
 script = ExtResource("1_an64t")
@@ -567,7 +567,7 @@ _snapAmount = 8.0
 _speed = 4.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraController/Recoil"]
-cull_mask = 1048573
+cull_mask = 1048559
 
 [node name="WeaponContainer" type="Node3D" parent="CameraController/Recoil/Camera3D"]
 
