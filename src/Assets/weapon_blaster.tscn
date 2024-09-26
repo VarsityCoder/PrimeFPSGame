@@ -106,6 +106,7 @@ _speed = 20.0
 _weaponController = NodePath("..")
 
 [node name="WeaponMesh" type="MeshInstance3D" parent="RecoilPosition" index="0"]
+layers = 1048559
 mesh = SubResource("ArrayMesh_lmrd0")
 skeleton = NodePath("../..")
 
