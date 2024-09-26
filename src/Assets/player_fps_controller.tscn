@@ -567,7 +567,6 @@ _snapAmount = 8.0
 _speed = 4.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraController/Recoil"]
-cull_mask = 1048559
 
 [node name="WeaponContainer" type="Node3D" parent="CameraController/Recoil/Camera3D"]
 
@@ -730,7 +729,6 @@ render_target_update_mode = 4
 script = ExtResource("15_uniwu")
 
 [node name="Camera3D" type="Camera3D" parent="WeaponViewport/SubViewport" node_paths=PackedStringArray("_mainCamera")]
-cull_mask = 1048574
 script = ExtResource("16_g3ei4")
 _mainCamera = NodePath("../../../CameraController/Recoil/Camera3D/WeaponContainer")
 
